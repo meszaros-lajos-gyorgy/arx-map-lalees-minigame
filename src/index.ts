@@ -93,6 +93,7 @@ map.entities.push(
   ...frontYard.entities,
   ...livingRoom.entities,
 )
+
 map.lights.push(...pcRoom.lights, ...bathRoom.lights, ...backYard.lights, ...frontYard.lights, ...livingRoom.lights)
 
 const meshes = [...pcRoom.meshes, ...bathRoom.meshes, ...backYard.meshes, ...frontYard.meshes, ...livingRoom.meshes]
