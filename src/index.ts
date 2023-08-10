@@ -14,10 +14,9 @@ import {
   UiElements,
   Vector3,
 } from 'arx-level-generator'
-import { CatacombHeavyDoor, LightDoor, Rune, SoundPlayer } from 'arx-level-generator/prefabs/entity'
+import { CatacombHeavyDoor, LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
-import { SoundFlags } from 'arx-level-generator/scripting/classes'
 import { Interactivity, Scale, Shadow, Speed } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { loadOBJ } from 'arx-level-generator/tools/mesh'
@@ -25,15 +24,16 @@ import { applyTransformations, compile } from 'arx-level-generator/utils'
 import { times } from 'arx-level-generator/utils/faux-ramda'
 import { pickRandom, randomBetween, randomSort } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
-import { Goblin } from '@/Goblin.js'
-import { PCGame, PCGameVariant } from '@/PCGame.js'
-import { createComputer } from '@/computer.js'
 import { createCounter } from '@/counter.js'
+import { Crickets } from '@/entities/Crickets.js'
+import { Goblin } from '@/entities/Goblin.js'
+import { Lantern } from '@/entities/Lantern.js'
+import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
+import { createComputer } from '@/prefabs/computer.js'
+import { createMoon } from '@/prefabs/moon.js'
+import { createTable } from '@/prefabs/table.js'
 import { createRadio } from '@/radio.js'
-import { createTable } from '@/table.js'
-import { Lantern } from './entities/Lantern.js'
-import { createMoon } from './moon.js'
 
 const settings = new Settings({
   levelIdx: parseInt(process.env.levelIdx ?? '1'),
@@ -219,35 +219,10 @@ const table = createTable({
 
 map.lights.push(...moon.lights)
 
-const soundOfCrickets = Audio.fromCustomFile({
-  filename: 'crickets.wav',
-  sourcePath: './sfx',
-})
-const crickets1 = new SoundPlayer({
-  audio: soundOfCrickets,
-  position: new Vector3(500, -100, 1800),
-  flags: SoundFlags.Loop | SoundFlags.VaryPitch,
-  autoplay: true,
-})
-const crickets2 = new SoundPlayer({
-  audio: soundOfCrickets,
-  position: new Vector3(-700, -70, 1500),
-  flags: SoundFlags.Loop | SoundFlags.VaryPitch,
-  autoplay: true,
-})
-const crickets3 = new SoundPlayer({
-  audio: soundOfCrickets,
-  position: new Vector3(0, -200, 2100),
-  flags: SoundFlags.Loop | SoundFlags.VaryPitch,
-  autoplay: true,
-})
-
-const crickets4 = new SoundPlayer({
-  audio: soundOfCrickets,
-  position: new Vector3(1800, 0, -1100),
-  flags: SoundFlags.Loop | SoundFlags.VaryPitch,
-  autoplay: true,
-})
+const crickets1 = new Crickets({ position: new Vector3(500, -100, 1800) })
+const crickets2 = new Crickets({ position: new Vector3(-700, -70, 1500) })
+const crickets3 = new Crickets({ position: new Vector3(0, -200, 2100) })
+const crickets4 = new Crickets({ position: new Vector3(1800, 0, -1100) })
 
 map.entities.push(crickets1, crickets2, crickets3, crickets4)
 
@@ -314,15 +289,11 @@ const game4 = new PCGame({
 game4.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game4.variant}`)
 map.entities.push(game4)
 
-// ---------------------------
-
 const lantern = new Lantern({
   position: new Vector3(300, 0, -210),
 })
 lantern.script?.properties.push(new Scale(0.7))
 map.entities.push(lantern)
-
-// ---------------------------
 
 const bucket = new Entity({
   src: 'items/movable/bucket',
