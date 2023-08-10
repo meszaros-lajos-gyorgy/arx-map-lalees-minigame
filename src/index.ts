@@ -1,40 +1,17 @@
-import { ArxPolygonFlags } from 'arx-convert/types'
-import {
-  ArxMap,
-  Audio,
-  Color,
-  DONT_QUADIFY,
-  Entity,
-  HudElements,
-  Material,
-  Rotation,
-  SHADING_SMOOTH,
-  Settings,
-  Texture,
-  UiElements,
-  Vector3,
-} from 'arx-level-generator'
-import { CatacombHeavyDoor, LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
-import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
+import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements, Vector3 } from 'arx-level-generator'
+import { Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
-import { Interactivity, Scale, Shadow, Speed } from 'arx-level-generator/scripting/properties'
-import { createLight, createZone } from 'arx-level-generator/tools'
-import { loadOBJ } from 'arx-level-generator/tools/mesh'
+import { Speed } from 'arx-level-generator/scripting/properties'
+import { createZone } from 'arx-level-generator/tools'
 import { applyTransformations, compile } from 'arx-level-generator/utils'
-import { times } from 'arx-level-generator/utils/faux-ramda'
-import { pickRandom, randomBetween, randomSort } from 'arx-level-generator/utils/random'
-import { MathUtils, Vector2 } from 'three'
-import { Crickets } from '@/entities/Crickets.js'
-import { Goblin } from '@/entities/Goblin.js'
-import { Lantern } from '@/entities/Lantern.js'
+import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
-import { createComputer } from '@/prefabs/computer.js'
-import { createCounter } from '@/prefabs/counter.js'
-import { createMoon } from '@/prefabs/moon.js'
-import { createRadio } from '@/prefabs/radio.js'
-import { createTable } from '@/prefabs/table.js'
-import { MagicWall } from './entities/MagicWall.js'
+import { createBackYard } from './rooms/backYard.js'
+import { createBathRoom } from './rooms/bathRoom.js'
+import { createFrontYard } from './rooms/frontYard.js'
+import { createLivingRoom } from './rooms/livingRoom.js'
+import { createPCRoom } from './rooms/pcRoom.js'
 
 const settings = new Settings({
   levelIdx: parseInt(process.env.levelIdx ?? '1'),
@@ -55,17 +32,9 @@ map.hud.show(HudElements.BackpackIcon)
 map.ui.set(UiElements.MainMenuBackground, './ui/menu_main_background.jpg')
 await map.i18n.addFromFile('./i18n.json', settings)
 
-// --------------
+// -----------------------------------
 
-const rooms = await loadRooms('./lalees-minigame.rooms', settings)
-rooms.forEach((room) => {
-  map.add(room, true)
-})
-
-const gameStateManager = createGameStateManager()
-map.entities.push(gameStateManager)
-
-const randomizedGameVariants = randomSort([
+const randomizedGameVariants: PCGameVariant[] = randomSort([
   'mesterlovesz',
   'mortyr',
   'wolfschanze',
@@ -73,86 +42,29 @@ const randomizedGameVariants = randomSort([
   'americas-10-most-wanted',
   'streets-racer',
   'bikini-karate-babes',
-] as PCGameVariant[])
+])
 
-const rootRune = new Rune('aam', {
-  arxTutorialEnabled: false,
+// -----------------------------------
+
+const rooms = await loadRooms('./lalees-minigame.rooms', settings)
+rooms.forEach((room) => {
+  map.add(room, true)
 })
+
+const spawnZone = createZone({ name: 'spawn', drawDistance: 5000 })
+map.zones.push(spawnZone)
+
+const gameStateManager = createGameStateManager()
+
+const rootRune = new Rune('aam', { arxTutorialEnabled: false })
 rootRune.script?.makeIntoRoot()
-map.entities.push(rootRune)
-const rootPCGame = new PCGame({
-  variant: 'blank',
-})
+
+const rootPCGame = new PCGame({ variant: 'blank' })
 rootPCGame.script?.makeIntoRoot()
-map.entities.push(rootPCGame)
 
-const runeComunicatum = new Rune('comunicatum')
+map.entities.push(gameStateManager, rootRune, rootPCGame)
 
-const barrel = Entity.barrel
-barrel.position = new Vector3(1650, 0, -960)
-barrel.withScript()
-barrel.script?.properties.push(new Scale(0.7))
-barrel.script?.on('init', () => {
-  return `inventory addfromscene ${runeComunicatum.ref}`
-})
-
-map.entities.push(runeComunicatum, barrel)
-
-const game1 = new PCGame({
-  variant: randomizedGameVariants[0],
-  position: new Vector3(1700, -5, -50),
-  orientation: new Rotation(MathUtils.degToRad(45), MathUtils.degToRad(80), MathUtils.degToRad(15)),
-})
-game1.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game1.variant}`)
-
-const fern = Entity.fern.withScript()
-fern.position = new Vector3(1650, 0, -60)
-fern.orientation = new Rotation(0, MathUtils.degToRad(90), 0)
-fern.script?.properties.push(Interactivity.off, new Scale(2))
-
-map.entities.push(game1, fern)
-
-const game2 = new PCGame({
-  variant: randomizedGameVariants[1],
-  position: new Vector3(-1650, -5, -670),
-})
-game2.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`)
-
-const randomJunk = times(
-  () => {
-    const item = pickRandom([
-      Entity.brokenBottle,
-      Entity.brokenShield,
-      Entity.brokenStool,
-      Entity.akbaaBloodChickenHead,
-    ]).withScript()
-    item.position = game2.position
-      .clone()
-      .add(new Vector3(randomBetween(-30, 80), randomBetween(-5, 5), randomBetween(-50, 50)))
-    item.orientation = new Rotation(
-      MathUtils.degToRad(randomBetween(-45, 45)),
-      MathUtils.degToRad(randomBetween(0, 360)),
-      MathUtils.degToRad(randomBetween(-45, 45)),
-    )
-    return item
-  },
-  Math.round(randomBetween(7, 12)),
-)
-
-map.entities.push(game2, ...randomJunk)
-
-const doorToRoomA = new LightDoor({
-  // isLocked: true,
-  position: new Vector3(800, 20, 120),
-  orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
-})
-
-const doorToRoomB = new LightDoor({
-  // isLocked: true,
-  position: new Vector3(850, -200, 120),
-  orientation: new Rotation(0, MathUtils.degToRad(-90), MathUtils.degToRad(180)),
-})
-map.entities.push(doorToRoomA, doorToRoomB)
+// -----------------------------------
 
 // const keyForRoomA = Entity.key
 // keyForRoomA.withScript()
@@ -166,125 +78,25 @@ map.entities.push(doorToRoomA, doorToRoomB)
 // map.entities.push(keyForRoomB)
 // doorToRoomB.setKey(keyForRoomB)
 
-const doorToBackGarden = new CatacombHeavyDoor({
-  position: new Vector3(100, 10, 565),
-  orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
-})
-doorToBackGarden.script?.properties.push(new Scale(1.35))
-map.entities.push(doorToBackGarden)
+// -----------------------------------
 
-const spawnZone = createZone({
-  name: 'spawn',
-  drawDistance: 5000,
-})
-map.zones.push(spawnZone)
+const pcRoom = await createPCRoom(gameStateManager)
+const bathRoom = await createBathRoom(gameStateManager)
+const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
+const frontYard = await createFrontYard(gameStateManager, [randomizedGameVariants[0], randomizedGameVariants[1]])
+const livingRoom = await createLivingRoom(gameStateManager, randomizedGameVariants[3])
 
-const moon = createMoon({
-  position: new Vector3(300, -750, 1500),
-  size: 30,
-  lightRadius: 1500,
-  moonOffset: new Vector3(100, 100, 50),
-})
+map.entities.push(
+  ...pcRoom.entities,
+  ...bathRoom.entities,
+  ...backYard.entities,
+  ...frontYard.entities,
+  ...livingRoom.entities,
+)
+map.lights.push(...pcRoom.lights, ...bathRoom.lights, ...backYard.lights, ...frontYard.lights, ...livingRoom.lights)
 
-const tree = await loadOBJ('models/tree/tree', {
-  position: new Vector3(200, -10, 1300),
-  scale: 0.7,
-  rotation: new Rotation(0, MathUtils.degToRad(70), 0),
-  fallbackTexture: Texture.l2TrollWoodPillar08,
-})
-
-const game3 = new PCGame({
-  variant: randomizedGameVariants[2],
-  position: new Vector3(240, 7 - 10, 1380),
-  orientation: new Rotation(MathUtils.degToRad(-60), MathUtils.degToRad(-90), 0),
-})
-game3.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game3.variant}`)
-map.entities.push(game3)
-
-const windowGlass = createPlaneMesh({
-  size: new Vector2(500, 300),
-  texture: Material.fromTexture(Texture.glassGlass01, {
-    opacity: 70,
-    flags: ArxPolygonFlags.DoubleSided | ArxPolygonFlags.NoShadow,
-  }),
-  tileUV: true,
-})
-windowGlass.translateY(-175)
-windowGlass.translateZ(-575)
-windowGlass.rotateX(MathUtils.degToRad(-90))
-
-const table = createTable({
-  position: new Vector3(-300, -80, 400),
-  angleY: -90,
-})
-
-map.lights.push(...moon.lights)
-
-const crickets1 = new Crickets({ position: new Vector3(500, -100, 1800) })
-const crickets2 = new Crickets({ position: new Vector3(-700, -70, 1500) })
-const crickets3 = new Crickets({ position: new Vector3(0, -200, 2100) })
-const crickets4 = new Crickets({ position: new Vector3(1800, 0, -1100) })
-
-map.entities.push(crickets1, crickets2, crickets3, crickets4)
-
-const runeSpacium = new Rune('spacium')
-runeSpacium.position = new Vector3(-300, -79, 280)
-runeSpacium.orientation.y = MathUtils.degToRad(180)
-map.entities.push(runeSpacium)
-
-const goblin = new Goblin({
-  position: new Vector3(-200, -2, 425),
-  orientation: new Rotation(0, MathUtils.degToRad(-100), 0),
-  gameStateMarker: gameStateManager,
-})
-
-map.entities.push(goblin)
-
-const radio = createRadio({
-  position: new Vector3(300, -100, 450),
-  angleY: 60,
-  scale: 0.1,
-  music: Audio.fromCustomFile({
-    filename: 'lalee-theme-song.wav',
-    sourcePath: './sfx',
-  }),
-  isOn: true,
-})
-map.entities.push(...radio.entities)
-
-const counter1 = createCounter({ position: new Vector3(300, -100, 450) })
-const counter2 = createCounter({ position: new Vector3(300, -100, 295) })
-const counter3 = createCounter({ position: new Vector3(300, -100, -250) })
-const counterInRoomB = createCounter({
-  position: new Vector3(1000, -100, 400),
-  angleY: 39,
-})
-map.entities.push(...counter1.entities, ...counter2.entities, ...counter3.entities, ...counterInRoomB.entities)
-
-const nhi = new Rune('nhi', {
-  position: new Vector3(1056, -87, 502),
-  orientation: new Rotation(0, MathUtils.degToRad(57), 0),
-})
-map.entities.push(nhi)
-
-const tableInRoomA = createTable({ position: new Vector3(600, -80, 500) })
-const computer = createComputer({ position: new Vector3(600, -81, 480) })
-
-const meshes = [
-  moon.meshes,
-  tree,
-  windowGlass,
-  table.meshes,
-  radio.meshes,
-  counter1.meshes,
-  counter2.meshes,
-  counter3.meshes,
-  counterInRoomB.meshes,
-  tableInRoomA.meshes,
-  computer.meshes,
-]
-
-meshes.flat().forEach((mesh) => {
+const meshes = [...pcRoom.meshes, ...bathRoom.meshes, ...backYard.meshes, ...frontYard.meshes, ...livingRoom.meshes]
+meshes.forEach((mesh) => {
   applyTransformations(mesh)
   mesh.translateX(map.config.offset.x)
   mesh.translateY(map.config.offset.y)
@@ -293,64 +105,7 @@ meshes.flat().forEach((mesh) => {
   map.polygons.addThreeJsMesh(mesh, { tryToQuadify: DONT_QUADIFY, shading: SHADING_SMOOTH })
 })
 
-const game4 = new PCGame({
-  variant: randomizedGameVariants[3],
-  position: new Vector3(300, 0, 380 + 23),
-  orientation: new Rotation(MathUtils.degToRad(-60), MathUtils.degToRad(-90), 0),
-})
-game4.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game4.variant}`)
-map.entities.push(game4)
-
-const lantern = new Lantern({
-  position: new Vector3(300, 0, -210),
-})
-lantern.script?.properties.push(new Scale(0.7))
-map.entities.push(lantern)
-
-const bucket = new Entity({
-  src: 'items/movable/bucket',
-  position: new Vector3(310, 0, 335),
-})
-map.entities.push(bucket)
-
-const hangedGoblin = Entity.hangedGob
-hangedGoblin.position = new Vector3(505, -120, 260)
-hangedGoblin.orientation = new Rotation(0, MathUtils.degToRad(180 - 45), 0)
-map.entities.push(hangedGoblin)
-
-const monitorLightInRoomA = createLight({
-  position: new Vector3(617, -113, 450),
-  radius: 200,
-})
-const roomAAmbientLight = createLight({
-  position: new Vector3(650, -200, 400),
-  radius: 500,
-  intensity: 0.3,
-  color: Color.fromCSS('pink'),
-})
-map.lights.push(monitorLightInRoomA, roomAAmbientLight)
-
-const bigRigs = new PCGame({
-  variant: 'big-rigs',
-  position: new Vector3(540, 0, 290),
-  orientation: new Rotation(0, MathUtils.degToRad(128), 0),
-})
-bigRigs.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`)
-map.entities.push(bigRigs)
-
-const tippedStool = Entity.seatStool1
-tippedStool.position = new Vector3(490, -43, 250)
-tippedStool.orientation = new Rotation(MathUtils.degToRad(-33), MathUtils.degToRad(-28), MathUtils.degToRad(90))
-tippedStool.withScript()
-tippedStool.script?.properties.push(Shadow.off)
-map.entities.push(tippedStool)
-
-const magicWall = new MagicWall({
-  position: new Vector3(-200, -10, 1500),
-})
-map.entities.push(magicWall)
-
-// ------------------------
+// -----------------------------------
 
 map.finalize()
 await map.saveToDisk(settings)
