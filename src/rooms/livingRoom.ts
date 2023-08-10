@@ -34,7 +34,7 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     gameStateMarker: gameStateManager,
   })
 
-  gameStateManager.script?.on('goblin_died', () => {
+  gameStateManager.script?.on('goblin_suicide', () => {
     return `destroy ${goblin.ref}`
   })
 

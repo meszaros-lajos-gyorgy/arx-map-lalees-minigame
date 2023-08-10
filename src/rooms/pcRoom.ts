@@ -62,7 +62,7 @@ export const createPCRoom = async (gameStateManager: Entity) => {
     orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
   })
 
-  gameStateManager.script?.on('goblin_died', () => {
+  gameStateManager.script?.on('goblin_suicide', () => {
     return `
       objecthide ${normalStool.ref} yes
 
