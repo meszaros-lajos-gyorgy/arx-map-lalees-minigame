@@ -34,6 +34,10 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     gameStateMarker: gameStateManager,
   })
 
+  gameStateManager.script?.on('goblin_died', () => {
+    return `destroy ${goblin.ref}`
+  })
+
   const runeSpacium = new Rune('spacium')
   runeSpacium.position = new Vector3(-300, -79, 280)
   runeSpacium.orientation.y = MathUtils.degToRad(180)

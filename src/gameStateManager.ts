@@ -55,8 +55,9 @@ export const createGameStateManager = () => {
 
   const numberOfGamesTheGoblinHas = new Variable('int', 'number_of_games_the_goblin_has', 0)
   const playerFoundAnyGames = new Variable('bool', 'player_found_any_games', false)
+  const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
 
-  manager.script?.properties.push(numberOfGamesTheGoblinHas, playerFoundAnyGames)
+  manager.script?.properties.push(numberOfGamesTheGoblinHas, playerFoundAnyGames, isGoblinDead)
 
   manager.script?.subroutines.push(
     tutorialWelcome,
@@ -88,6 +89,7 @@ export const createGameStateManager = () => {
     }
     `
   })
+
   manager.script?.on('player_found_a_game', () => {
     return `
     if (${playerFoundAnyGames.name} == 0) {

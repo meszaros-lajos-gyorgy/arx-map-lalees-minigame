@@ -17,11 +17,17 @@ export const createPCRoom = async (gameStateManager: Entity) => {
   tippedStool.orientation = new Rotation(MathUtils.degToRad(-33), MathUtils.degToRad(-28), MathUtils.degToRad(90))
   tippedStool.withScript()
   tippedStool.script?.properties.push(Shadow.off)
+  tippedStool.script?.on('init', () => {
+    return `objecthide ${tippedStool.ref} yes`
+  })
 
   const bigRigs = new PCGame({
     variant: 'big-rigs',
     position: new Vector3(540, 0, 290),
     orientation: new Rotation(0, MathUtils.degToRad(128), 0),
+  })
+  bigRigs.script?.on('init', () => {
+    return `objecthide ${bigRigs.ref} yes`
   })
   bigRigs.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`)
 
@@ -40,11 +46,23 @@ export const createPCRoom = async (gameStateManager: Entity) => {
   const hangedGoblin = Entity.hangedGob
   hangedGoblin.position = new Vector3(505, -120, 260)
   hangedGoblin.orientation = new Rotation(0, MathUtils.degToRad(180 - 45), 0)
+  hangedGoblin.withScript()
+  hangedGoblin.script?.on('init', () => {
+    return `objecthide ${hangedGoblin.ref} yes`
+  })
 
   const door = new LightDoor({
     // isLocked: true,
     position: new Vector3(800, 20, 120),
     orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
+  })
+
+  gameStateManager.script?.on('goblin_died', () => {
+    return `
+      objecthide ${tippedStool.ref} no
+      objecthide ${hangedGoblin.ref} no
+      objecthide ${bigRigs.ref} no
+    `
   })
 
   return {
