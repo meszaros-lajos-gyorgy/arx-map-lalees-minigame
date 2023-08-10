@@ -4,13 +4,15 @@ import { Scale } from 'arx-level-generator/scripting/properties'
 import { toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
 import { BoxGeometry, MathUtils, Mesh, MeshBasicMaterial } from 'three'
 
-export const createCounter = ({
-  position,
-  rotation = new Rotation(0, 0, 0),
-}: {
+type createCounterProps = {
   position: Vector3
-  rotation?: Rotation
-}) => {
+  /**
+   * @default 0
+   */
+  angleY?: number
+}
+
+export const createCounter = ({ position, angleY = 0 }: createCounterProps) => {
   const counterTopMaterial = new MeshBasicMaterial({
     map: Texture.fromCustomFile({
       filename: '[stone]-granite.jpg',

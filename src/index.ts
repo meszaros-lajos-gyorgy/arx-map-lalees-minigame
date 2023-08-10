@@ -257,7 +257,7 @@ const counter2 = createCounter({ position: new Vector3(300, -100, 295) })
 const counter3 = createCounter({ position: new Vector3(300, -100, -250) })
 const counterInRoomB = createCounter({
   position: new Vector3(1000, -100, 400),
-  rotation: new Rotation(0, MathUtils.degToRad(39), 0),
+  angleY: 39,
 })
 map.entities.push(...counter1.entities, ...counter2.entities, ...counter3.entities, ...counterInRoomB.entities)
 
