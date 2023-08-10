@@ -20,7 +20,7 @@ export class PowerupRing extends Entity {
     // TODO: clean these scripts up
     this.script?.on('init', () => {
       return `
-        SETNAME [description_ring_magic]
+        SETNAME [ring--powerup]
         SETOBJECTTYPE RING
         SET_MATERIAL METAL
         SETEQUIP intelligence +2

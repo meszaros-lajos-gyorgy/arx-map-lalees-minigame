@@ -8,6 +8,7 @@ import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
 import { MagicWall } from '@/entities/MagicWall.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
+import { PowerupRing } from '@/entities/PowerupRing.js'
 import { createCounter } from '@/prefabs/counter.js'
 import { createRadio } from '@/prefabs/radio.js'
 import { createTable } from '@/prefabs/table.js'
@@ -38,13 +39,17 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     return `destroy ${goblin.ref}`
   })
 
+  const table = createTable({
+    position: new Vector3(-300, -80, 400),
+    angleY: -90,
+  })
+
   const runeSpacium = new Rune('spacium')
   runeSpacium.position = new Vector3(-300, -79, 280)
   runeSpacium.orientation.y = MathUtils.degToRad(180)
 
-  const table = createTable({
-    position: new Vector3(-300, -80, 400),
-    angleY: -90,
+  const powerupRing = new PowerupRing({
+    position: new Vector3(-300, -79, 370),
   })
 
   const windowGlass = createPlaneMesh({
@@ -88,6 +93,7 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
       ...counter3.entities,
       ...radio.entities,
       goblin,
+      powerupRing,
       runeSpacium,
       game,
       lantern,

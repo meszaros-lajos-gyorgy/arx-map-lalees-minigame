@@ -44,6 +44,10 @@
     "english": "Achievement reached: Collected all games. Enjoy your collection!"
   },
 
+  "ring--powerup": {
+    "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)"
+  },
+
   "key--pcroom-key": {
     "english": "PC room key"
   },

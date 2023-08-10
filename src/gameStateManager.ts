@@ -69,7 +69,6 @@ export const createGameStateManager = () => {
   )
   manager.script?.on('init', () => {
     return `
-      inventory playeradd magic/powerup_ring/powerup_ring
       TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}
     `
   })
