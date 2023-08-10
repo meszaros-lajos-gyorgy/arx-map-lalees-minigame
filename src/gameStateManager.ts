@@ -31,22 +31,22 @@ const tutorialGaveGameToGoblin = new ScriptSubroutine('tutorial_gave_game_to_gob
 const achievementListenSmall = new ScriptSubroutine('achievement_found_games_small', () => {
   return `
     ${achievement.play()}
-    herosay [achievement--found-games-small]
-    quest [achievement--found-games-small]
+    herosay [achievement--collected-games-small]
+    quest [achievement--collected-games-small]
   `
 })
 const achievementListenMedium = new ScriptSubroutine('achievement_found_games_medium', () => {
   return `
     ${achievement.play()}
-    herosay [achievement--found-games-medium]
-    quest [achievement--found-games-medium]
+    herosay [achievement--collected-games-medium]
+    quest [achievement--collected-games-medium]
   `
 })
 const achievementListenLarge = new ScriptSubroutine('achievement_found_games_large', () => {
   return `
     ${achievement.play()}
-    herosay [achievement--found-games-large]
-    quest [achievement--found-games-large]
+    herosay [achievement--collected-games-large]
+    quest [achievement--collected-games-large]
   `
 })
 

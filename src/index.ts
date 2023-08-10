@@ -66,17 +66,17 @@ map.entities.push(gameStateManager, rootRune, rootPCGame)
 
 // -----------------------------------
 
-// const keyForRoomA = Entity.key
-// keyForRoomA.withScript()
-// keyForRoomA.script?.properties.push(new Label('[key-roomA]'))
-// map.entities.push(keyForRoomA)
-// doorToRoomA.setKey(keyForRoomA)
+// const pcRoomKey = Entity.key
+// pcRoomKey.withScript()
+// pcRoomKey.script?.properties.push(new Label('[key--pcroom-key]'))
+// map.entities.push(pcRoomKey)
+// doorToRoomA.setKey(pcRoomKey)
 
-// const keyForRoomB = Entity.key
-// keyForRoomB.withScript()
-// keyForRoomB.script?.properties.push(new Label('[key-roomB]'))
-// map.entities.push(keyForRoomB)
-// doorToRoomB.setKey(keyForRoomB)
+// const bathRoomKey = Entity.key
+// bathRoomKey.withScript()
+// bathRoomKey.script?.properties.push(new Label('[key--bathroom-key]'))
+// map.entities.push(bathRoomKey)
+// doorToRoomB.setKey(bathRoomKey)
 
 // -----------------------------------
 
