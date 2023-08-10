@@ -1,0 +1,38 @@
+{
+  "name": "arx-map-lalees-minigame",
+  "version": "1.0.0",
+  "description": "An Arx Fatalis map to promote 'Lalee's Games' youtube channel",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run generate && npm run rungame",
+    "generate": "tsc && tsc-alias && node -r dotenv/config ./dist/src/index.js",
+    "rungame": "~/projektek/arx/ArxLibertatis/build/arx --loadlevel 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame.git"
+  },
+  "keywords": [
+    "arx-fatalis"
+  ],
+  "author": "Lajos Mészáros <m_lajos@hotmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame/issues"
+  },
+  "homepage": "https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame#readme",
+  "dependencies": {
+    "arx-convert": "^7.0.1",
+    "arx-level-generator": "^1.1.2",
+    "dotenv": "^16.3.1",
+    "three": "^0.155.0"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "@types/node": "^20.4.9",
+    "@types/three": "^0.155.0",
+    "tsc-alias": "^1.8.7",
+    "typescript": "^5.1.6"
+  }
+}
