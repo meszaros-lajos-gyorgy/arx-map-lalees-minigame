@@ -71,10 +71,10 @@ $corridorHeight = 300
 $doorHeight = 200
 $entranceHeight = 250
 
-# dining room
+# living room
 room add 700 350 1100 room
 with light
-cursor save dining-room
+cursor save living-room
 
 # 3 windows on the back
 room add 100 250 50 window z-- y
@@ -97,7 +97,7 @@ room add 100 $roomHeight 700 outside-east x+ z++ y-
 with light
 
 # door on the front
-cursor restore dining-room
+cursor restore living-room
 room add 200 $entranceHeight 50 entrance z++ y-
 
 # outside back
@@ -105,7 +105,7 @@ room add 1000 $roomHeight 1200 outside-north z++ y-
 room add 1000 500 1200 outside-sky y++
 
 # right corridor
-cursor restore dining-room
+cursor restore living-room
 room add 50 $corridorHeight 200 room x++ y-
 room add 400 $corridorHeight 200 room x++ y-
 cursor save right-corridor
@@ -131,6 +131,12 @@ room add 400 $corridorHeight 450 room z-- y- x+
 with light
 room add 200 $entranceHeight 50 entrance z-- y-
 
-cursor restore dining-room
+cursor restore living-room
 room add 50 $roomHeight 150 room z- x++ y-
 room add 600 $roomHeight 300 room z- x++ y-
+
+# left corridor
+cursor restore living-room
+room add 50 $corridorHeight 200 room x-- y-
+room add 1000 $corridorHeight 200 room x-- y-
+cursor save left-corridor

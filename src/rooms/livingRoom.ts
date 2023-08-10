@@ -82,7 +82,7 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
   })
 
   const magicWall = new MagicWall({
-    position: new Vector3(-200, -10, 0),
+    position: new Vector3(-450, -10, 0),
   })
 
   return {
