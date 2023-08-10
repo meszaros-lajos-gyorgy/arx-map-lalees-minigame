@@ -1,6 +1,6 @@
 import { Color, Entity, Rotation, Vector3 } from 'arx-level-generator'
 import { LightDoor } from 'arx-level-generator/prefabs/entity'
-import { Shadow } from 'arx-level-generator/scripting/properties'
+import { Interactivity, Shadow } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
 import { MathUtils } from 'three'
 import { PCGame } from '@/entities/PCGame.js'
@@ -20,6 +20,11 @@ export const createPCRoom = async (gameStateManager: Entity) => {
   tippedStool.script?.on('init', () => {
     return `objecthide ${tippedStool.ref} yes`
   })
+
+  const normalStool = Entity.seatStool1
+  normalStool.position = new Vector3(620, 0, 430)
+  normalStool.withScript()
+  normalStool.script?.properties.push(Interactivity.off)
 
   const bigRigs = new PCGame({
     variant: 'big-rigs',
@@ -59,6 +64,8 @@ export const createPCRoom = async (gameStateManager: Entity) => {
 
   gameStateManager.script?.on('goblin_died', () => {
     return `
+      objecthide ${normalStool.ref} yes
+
       objecthide ${tippedStool.ref} no
       objecthide ${hangedGoblin.ref} no
       objecthide ${bigRigs.ref} no
@@ -67,7 +74,7 @@ export const createPCRoom = async (gameStateManager: Entity) => {
 
   return {
     meshes: [...table.meshes, ...computer.meshes],
-    entities: [tippedStool, bigRigs, hangedGoblin, door],
+    entities: [tippedStool, normalStool, bigRigs, hangedGoblin, door],
     lights: [ambientLight, monitorLight],
   }
 }
