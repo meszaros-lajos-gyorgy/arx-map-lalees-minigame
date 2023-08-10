@@ -313,6 +313,8 @@ const game4 = new PCGame({
 game4.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game4.variant}`)
 map.entities.push(game4)
 
+// ---------------------------
+
 const lantern = new Entity({
   src: 'items/provisions/lamp',
   position: new Vector3(300, 0, -210),
@@ -320,6 +322,14 @@ const lantern = new Entity({
 lantern.withScript()
 lantern.script?.properties.push(new Scale(0.7))
 map.entities.push(lantern)
+
+const lanternOn = Audio.fromCustomFile({ filename: 'ui_lantern_on.wav', sourcePath: './sfx' })
+const lanternOff = Audio.fromCustomFile({ filename: 'ui_lantern_off.wav', sourcePath: './sfx' })
+
+Audio.replace(new Audio({ filename: 'torch_start.wav' }), lanternOn)
+Audio.replace(new Audio({ filename: 'torch_end.wav' }), lanternOff)
+
+// ---------------------------
 
 const bucket = new Entity({
   src: 'items/movable/bucket',
