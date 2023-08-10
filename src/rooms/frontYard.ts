@@ -7,6 +7,8 @@ import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 
 export const createFrontYard = async (gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
+  // "around the corner and small alley" part
+
   const game1 = new PCGame({
     variant: gameVariants[0],
     position: new Vector3(1700, -5, -50),
@@ -30,6 +32,8 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   })
 
   // ----------
+
+  // "the dark end of the front yard" part
 
   const game2 = new PCGame({
     variant: gameVariants[1],
