@@ -1,6 +1,16 @@
 import { Audio, Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
 import { Invulnerability, Variable } from 'arx-level-generator/scripting/properties'
 
+// speech/english:
+
+// Goblin_misc6.wav = "Me want play cards!" -> "Me want play ..."
+// Goblin_taste_water.wav = "This water is taste like shit!" -> "... shit ..."
+// Goblin_engaged.wav "Engaged!" -> "...ga..."
+// Goblin_only_gem_dealer_shall_pass.wav "Halt human, you enter goblin kingdom! Humans is ..." -> "...dom"
+// Goblin_misc_fish_scared2.wav "... we can't catch fishes!" -> "...es!"
+
+// Goblin_victory3.wav = "Yes, yes, yes! You dead!"
+
 export class Goblin extends Entity {
   constructor({ gameStateMarker, ...props }: EntityConstructorPropsWithoutSrc & { gameStateMarker: Entity }) {
     super({
@@ -17,7 +27,13 @@ export class Goblin extends Entity {
       type: 'speech',
     })
 
-    this.otherDependencies.push(goblinVoiceYes)
+    const goblinVoiceWish = Audio.fromCustomFile({
+      filename: 'goblin_wants_to_play_games.wav',
+      sourcePath: './speech',
+      type: 'speech',
+    })
+
+    this.otherDependencies.push(goblinVoiceYes, goblinVoiceWish)
 
     this.script?.properties.push(Invulnerability.on)
     this.script?.on('chat', () => {
@@ -28,7 +44,7 @@ export class Goblin extends Entity {
         }
 
         set ${isBusy.name} 1
-        speak [goblin_misc6] set ${isBusy.name} 0
+        speak [goblin_wants_to_play_games] set ${isBusy.name} 0
       `
     })
     this.script?.on('idle', () => {
@@ -43,7 +59,7 @@ export class Goblin extends Entity {
     this.script?.on('initend', () => {
       return `
         set ${isBusy.name} 1
-        speak [goblin_misc6] set ${isBusy.name} 0
+        speak [goblin_wants_to_play_games] set ${isBusy.name} 0
         TIMERmisc_reflection -i 0 10 sendevent idle self ""
       `
     })
