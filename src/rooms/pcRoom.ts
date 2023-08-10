@@ -36,7 +36,6 @@ export const createPCRoom = async (gameStateManager: Entity) => {
     return `objecthide ${hangedGoblin.ref} yes`
   })
 
-  // TODO: what to do with this game when found?
   const bigRigs = new PCGame({
     variant: 'big-rigs',
     position: new Vector3(540, 0, 290),
