@@ -32,6 +32,7 @@ import { createCounter } from '@/counter.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { createRadio } from '@/radio.js'
 import { createTable } from '@/table.js'
+import { Lantern } from './entities/Lantern.js'
 import { createMoon } from './moon.js'
 
 const settings = new Settings({
@@ -315,19 +316,11 @@ map.entities.push(game4)
 
 // ---------------------------
 
-const lantern = new Entity({
-  src: 'items/provisions/lamp',
+const lantern = new Lantern({
   position: new Vector3(300, 0, -210),
 })
-lantern.withScript()
 lantern.script?.properties.push(new Scale(0.7))
 map.entities.push(lantern)
-
-const lanternOn = Audio.fromCustomFile({ filename: 'ui_lantern_on.wav', sourcePath: './sfx' })
-const lanternOff = Audio.fromCustomFile({ filename: 'ui_lantern_off.wav', sourcePath: './sfx' })
-
-Audio.replace(new Audio({ filename: 'torch_start.wav' }), lanternOn)
-Audio.replace(new Audio({ filename: 'torch_end.wav' }), lanternOff)
 
 // ---------------------------
 
