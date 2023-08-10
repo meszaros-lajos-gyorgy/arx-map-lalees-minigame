@@ -34,6 +34,7 @@ import { createComputer } from '@/prefabs/computer.js'
 import { createMoon } from '@/prefabs/moon.js'
 import { createTable } from '@/prefabs/table.js'
 import { createRadio } from '@/radio.js'
+import { MagicWall } from './entities/MagicWall.js'
 
 const settings = new Settings({
   levelIdx: parseInt(process.env.levelIdx ?? '1'),
@@ -141,13 +142,13 @@ const randomJunk = times(
 map.entities.push(game2, ...randomJunk)
 
 const doorToRoomA = new LightDoor({
-  // isLocked: false,
+  // isLocked: true,
   position: new Vector3(800, 20, 120),
   orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
 })
 
 const doorToRoomB = new LightDoor({
-  isLocked: true,
+  // isLocked: true,
   position: new Vector3(850, -200, 120),
   orientation: new Rotation(0, MathUtils.degToRad(-90), MathUtils.degToRad(180)),
 })
@@ -252,9 +253,19 @@ const radio = createRadio({
 map.entities.push(...radio.entities)
 
 const counter1 = createCounter({ position: new Vector3(300, -100, 450) })
-const counter2 = createCounter({ position: new Vector3(300, -100, 300 - 5) })
+const counter2 = createCounter({ position: new Vector3(300, -100, 295) })
 const counter3 = createCounter({ position: new Vector3(300, -100, -250) })
-map.entities.push(...counter1.entities, ...counter2.entities, ...counter3.entities)
+const counterInRoomB = createCounter({
+  position: new Vector3(1000, -100, 400),
+  rotation: new Rotation(0, MathUtils.degToRad(39), 0),
+})
+map.entities.push(...counter1.entities, ...counter2.entities, ...counter3.entities, ...counterInRoomB.entities)
+
+const nhi = new Rune('nhi', {
+  position: new Vector3(1056, -87, 502),
+  orientation: new Rotation(0, MathUtils.degToRad(57), 0),
+})
+map.entities.push(nhi)
 
 const tableInRoomA = createTable({ position: new Vector3(600, -80, 500) })
 const computer = createComputer({ position: new Vector3(600, -81, 480) })
@@ -268,6 +279,7 @@ const meshes = [
   counter1.meshes,
   counter2.meshes,
   counter3.meshes,
+  counterInRoomB.meshes,
   tableInRoomA.meshes,
   computer.meshes,
 ]
@@ -332,6 +344,11 @@ tippedStool.orientation = new Rotation(MathUtils.degToRad(-33), MathUtils.degToR
 tippedStool.withScript()
 tippedStool.script?.properties.push(Shadow.off)
 map.entities.push(tippedStool)
+
+const magicWall = new MagicWall({
+  position: new Vector3(-200, -10, 1500),
+})
+map.entities.push(magicWall)
 
 // ------------------------
 
