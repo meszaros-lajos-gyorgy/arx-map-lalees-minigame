@@ -68,7 +68,10 @@ export const createGameStateManager = () => {
     achievementListenLarge,
   )
   manager.script?.on('init', () => {
-    return `TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}`
+    return `
+      inventory playeradd magic/powerup_ring/powerup_ring
+      TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}
+    `
   })
 
   manager.script?.on('goblin_received_a_game', () => {

@@ -7,6 +7,7 @@ import { applyTransformations, compile } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
+import { PowerupRing } from './entities/PowerupRing.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
@@ -62,7 +63,10 @@ rootRune.script?.makeIntoRoot()
 const rootPCGame = new PCGame({ variant: 'blank' })
 rootPCGame.script?.makeIntoRoot()
 
-map.entities.push(gameStateManager, rootRune, rootPCGame)
+const rootPowerupRing = new PowerupRing()
+rootPowerupRing.script?.makeIntoRoot()
+
+map.entities.push(gameStateManager, rootRune, rootPCGame, rootPowerupRing)
 
 // -----------------------------------
 
