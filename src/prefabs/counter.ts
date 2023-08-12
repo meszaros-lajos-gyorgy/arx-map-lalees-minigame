@@ -1,8 +1,9 @@
-import { Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { GoblinVeryLightDoor } from 'arx-level-generator/prefabs/entity'
+import { createBox } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
 import { toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
-import { BoxGeometry, MathUtils, Mesh, MeshBasicMaterial } from 'three'
+import { BoxGeometry, Euler, MathUtils, Mesh, MeshBasicMaterial, Vector2 } from 'three'
 
 type createCounterProps = {
   position: Vector3
@@ -13,61 +14,54 @@ type createCounterProps = {
 }
 
 export const createCounter = ({ position, angleY = 0 }: createCounterProps) => {
-  const counterTopMaterial = new MeshBasicMaterial({
-    map: Texture.fromCustomFile({
+  const counterTopMaterial = Material.fromTexture(
+    Texture.fromCustomFile({
       filename: '[stone]-granite.jpg',
       sourcePath: 'textures',
     }),
-  })
-
-  const counterMaterial = new MeshBasicMaterial({
-    map: Texture.l4DwarfWoodBoard02,
-  })
-
-  const counterTopSize = new Vector3(150, 4, 100)
-
-  let counterTopGeometry = new BoxGeometry(
-    counterTopSize.x,
-    counterTopSize.y,
-    counterTopSize.z,
-    Math.ceil(counterTopSize.x / 100),
-    Math.ceil(counterTopSize.y / 100),
-    Math.ceil(counterTopSize.z / 100),
   )
-  counterTopGeometry = toArxCoordinateSystem(counterTopGeometry)
 
-  const counterTop = new Mesh(counterTopGeometry, counterTopMaterial)
-  counterTop.translateX(position.x)
-  counterTop.translateY(position.y + counterTopSize.y / 2 + 15)
-  counterTop.translateZ(position.z)
-  counterTop.rotateY(MathUtils.degToRad(90))
+  const counterWallMaterial = new MeshBasicMaterial({ map: Texture.l4DwarfWoodBoard02 })
+
+  const counterTop = createBox({
+    position: position.clone().add(new Vector3(0, 17, 0)),
+    size: new Vector3(150, 4, 100),
+    angleY,
+    materials: counterTopMaterial,
+  })
 
   let counterLeftWallGeometry = new BoxGeometry(80, 6, 90, 1, 1, 1)
   counterLeftWallGeometry = toArxCoordinateSystem(counterLeftWallGeometry)
-  const counterLeftWall = new Mesh(counterLeftWallGeometry, counterMaterial)
-  counterLeftWall.translateX(position.x + 5)
-  counterLeftWall.translateY(position.y + 58)
-  counterLeftWall.translateZ(position.z + 70)
-  counterLeftWall.rotateY(MathUtils.degToRad(90))
-  counterLeftWall.rotateZ(MathUtils.degToRad(90))
+  counterLeftWallGeometry.rotateZ(MathUtils.degToRad(90))
+  counterLeftWallGeometry.translate(70, 58, -5)
+  counterLeftWallGeometry.rotateY(MathUtils.degToRad(180 + angleY))
+  const counterLeftWall = new Mesh(counterLeftWallGeometry, counterWallMaterial)
+  counterLeftWall.translateX(position.x)
+  counterLeftWall.translateY(position.y)
+  counterLeftWall.translateZ(position.z)
 
   let counterRightWallGeometry = new BoxGeometry(80, 6, 90, 1, 1, 1)
   counterRightWallGeometry = toArxCoordinateSystem(counterRightWallGeometry)
-  const counterRightWall = new Mesh(counterRightWallGeometry, counterMaterial)
-  counterRightWall.translateX(position.x + 5)
-  counterRightWall.translateY(position.y + 58)
-  counterRightWall.translateZ(position.z - 70)
-  counterRightWall.rotateY(MathUtils.degToRad(90))
-  counterRightWall.rotateZ(MathUtils.degToRad(90))
+  counterRightWallGeometry.rotateZ(MathUtils.degToRad(90))
+  counterRightWallGeometry.translate(-70, 58, -5)
+  counterRightWallGeometry.rotateY(MathUtils.degToRad(180 + angleY))
+  const counterRightWall = new Mesh(counterRightWallGeometry, counterWallMaterial)
+  counterRightWall.translateX(position.x)
+  counterRightWall.translateY(position.y)
+  counterRightWall.translateZ(position.z)
 
   const leftDoor = new GoblinVeryLightDoor({
-    position: position.clone().add(new Vector3(-40, 108, 70)),
+    position: position
+      .clone()
+      .add(new Vector3(40, 108, -70).applyEuler(new Euler(0, MathUtils.degToRad(90 + angleY), 0))),
+    orientation: new Rotation(0, MathUtils.degToRad(90 - angleY), 0),
   })
   leftDoor.script?.properties.push(new Scale(0.45))
 
+  const rotation = new Euler(MathUtils.degToRad(180), MathUtils.degToRad(90 - angleY), 0, 'YXZ').reorder('XYZ')
   const rightDoor = new GoblinVeryLightDoor({
-    position: position.clone().add(new Vector3(-40, 8, 70 - 140)),
-    orientation: new Rotation(MathUtils.degToRad(180), 0, 0),
+    position: position.clone().add(new Vector3(40, 8, 70).applyEuler(new Euler(0, MathUtils.degToRad(90 + angleY), 0))),
+    orientation: new Rotation(rotation.x, rotation.y, rotation.z),
   })
   rightDoor.script?.properties.push(new Scale(0.45))
 

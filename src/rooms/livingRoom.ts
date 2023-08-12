@@ -3,6 +3,7 @@ import { Audio, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-g
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
+import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
 import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
@@ -14,9 +15,9 @@ import { createRadio } from '@/prefabs/radio.js'
 import { createTable } from '@/prefabs/table.js'
 
 export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
-  const counter1 = createCounter({ position: new Vector3(300, -100, 450) })
-  const counter2 = createCounter({ position: new Vector3(300, -100, 295) })
-  const counter3 = createCounter({ position: new Vector3(300, -100, -250) })
+  const counter1 = createCounter({ position: new Vector3(300, -100, 450), angleY: 90 + randomBetween(-2, 2) })
+  const counter2 = createCounter({ position: new Vector3(300, -100, 295), angleY: 90 + randomBetween(-2, 2) })
+  const counter3 = createCounter({ position: new Vector3(300, -100, -250), angleY: 90 + randomBetween(-2, 2) })
 
   const radio = createRadio({
     position: new Vector3(300, -100, 450),
