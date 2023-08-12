@@ -8,7 +8,7 @@ import { BoxGeometry, Euler, MathUtils, Mesh, MeshBasicMaterial, Vector2 } from 
 type createCounterProps = {
   position: Vector3
   /**
-   * @default 0
+   * default value is 0
    */
   angleY?: number
 }

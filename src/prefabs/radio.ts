@@ -9,16 +9,16 @@ import { MathUtils, Vector2 } from 'three'
 type createRadioProps = {
   position: Vector3
   /**
-   * @default 0
+   * default value is 0
    */
   angleY?: number
   /**
-   * @default 1
+   * default value is 1
    */
   scale?: number
   music: Audio
   /**
-   * @default true
+   * default value is true
    */
   isOn?: boolean
 }

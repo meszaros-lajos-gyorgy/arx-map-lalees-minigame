@@ -8,11 +8,11 @@ type createMoonProps = {
   position: Vector3
   size: number
   /**
-   * @default new Vector3(-100, 100, -50)
+   * default value is new Vector3(-100, 100, -50)
    */
   moonOffset?: Vector3
   /**
-   * @default 5000
+   * default value is 5000
    */
   lightRadius?: number
 }
