@@ -1,4 +1,4 @@
-import { Entity, EntityConstructorPropsWithoutSrc, Texture } from 'arx-level-generator'
+import { Color, Entity, EntityConstructorPropsWithoutSrc, Texture } from 'arx-level-generator'
 
 export class PowerupRing extends Entity {
   constructor(props: EntityConstructorPropsWithoutSrc = {}) {
@@ -25,6 +25,7 @@ export class PowerupRing extends Entity {
         SET_MATERIAL METAL
         SETEQUIP intelligence +2
         SET_WEIGHT 0
+        HALO -ocs ${Color.fromCSS('gold').lighten(50).toScriptColor()} 50
       `
     })
     this.script?.on('INVENTORYUSE', () => {
