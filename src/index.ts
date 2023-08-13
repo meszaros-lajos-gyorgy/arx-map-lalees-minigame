@@ -35,18 +35,6 @@ await map.i18n.addFromFile('./i18n.json', settings)
 
 // -----------------------------------
 
-const randomizedGameVariants: PCGameVariant[] = randomSort([
-  'mesterlovesz',
-  'mortyr',
-  'wolfschanze',
-  'traktor-racer',
-  'americas-10-most-wanted',
-  'streets-racer',
-  'bikini-karate-babes',
-])
-
-// -----------------------------------
-
 const rooms = await loadRooms('./lalees-minigame.rooms', settings)
 rooms.forEach((room) => {
   map.add(room, true)
@@ -70,25 +58,23 @@ map.entities.push(gameStateManager, rootRune, rootPCGame, rootPowerupRing)
 
 // -----------------------------------
 
-// const pcRoomKey = Entity.key
-// pcRoomKey.withScript()
-// pcRoomKey.script?.properties.push(new Label('[key--pcroom-key]'))
-// map.entities.push(pcRoomKey)
-// doorToRoomA.setKey(pcRoomKey)
-
-// const bathRoomKey = Entity.key
-// bathRoomKey.withScript()
-// bathRoomKey.script?.properties.push(new Label('[key--bathroom-key]'))
-// map.entities.push(bathRoomKey)
-// doorToRoomB.setKey(bathRoomKey)
-
-// -----------------------------------
+const randomizedGameVariants: PCGameVariant[] = randomSort([
+  'mesterlovesz',
+  'mortyr',
+  'wolfschanze',
+  'traktor-racer',
+  'americas-10-most-wanted',
+  'streets-racer',
+  'bikini-karate-babes',
+])
 
 const pcRoom = await createPCRoom(gameStateManager)
 const bathRoom = await createBathRoom(gameStateManager)
 const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
 const frontYard = await createFrontYard(gameStateManager, [randomizedGameVariants[0], randomizedGameVariants[1]])
 const livingRoom = await createLivingRoom(gameStateManager, randomizedGameVariants[3])
+
+// -----------------------------------
 
 map.entities.push(
   ...pcRoom.entities,
