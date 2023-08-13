@@ -1,4 +1,8 @@
 import { Color, Entity, EntityConstructorPropsWithoutSrc, Texture } from 'arx-level-generator'
+import { Sound } from 'arx-level-generator/scripting/classes'
+import { Label, Material } from 'arx-level-generator/scripting/properties'
+
+const equipRingSound = new Sound('equip_ring')
 
 export class PowerupRing extends Entity {
   constructor(props: EntityConstructorPropsWithoutSrc = {}) {
@@ -17,26 +21,22 @@ export class PowerupRing extends Entity {
 
     this.withScript()
 
-    // TODO: clean these scripts up
+    this.script?.properties.push(Material.metal, new Label('[ring--powerup]'))
+
     this.script?.on('init', () => {
       return `
-        SETNAME [ring--powerup]
-        SETOBJECTTYPE RING
-        SET_MATERIAL METAL
-        SETEQUIP intelligence +2
-        SET_WEIGHT 0
-        HALO -ocs ${Color.fromCSS('gold').lighten(50).toScriptColor()} 50
+        setobjecttype ring
+        setequip intelligence +2
+        halo -ocs ${Color.fromCSS('gold').lighten(50).toScriptColor()} 50
       `
     })
-    this.script?.on('INVENTORYUSE', () => {
-      return `
-        EQUIP PLAYER
-      `
+
+    this.script?.on('inventoryuse', () => {
+      return `equip player`
     })
-    this.script?.on('EQUIPIN', () => {
-      return `
-        PLAY "EQUIP_RING"
-      `
+
+    this.script?.on('equipin', () => {
+      return equipRingSound.play()
     })
   }
 }

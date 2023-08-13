@@ -18,28 +18,24 @@ export class MagicWall extends Entity {
 
     this.script?.on('game_ready', () => {
       return `
-        SET ${this.propEnabled.name} 1
-        SPELLCAST -msfdz -1 4 CREATE_FIELD SELF
+        set ${this.propEnabled.name} 1
+        spellcast -msfdz -1 4 create_field self
       `
     })
+
     this.script?.on('spellcast', () => {
       return `
-        IF (${this.propEnabled.name} == 0) {
-          ACCEPT
+        if (${this.propEnabled.name} == 0) {
+          accept
         }
         
-        IF (^DIST_PLAYER > 400) {
-          ACCEPT
+        if (^dist_player > 400) {
+          accept
         }
         
-        IF (^$PARAM1 == DISPELL_FIELD) {
-          SET ${this.propEnabled.name} 0
-          SPELLCAST -k CREATE_FIELD
-        }
-      
-        IF (^$PARAM1 == NEGATE_MAGIC) {
-          SET ${this.propEnabled.name} 0
-          SPELLCAST -k CREATE_FIELD
+        if (^$param1 == dispell_field) {
+          set ${this.propEnabled.name} 0
+          spellcast -k create_field
         }
       `
     })
