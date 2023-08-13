@@ -10,28 +10,26 @@ import { createTable } from '@/prefabs/table.js'
 export const createPCRoom = async (gameStateManager: Entity) => {
   // "normal state" parts
 
-  const normalStool = Entity.seatStool1
-  normalStool.position = new Vector3(620, 0, 430)
-  normalStool.withScript()
+  const normalStool = Entity.seatStool1.withScript().at({ position: new Vector3(620, 0, 430) })
   normalStool.script?.properties.push(Interactivity.off)
 
   // ----------------------
 
   // "after suicide" parts
 
-  const tippedStool = Entity.seatStool1
-  tippedStool.position = new Vector3(490, -43, 250)
-  tippedStool.orientation = new Rotation(MathUtils.degToRad(-33), MathUtils.degToRad(-28), MathUtils.degToRad(90))
-  tippedStool.withScript()
+  const tippedStool = Entity.seatStool1.withScript().at({
+    position: new Vector3(490, -43, 250),
+    orientation: new Rotation(MathUtils.degToRad(-33), MathUtils.degToRad(-28), MathUtils.degToRad(90)),
+  })
   tippedStool.script?.properties.push(Shadow.off)
   tippedStool.script?.on('init', () => {
     return `objecthide ${tippedStool.ref} yes`
   })
 
-  const hangedGoblin = Entity.hangedGob
-  hangedGoblin.position = new Vector3(505, -120, 260)
-  hangedGoblin.orientation = new Rotation(0, MathUtils.degToRad(180 - 45), 0)
-  hangedGoblin.withScript()
+  const hangedGoblin = Entity.hangedGob.withScript().at({
+    position: new Vector3(505, -120, 260),
+    orientation: new Rotation(0, MathUtils.degToRad(180 - 45), 0),
+  })
   hangedGoblin.script?.on('init', () => {
     return `objecthide ${hangedGoblin.ref} yes`
   })
@@ -41,10 +39,11 @@ export const createPCRoom = async (gameStateManager: Entity) => {
     position: new Vector3(540, 0, 290),
     orientation: new Rotation(0, MathUtils.degToRad(128), 0),
   })
-  bigRigs.script?.on('init', () => {
-    return `objecthide ${bigRigs.ref} yes`
-  })
-  bigRigs.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`)
+  bigRigs.script
+    ?.on('init', () => {
+      return `objecthide ${bigRigs.ref} yes`
+    })
+    .on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`)
 
   // ----------------------
 

@@ -18,16 +18,15 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   })
   game1.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game1.variant}`)
 
-  const fern = Entity.fern.withScript()
-  fern.position = new Vector3(1650, 0, -60)
-  fern.orientation = new Rotation(0, MathUtils.degToRad(90), 0)
+  const fern = Entity.fern.withScript().at({
+    position: new Vector3(1650, 0, -60),
+    orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+  })
   fern.script?.properties.push(Interactivity.off, new Scale(2))
 
   const runeComunicatum = new Rune('comunicatum')
 
-  const barrel = Entity.barrel
-  barrel.position = new Vector3(1650, 0, -960)
-  barrel.withScript()
+  const barrel = Entity.barrel.withScript().at({ position: new Vector3(1650, 0, -960) })
   barrel.script?.properties.push(new Scale(0.7))
   barrel.script?.on('init', () => {
     return `inventory addfromscene ${runeComunicatum.ref}`
@@ -60,24 +59,24 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
 
   const randomJunk = times(
     () => {
-      const item = pickRandom([
-        Entity.brokenBottle,
-        Entity.brokenShield,
-        Entity.brokenStool,
-        Entity.akbaaBloodChickenHead,
-      ]).withScript()
-
-      item.position = game2.position
+      const position = game2.position
         .clone()
         .add(new Vector3(randomBetween(-30, 80), randomBetween(-5, 5), randomBetween(-50, 50)))
 
-      item.orientation = new Rotation(
+      const orientation = new Rotation(
         MathUtils.degToRad(randomBetween(-45, 45)),
         MathUtils.degToRad(randomBetween(0, 360)),
         MathUtils.degToRad(randomBetween(-45, 45)),
       )
 
-      return item
+      const item = pickRandom([
+        Entity.brokenBottle,
+        Entity.brokenShield,
+        Entity.brokenStool,
+        Entity.akbaaBloodChickenHead,
+      ])
+
+      return item.withScript().at({ position, orientation })
     },
     Math.round(randomBetween(7, 12)),
   )
