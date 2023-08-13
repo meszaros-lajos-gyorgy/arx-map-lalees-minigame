@@ -108,13 +108,6 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     }),
   ]
 
-  const doorLight = createLight({
-    position: new Vector3(0, -100, 650),
-    radius: 300,
-    color: Color.white,
-    intensity: 0.5,
-  })
-
   return {
     meshes: [...counter1.meshes, ...counter2.meshes, ...counter3.meshes, ...radio.meshes, ...table.meshes, windowGlass],
     entities: [
@@ -130,6 +123,6 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
       bucket,
       magicWall,
     ],
-    lights: [...windowLights, doorLight],
+    lights: [...windowLights],
   }
 }
