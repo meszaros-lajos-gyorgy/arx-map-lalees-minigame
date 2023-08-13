@@ -1,4 +1,5 @@
 import { Audio, Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
+import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Invulnerability, Variable } from 'arx-level-generator/scripting/properties'
 
 // speech/english:
@@ -33,6 +34,13 @@ export class Goblin extends Entity {
 
     const isBusy = new Variable('bool', 'busy', false)
 
+    const doneSpeaking = new ScriptSubroutine('done_speaking', () => {
+      return `
+        set ${isBusy.name} 0
+      `
+    })
+    this.script?.subroutines.push(doneSpeaking)
+
     this.otherDependencies.push(goblinVoiceYes, goblinVoiceWish)
 
     this.script?.properties.push(Invulnerability.on)
@@ -44,7 +52,7 @@ export class Goblin extends Entity {
         }
 
         set ${isBusy.name} 1
-        speak [goblin_wants_to_play_games] set ${isBusy.name} 0
+        speak [goblin_wants_to_play_games] ${doneSpeaking.invoke()}
       `
     })
 
@@ -61,7 +69,7 @@ export class Goblin extends Entity {
     this.script?.on('initend', () => {
       return `
         set ${isBusy.name} 1
-        speak [goblin_wants_to_play_games] set ${isBusy.name} 0
+        speak [goblin_wants_to_play_games] ${doneSpeaking.invoke()}
         TIMERmisc_reflection -i 0 10 sendevent idle self ""
       `
     })
@@ -78,14 +86,14 @@ export class Goblin extends Entity {
           sendevent goblin_received_a_game ${gameStateMarker.ref} nop
 
           random 20 {
-            speak -h [goblin_victory3_shorter] set ${isBusy.name} 0
+            speak -h [goblin_victory3_shorter] ${doneSpeaking.invoke()}
           } else {
-            speak [goblin_ok] set ${isBusy.name} 0
+            speak [goblin_ok] ${doneSpeaking.invoke()}
           }
   
           destroy ^$param1
         } else {
-          speak -a [goblin_mad] set ${isBusy.name} 0
+          speak -a [goblin_mad] ${doneSpeaking.invoke()}
         }
       `
     })
