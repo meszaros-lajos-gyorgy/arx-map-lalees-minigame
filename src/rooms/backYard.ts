@@ -6,6 +6,7 @@ import { MathUtils } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createMoon } from '@/prefabs/moon.js'
+import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
 export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const moon = createMoon({
@@ -40,9 +41,12 @@ export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGa
   const crickets3 = new Crickets({ position: new Vector3(0, -200, 2100) })
   const crickets4 = new Crickets({ position: new Vector3(1800, 0, -1100) })
 
+  const wallLight1 = createOutdoorLight({ position: new Vector3(-300, -180, 600), angleY: 180 })
+  const wallLight2 = createOutdoorLight({ position: new Vector3(300, -180, 600), angleY: 180 })
+
   return {
-    meshes: [...moon.meshes, ...tree],
+    meshes: [...moon.meshes, ...tree, ...wallLight1.meshes, ...wallLight2.meshes],
     entities: [door, game, crickets1, crickets2, crickets3, crickets4],
-    lights: [...moon.lights],
+    lights: [...moon.lights, ...wallLight1.lights, ...wallLight2.lights],
   }
 }
