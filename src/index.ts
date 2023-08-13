@@ -11,7 +11,7 @@ import { PowerupRing } from './entities/PowerupRing.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
-import { createLivingRoom } from './rooms/livingRoom.js'
+import { createMainHall } from './rooms/mainHall.js'
 import { createPCRoom } from './rooms/pcRoom.js'
 
 const settings = new Settings({
@@ -72,7 +72,7 @@ const pcRoom = await createPCRoom(gameStateManager)
 const bathRoom = await createBathRoom(gameStateManager)
 const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
 const frontYard = await createFrontYard(gameStateManager, [randomizedGameVariants[0], randomizedGameVariants[1]])
-const livingRoom = await createLivingRoom(gameStateManager, randomizedGameVariants[3])
+const livingRoom = await createMainHall(gameStateManager, randomizedGameVariants[3])
 
 // -----------------------------------
 
