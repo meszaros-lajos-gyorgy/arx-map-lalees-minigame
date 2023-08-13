@@ -1,11 +1,22 @@
+import { ArxPolygonFlags } from 'arx-convert/types'
 import { Material, Texture, Vector3 } from 'arx-level-generator'
 import { createBox } from 'arx-level-generator/prefabs/mesh'
 import { toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
 import { CylinderGeometry, MathUtils, Mesh, MeshBasicMaterial } from 'three'
 
-export const createTable = ({ position, angleY = 0 }: { position: Vector3; angleY?: number }) => {
+export const createTable = ({
+  position,
+  angleY = 0,
+  hasShadow = true,
+}: {
+  position: Vector3
+  angleY?: number
+  hasShadow?: boolean
+}) => {
   const tableLegMaterial = new MeshBasicMaterial({
-    map: Texture.l2TrollWoodPillar08,
+    map: Material.fromTexture(Texture.l2TrollWoodPillar08, {
+      flags: hasShadow ? ArxPolygonFlags.None : ArxPolygonFlags.NoShadow,
+    }),
   })
 
   const tableHeight = 80
@@ -14,7 +25,9 @@ export const createTable = ({ position, angleY = 0 }: { position: Vector3; angle
     position: position.clone().add(new Vector3(0, 3, 0)),
     size: new Vector3(300, 6, 100),
     angleY,
-    materials: Material.fromTexture(Texture.l4DwarfWoodBoard02),
+    materials: Material.fromTexture(Texture.l4DwarfWoodBoard02, {
+      flags: hasShadow ? ArxPolygonFlags.None : ArxPolygonFlags.NoShadow,
+    }),
   })
 
   let tableLegGeometry = new CylinderGeometry(5, 5, tableHeight - 6, 5, 1)
