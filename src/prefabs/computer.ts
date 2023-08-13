@@ -39,6 +39,10 @@ const textures = {
     filename: 'computer-case-front.jpg',
     sourcePath: './textures',
   }),
+  desktop: Texture.fromCustomFile({
+    filename: 'goblin_uses_arch_by_the_way.jpg',
+    sourcePath: './textures',
+  }),
 }
 
 const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: number }) => {
@@ -166,7 +170,7 @@ const createScreen = ({ position, angleY = 0 }: { position: Vector3; angleY?: nu
 
   screen.script?.on(
     'init',
-    new TweakSkin(new Texture({ filename: '[wood]_ALICIAROOM_LAMBRIS02.jpg' }), textures.youreWinner),
+    new TweakSkin(new Texture({ filename: '[wood]_ALICIAROOM_LAMBRIS02.jpg' }), textures.desktop),
   )
   screen.script?.on('init', new TweakSkin(new Texture({ filename: '[wood]_ALICIAROOM_LAMBRIS01.jpg' }), Texture.alpha))
   screen.script?.on('init', new TweakSkin(new Texture({ filename: 'ALICIAROOM_MUR01.jpg' }), Texture.alpha))
