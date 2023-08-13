@@ -43,7 +43,9 @@ export const createPCRoom = async (gameStateManager: Entity) => {
     ?.on('init', () => {
       return `objecthide ${bigRigs.ref} yes`
     })
-    .on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`)
+    .on('inventoryin', () => {
+      return `sendevent player_found_a_game ${gameStateManager.ref} ${bigRigs.variant}`
+    })
 
   // ----------------------
 

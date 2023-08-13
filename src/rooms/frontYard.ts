@@ -16,7 +16,9 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
     position: new Vector3(1700, -5, -50),
     orientation: new Rotation(MathUtils.degToRad(45), MathUtils.degToRad(80), MathUtils.degToRad(15)),
   })
-  game1.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game1.variant}`)
+  game1.script?.on('inventoryin', () => {
+    return `sendevent player_found_a_game ${gameStateManager.ref} ${game1.variant}`
+  })
 
   const fern = Entity.fern.withScript().at({
     position: new Vector3(1650, 0, -60),
@@ -55,7 +57,9 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
     variant: gameVariants[1],
     position: new Vector3(-1650, -5, -670),
   })
-  game2.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`)
+  game2.script?.on('inventoryin', () => {
+    return `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`
+  })
 
   const randomJunk = times(
     () => {

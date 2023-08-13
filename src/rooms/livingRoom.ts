@@ -71,7 +71,9 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     position: new Vector3(300, 0, 403),
     orientation: new Rotation(MathUtils.degToRad(-60), MathUtils.degToRad(-90), 0),
   })
-  game.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`)
+  game.script?.on('inventoryin', () => {
+    return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
+  })
 
   const lantern = new Lantern({
     position: new Vector3(300, 0, -210),

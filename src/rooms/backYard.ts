@@ -35,7 +35,9 @@ export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGa
     position: new Vector3(240, -3, 1380),
     orientation: new Rotation(MathUtils.degToRad(-60), MathUtils.degToRad(-90), 0),
   })
-  game.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`)
+  game.script?.on('inventoryin', () => {
+    return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
+  })
 
   const crickets: Entity[] = [
     new Crickets({ position: new Vector3(500, randomBetween(0, -300), 1800) }),
