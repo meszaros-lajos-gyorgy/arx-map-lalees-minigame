@@ -33,6 +33,9 @@ export const createPCRoom = async (gameStateManager: Entity) => {
   hangedGoblin.script?.on('init', () => {
     return `objecthide ${hangedGoblin.ref} yes`
   })
+  hangedGoblin.script?.on('emit_dying_sound', () => {
+    return `speak [goblin_gni2]`
+  })
 
   const bigRigs = new PCGame({
     variant: 'big-rigs',
@@ -82,6 +85,7 @@ export const createPCRoom = async (gameStateManager: Entity) => {
       objecthide ${bigRigs.ref} no
 
       sendevent change_to_big_rigs ${computer._.screen.ref} nop
+      sendevent emit_dying_sound ${hangedGoblin.ref} nop
     `
   })
 
