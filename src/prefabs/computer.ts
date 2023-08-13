@@ -27,10 +27,6 @@ const textures = {
     filename: 'computer-plastic.jpg',
     sourcePath: './textures',
   }),
-  youreWinner: Texture.fromCustomFile({
-    filename: 'youre-winner.jpg',
-    sourcePath: './textures',
-  }),
   keyboardTop: Texture.fromCustomFile({
     filename: 'keyboard-top.jpg',
     sourcePath: './textures',
@@ -39,8 +35,12 @@ const textures = {
     filename: 'computer-case-front.jpg',
     sourcePath: './textures',
   }),
-  desktop: Texture.fromCustomFile({
-    filename: 'goblin_uses_arch_by_the_way.jpg',
+  screenNeofetch: Texture.fromCustomFile({
+    filename: 'screen-neofetch.jpg',
+    sourcePath: './textures',
+  }),
+  screenBigRigs: Texture.fromCustomFile({
+    filename: 'screen-big-rigs.jpg',
     sourcePath: './textures',
   }),
 }
@@ -166,16 +166,19 @@ const createScreen = ({ position, angleY = 0 }: { position: Vector3; angleY?: nu
   })
 
   screen.withScript()
+
   screen.script?.properties.push(Interactivity.off, new Scale(0.48))
 
-  screen.script?.on(
-    'init',
-    new TweakSkin(new Texture({ filename: '[wood]_ALICIAROOM_LAMBRIS02.jpg' }), textures.desktop),
-  )
-  screen.script?.on('init', new TweakSkin(new Texture({ filename: '[wood]_ALICIAROOM_LAMBRIS01.jpg' }), Texture.alpha))
-  screen.script?.on('init', new TweakSkin(new Texture({ filename: 'ALICIAROOM_MUR01.jpg' }), Texture.alpha))
-  screen.script?.on('init', new TweakSkin(new Texture({ filename: 'ALICIAROOM_MUR02.jpg' }), Texture.alpha))
-  screen.script?.on('init', new TweakSkin(new Texture({ filename: 'ALICIAROOM_POUTRES.jpg' }), Texture.alpha))
+  screen.script
+    ?.on('init', new TweakSkin(new Texture({ filename: '[wood]_aliciaroom_lambris02.jpg' }), textures.screenNeofetch))
+    .on('init', new TweakSkin(new Texture({ filename: '[wood]_aliciaroom_lambris01.jpg' }), Texture.alpha))
+    .on('init', new TweakSkin(new Texture({ filename: 'aliciaroom_mur01.jpg' }), Texture.alpha))
+    .on('init', new TweakSkin(new Texture({ filename: 'aliciaroom_mur02.jpg' }), Texture.alpha))
+    .on('init', new TweakSkin(new Texture({ filename: 'aliciaroom_poutres.jpg' }), Texture.alpha))
+    .on(
+      'change_to_big_rigs',
+      new TweakSkin(new Texture({ filename: '[wood]_aliciaroom_lambris02.jpg' }), textures.screenBigRigs),
+    )
 
   return screen
 }
@@ -197,5 +200,8 @@ export const createComputer = ({ position, angleY = 0 }: { position: Vector3; an
   return {
     meshes: [...monitor.meshes, ...keyboard.meshes, ...computerCase.meshes],
     entities: [screen],
+    _: {
+      screen,
+    },
   }
 }

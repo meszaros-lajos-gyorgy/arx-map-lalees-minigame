@@ -80,6 +80,8 @@ export const createPCRoom = async (gameStateManager: Entity) => {
       objecthide ${tippedStool.ref} no
       objecthide ${hangedGoblin.ref} no
       objecthide ${bigRigs.ref} no
+
+      sendevent change_to_big_rigs ${computer._.screen.ref} nop
     `
   })
 
