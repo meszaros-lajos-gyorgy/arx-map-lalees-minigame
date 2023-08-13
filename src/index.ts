@@ -8,6 +8,7 @@ import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
+import { createStorage } from './rooms/Storage.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
@@ -58,7 +59,7 @@ map.entities.push(gameStateManager, rootRune, rootPCGame, rootPowerupRing)
 
 // -----------------------------------
 
-const randomizedGameVariants: PCGameVariant[] = randomSort([
+const gameVariants: PCGameVariant[] = randomSort([
   'mesterlovesz',
   'mortyr',
   'wolfschanze',
@@ -70,9 +71,10 @@ const randomizedGameVariants: PCGameVariant[] = randomSort([
 
 const pcRoom = await createPCRoom(gameStateManager)
 const bathRoom = await createBathRoom(gameStateManager)
-const frontYard = await createFrontYard(gameStateManager, [randomizedGameVariants[0], randomizedGameVariants[1]])
-const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
-const livingRoom = await createMainHall(gameStateManager, randomizedGameVariants[3])
+const frontYard = await createFrontYard(gameStateManager, [gameVariants[0], gameVariants[1]])
+const backYard = await createBackYard(gameStateManager, gameVariants[2])
+const livingRoom = await createMainHall(gameStateManager, gameVariants[3])
+const storage = await createStorage(gameStateManager, gameVariants[4])
 
 // -----------------------------------
 
@@ -82,11 +84,26 @@ map.entities.push(
   ...frontYard.entities,
   ...backYard.entities,
   ...livingRoom.entities,
+  ...storage.entities,
 )
 
-map.lights.push(...pcRoom.lights, ...bathRoom.lights, ...frontYard.lights, ...backYard.lights, ...livingRoom.lights)
+map.lights.push(
+  ...pcRoom.lights,
+  ...bathRoom.lights,
+  ...frontYard.lights,
+  ...backYard.lights,
+  ...livingRoom.lights,
+  ...storage.lights,
+)
 
-const meshes = [...pcRoom.meshes, ...bathRoom.meshes, ...frontYard.meshes, ...backYard.meshes, ...livingRoom.meshes]
+const meshes = [
+  ...pcRoom.meshes,
+  ...bathRoom.meshes,
+  ...frontYard.meshes,
+  ...backYard.meshes,
+  ...livingRoom.meshes,
+  ...storage.meshes,
+]
 meshes.forEach((mesh) => {
   applyTransformations(mesh)
   mesh.translateX(map.config.offset.x)
