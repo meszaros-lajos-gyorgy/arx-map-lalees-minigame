@@ -58,10 +58,9 @@ export const createCounter = ({ position, angleY = 0 }: createCounterProps) => {
   })
   leftDoor.script?.properties.push(new Scale(0.45))
 
-  const rotation = new Euler(MathUtils.degToRad(180), MathUtils.degToRad(90 - angleY), 0, 'YXZ').reorder('XYZ')
   const rightDoor = new GoblinVeryLightDoor({
     position: position.clone().add(new Vector3(40, 8, 70).applyEuler(new Euler(0, MathUtils.degToRad(90 + angleY), 0))),
-    orientation: new Rotation(rotation.x, rotation.y, rotation.z),
+    orientation: new Rotation(MathUtils.degToRad(180), MathUtils.degToRad(-90 + angleY), 0),
   })
   rightDoor.script?.properties.push(new Scale(0.45))
 
