@@ -70,8 +70,8 @@ const randomizedGameVariants: PCGameVariant[] = randomSort([
 
 const pcRoom = await createPCRoom(gameStateManager)
 const bathRoom = await createBathRoom(gameStateManager)
-const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
 const frontYard = await createFrontYard(gameStateManager, [randomizedGameVariants[0], randomizedGameVariants[1]])
+const backYard = await createBackYard(gameStateManager, randomizedGameVariants[2])
 const livingRoom = await createMainHall(gameStateManager, randomizedGameVariants[3])
 
 // -----------------------------------
@@ -79,14 +79,14 @@ const livingRoom = await createMainHall(gameStateManager, randomizedGameVariants
 map.entities.push(
   ...pcRoom.entities,
   ...bathRoom.entities,
-  ...backYard.entities,
   ...frontYard.entities,
+  ...backYard.entities,
   ...livingRoom.entities,
 )
 
-map.lights.push(...pcRoom.lights, ...bathRoom.lights, ...backYard.lights, ...frontYard.lights, ...livingRoom.lights)
+map.lights.push(...pcRoom.lights, ...bathRoom.lights, ...frontYard.lights, ...backYard.lights, ...livingRoom.lights)
 
-const meshes = [...pcRoom.meshes, ...bathRoom.meshes, ...backYard.meshes, ...frontYard.meshes, ...livingRoom.meshes]
+const meshes = [...pcRoom.meshes, ...bathRoom.meshes, ...frontYard.meshes, ...backYard.meshes, ...livingRoom.meshes]
 meshes.forEach((mesh) => {
   applyTransformations(mesh)
   mesh.translateX(map.config.offset.x)
