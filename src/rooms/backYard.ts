@@ -20,7 +20,7 @@ export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGa
   const tree = await loadOBJ('models/tree/tree', {
     position: new Vector3(200, -10, 1300),
     scale: 0.7,
-    rotation: new Rotation(0, MathUtils.degToRad(70), 0),
+    orientation: new Rotation(0, MathUtils.degToRad(70), 0),
     fallbackTexture: Texture.l2TrollWoodPillar08,
   })
 
