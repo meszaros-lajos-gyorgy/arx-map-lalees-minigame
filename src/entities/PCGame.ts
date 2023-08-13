@@ -137,8 +137,4 @@ export class PCGame extends Entity {
   set variant(value: PCGameVariant) {
     this.propVariant.value = value
   }
-
-  static variantToTexture(variant: PCGameVariant) {
-    return 'pcgame_box_art_streets_racer' + variant.replaceAll('-', '_')
-  }
 }
