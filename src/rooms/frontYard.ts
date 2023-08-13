@@ -4,6 +4,7 @@ import { Interactivity, Scale } from 'arx-level-generator/scripting/properties'
 import { times } from 'arx-level-generator/utils/faux-ramda'
 import { pickRandom, randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
+import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
@@ -34,6 +35,18 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
 
   const wallLight1 = createOutdoorLight({ position: new Vector3(1000, -180, -600) })
   const wallLight2 = createOutdoorLight({ position: new Vector3(1475, -180, -600) })
+
+  const crickets: Entity[] = []
+  for (let i = 0; i < 6; i++) {
+    const cricket = new Crickets({
+      position: new Vector3(
+        1800 - i * 600 + randomBetween(-100, 100),
+        randomBetween(0, -300),
+        -1500 + randomBetween(-300, 300),
+      ),
+    })
+    crickets.push(cricket)
+  }
 
   // ----------
 
@@ -71,7 +84,7 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
 
   return {
     meshes: [...wallLight1.meshes, ...wallLight2.meshes],
-    entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk],
+    entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk, ...crickets],
     lights: [...wallLight1.lights, ...wallLight2.lights],
   }
 }

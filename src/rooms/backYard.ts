@@ -2,6 +2,7 @@ import { Entity, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { CatacombHeavyDoor } from 'arx-level-generator/prefabs/entity'
 import { Scale } from 'arx-level-generator/scripting/properties'
 import { loadOBJ } from 'arx-level-generator/tools/mesh'
+import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
@@ -36,17 +37,18 @@ export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGa
   })
   game.script?.on('inventoryin', () => `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`)
 
-  const crickets1 = new Crickets({ position: new Vector3(500, -100, 1800) })
-  const crickets2 = new Crickets({ position: new Vector3(-700, -70, 1500) })
-  const crickets3 = new Crickets({ position: new Vector3(0, -200, 2100) })
-  const crickets4 = new Crickets({ position: new Vector3(1800, 0, -1100) })
+  const crickets: Entity[] = [
+    new Crickets({ position: new Vector3(500, randomBetween(0, -300), 1800) }),
+    new Crickets({ position: new Vector3(-700, randomBetween(0, -300), 1500) }),
+    new Crickets({ position: new Vector3(0, randomBetween(0, -300), 2100) }),
+  ]
 
   const wallLight1 = createOutdoorLight({ position: new Vector3(-300, -180, 600), angleY: 180 })
   const wallLight2 = createOutdoorLight({ position: new Vector3(300, -180, 600), angleY: 180 })
 
   return {
     meshes: [...moon.meshes, ...tree, ...wallLight1.meshes, ...wallLight2.meshes],
-    entities: [door, game, crickets1, crickets2, crickets3, crickets4],
+    entities: [door, game, ...crickets],
     lights: [...moon.lights, ...wallLight1.lights, ...wallLight2.lights],
   }
 }
