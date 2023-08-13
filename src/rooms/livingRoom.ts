@@ -1,8 +1,9 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Audio, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
+import { createLight } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
 import { Goblin } from '@/entities/Goblin.js'
@@ -86,6 +87,34 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     position: new Vector3(-450, -10, 0),
   })
 
+  const windowLights = [
+    createLight({
+      position: new Vector3(-200, -200, -500),
+      radius: 500,
+      color: Color.white,
+      intensity: 0.5,
+    }),
+    createLight({
+      position: new Vector3(0, -200, -500),
+      radius: 500,
+      color: Color.white,
+      intensity: 0.5,
+    }),
+    createLight({
+      position: new Vector3(200, -200, -500),
+      radius: 500,
+      color: Color.white,
+      intensity: 0.5,
+    }),
+  ]
+
+  const doorLight = createLight({
+    position: new Vector3(0, -100, 650),
+    radius: 300,
+    color: Color.white,
+    intensity: 0.5,
+  })
+
   return {
     meshes: [...counter1.meshes, ...counter2.meshes, ...counter3.meshes, ...radio.meshes, ...table.meshes, windowGlass],
     entities: [
@@ -101,6 +130,6 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
       bucket,
       magicWall,
     ],
-    lights: [],
+    lights: [...windowLights, doorLight],
   }
 }
