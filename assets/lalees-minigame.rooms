@@ -130,8 +130,9 @@ room add 400 $corridorHeight 450 room z-- y- x+
 with light
 room add 200 $entranceHeight 50 entrance z-- y-
 
+# room C
 cursor restore living-room
-room add 50 $roomHeight 150 room z- x++ y-
+room add 50 $entranceHeight 200 door z- x++ y-
 room add 600 $roomHeight 300 room z- x++ y-
 
 # left corridor

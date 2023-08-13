@@ -6,6 +6,7 @@ import { Scale } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
+import { Curtain2 } from '@/entities/Curtain.js'
 import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
 import { MagicWall } from '@/entities/MagicWall.js'
@@ -18,7 +19,7 @@ import { createTable } from '@/prefabs/table.js'
 export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const counter1 = createCounter({ position: new Vector3(300, -100, 450), angleY: 90 + randomBetween(-2, 2) })
   const counter2 = createCounter({ position: new Vector3(300, -100, 295), angleY: 90 + randomBetween(-2, 2) })
-  const counter3 = createCounter({ position: new Vector3(300, -100, -250), angleY: 90 + randomBetween(-2, 2) })
+  const counter3 = createCounter({ position: new Vector3(300, -100, -225), angleY: 90 + randomBetween(-2, 2) })
 
   const radio = createRadio({
     position: new Vector3(300, -100, 450),
@@ -110,6 +111,13 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
     }),
   ]
 
+  const curtain = new Curtain2({
+    position: new Vector3(375, -15, -450),
+    orientation: new Rotation(0, MathUtils.degToRad(180), 0),
+  })
+  curtain.withScript()
+  curtain.script?.properties.push(new Scale(0.9))
+
   return {
     meshes: [...counter1.meshes, ...counter2.meshes, ...counter3.meshes, ...radio.meshes, ...table.meshes, windowGlass],
     entities: [
@@ -124,6 +132,7 @@ export const createLivingRoom = async (gameStateManager: Entity, gameVariant: PC
       lantern,
       bucket,
       magicWall,
+      curtain,
     ],
     lights: [...windowLights],
   }
