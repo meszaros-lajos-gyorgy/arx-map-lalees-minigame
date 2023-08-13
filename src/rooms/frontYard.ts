@@ -5,6 +5,7 @@ import { times } from 'arx-level-generator/utils/faux-ramda'
 import { pickRandom, randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
+import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
 export const createFrontYard = async (gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
   // "around the corner and small alley" part
@@ -30,6 +31,9 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   barrel.script?.on('init', () => {
     return `inventory addfromscene ${runeComunicatum.ref}`
   })
+
+  const wallLight1 = createOutdoorLight({ position: new Vector3(1000, -180, -600) })
+  const wallLight2 = createOutdoorLight({ position: new Vector3(1475, -180, -600) })
 
   // ----------
 
@@ -66,8 +70,8 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   )
 
   return {
-    meshes: [],
+    meshes: [...wallLight1.meshes, ...wallLight2.meshes],
     entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk],
-    lights: [],
+    lights: [...wallLight1.lights, ...wallLight2.lights],
   }
 }

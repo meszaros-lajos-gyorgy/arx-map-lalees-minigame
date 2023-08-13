@@ -79,7 +79,7 @@ cursor save living-room
 # 3 windows on the back
 room add 100 250 50 window z-- y
 room add 500 $roomHeight 400 outside-south z-- y
-with light
+# with light
 cursor save outside-front
 room add 100 250 50 window z++ y x-
 cursor restore outside-front
@@ -90,7 +90,6 @@ cursor restore outside-front
 room add 1450 $roomHeight 400 outside-south x-- y-
 cursor restore outside-front
 room add 1450 $roomHeight 400 outside-south x++ y-
-with light
 
 # east alleyway
 room add 100 $roomHeight 700 outside-east x+ z++ y-
