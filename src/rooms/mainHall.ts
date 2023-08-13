@@ -77,7 +77,7 @@ export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGa
   })
 
   const lantern = new Lantern({
-    position: new Vector3(300, 0, -210),
+    position: new Vector3(300, 0, -180),
   })
   lantern.script?.properties.push(new Scale(0.7))
 
