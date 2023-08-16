@@ -102,9 +102,6 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
-      // Material.fromTexture(image, {
-      //   flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided | ArxPolygonFlags.Glow | ArxPolygonFlags.Tiled,
-      // }),
       Material.fromTexture(Texture.alpha, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(Texture.alpha, { flags: ArxPolygonFlags.NoShadow }),
     ],
