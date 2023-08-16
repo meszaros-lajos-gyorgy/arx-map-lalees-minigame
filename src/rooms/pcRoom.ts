@@ -66,8 +66,8 @@ export const createPCRoom = async (gameStateManager: Entity) => {
   })
 
   const monitorLight = createLight({
-    position: new Vector3(617, -113, 450),
-    radius: 200,
+    position: new Vector3(601, -100, 440),
+    radius: 100,
   })
 
   const door = new LightDoor({
