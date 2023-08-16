@@ -1,4 +1,5 @@
 import { Entity, Rotation, Vector3 } from 'arx-level-generator'
+import { Shadow } from 'arx-level-generator/scripting/properties'
 import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
@@ -16,6 +17,7 @@ export const createPantry = async (gameStateManager: Entity, gameVariant: PCGame
   const barrel = Entity.barrel.withScript().at({
     position: new Vector3(935, 0, -485),
   })
+  barrel.script?.properties.push(Shadow.off)
 
   const table1a = createTable({ position: new Vector3(552, -80, -172), hasShadow: true })
   const table1b = createTable({ position: new Vector3(552, -160, -172), hasShadow: false })
