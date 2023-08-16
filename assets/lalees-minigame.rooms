@@ -2,7 +2,7 @@
 
 define outside-south {
   ceiling removed
-  wall custom textures forest3.bmp fit-y
+  wall custom textures forest.bmp fit-y
   wall-south removed
   wall-north custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
@@ -10,21 +10,21 @@ define outside-south {
 
 define outside-east {
   ceiling removed
-  wall custom textures forest3.bmp fit-y
+  wall custom textures forest.bmp fit-y
   wall-west custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
 define outside-north {
   ceiling removed
-  wall custom textures forest3.bmp fit-y
+  wall custom textures forest.bmp fit-y
   wall-south custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
 define outside-west {
   ceiling removed
-  wall custom textures forest3.bmp fit-y
+  wall custom textures forest.bmp fit-y
   wall-east custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
