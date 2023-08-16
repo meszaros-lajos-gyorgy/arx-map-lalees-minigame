@@ -50,12 +50,21 @@ const achievementListenLarge = new ScriptSubroutine('achievement_found_games_lar
   `
 })
 
+const achievementLittering = new ScriptSubroutine('achievement_littering', () => {
+  return `
+    ${achievement.play()}
+    herosay [achievement--littering]
+    quest [achievement--littering]
+  `
+})
+
 export const createGameStateManager = () => {
   const manager = Entity.marker.withScript()
 
   const numberOfGamesTheGoblinHas = new Variable('int', 'number_of_games_the_goblin_has', 0)
   const playerFoundAnyGames = new Variable('bool', 'player_found_any_games', false)
   const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
+  const haveLittered = new Variable('bool', 'have_littered', false)
 
   manager.script?.properties.push(numberOfGamesTheGoblinHas, playerFoundAnyGames, isGoblinDead)
 
@@ -66,6 +75,7 @@ export const createGameStateManager = () => {
     achievementListenSmall,
     achievementListenMedium,
     achievementListenLarge,
+    achievementLittering,
   )
   manager.script?.on('init', () => {
     return `
@@ -75,29 +85,38 @@ export const createGameStateManager = () => {
 
   manager.script?.on('goblin_received_a_game', () => {
     return `
-    inc ${numberOfGamesTheGoblinHas.name} 1
+      inc ${numberOfGamesTheGoblinHas.name} 1
 
-    if (${numberOfGamesTheGoblinHas.name} == 1) {
-      ${tutorialGaveGameToGoblin.invoke()}
-    }
-    if (${numberOfGamesTheGoblinHas.name} == 2) {
-      ${achievementListenSmall.invoke()}
-    }
-    if (${numberOfGamesTheGoblinHas.name} == 5) {
-      ${achievementListenMedium.invoke()}
-    }
-    if (${numberOfGamesTheGoblinHas.name} == 8) {
-      ${achievementListenLarge.invoke()}
-    }
+      if (${numberOfGamesTheGoblinHas.name} == 1) {
+        ${tutorialGaveGameToGoblin.invoke()}
+      }
+      if (${numberOfGamesTheGoblinHas.name} == 2) {
+        ${achievementListenSmall.invoke()}
+      }
+      if (${numberOfGamesTheGoblinHas.name} == 5) {
+        ${achievementListenMedium.invoke()}
+      }
+      if (${numberOfGamesTheGoblinHas.name} == 8) {
+        ${achievementListenLarge.invoke()}
+      }
     `
   })
 
   manager.script?.on('player_found_a_game', () => {
     return `
-    if (${playerFoundAnyGames.name} == 0) {
-      set ${playerFoundAnyGames.name} 1
-      ${tutorialFoundAGame.invoke()}
-    }
+      if (${playerFoundAnyGames.name} == 0) {
+        set ${playerFoundAnyGames.name} 1
+        ${tutorialFoundAGame.invoke()}
+      }
+    `
+  })
+
+  manager.script?.on('trash_thrown_over_the_fence', () => {
+    return `
+      if (${haveLittered.name} == 0) {
+        set ${haveLittered.name} 1
+        ${achievementLittering.invoke()}
+      }
     `
   })
 

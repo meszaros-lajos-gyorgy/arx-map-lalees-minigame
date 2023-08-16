@@ -2,8 +2,8 @@ import { ArxPolygonFlags } from 'arx-convert/types'
 import { Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
-import { Interactivity, Scale } from 'arx-level-generator/scripting/properties'
-import { createLight } from 'arx-level-generator/tools'
+import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
+import { createLight, createZone } from 'arx-level-generator/tools'
 import { makeBumpy, scaleUV, transformEdge } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { times } from 'arx-level-generator/utils/faux-ramda'
@@ -55,11 +55,13 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
     crickets.push(cricket)
   }
 
-  const traffic1 = new TrafficSounds({ position: new Vector3(-2000, 0, -1500) })
-  const traffic2 = new TrafficSounds({ position: new Vector3(0, 0, -1500) })
-  const traffic3 = new TrafficSounds({ position: new Vector3(2000, 0, -1500) })
+  const trafficSounds = [
+    new TrafficSounds({ position: new Vector3(-2000, 0, -1800) }),
+    new TrafficSounds({ position: new Vector3(0, 0, -1800) }),
+    new TrafficSounds({ position: new Vector3(2000, 0, -1800) }),
+  ]
 
-  const fenceHeight = 250
+  const fenceHeight = 200
   const fence = createPlaneMesh({
     size: new Vector2(1450 * 2 + 500, fenceHeight),
     texture: Material.fromTexture(
@@ -90,7 +92,6 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
 
   const hills = createPlaneMesh({
     size: new Vector2(cityWidth, cityDepth),
-    // texture: new Texture({ filename: 'L5_SNAKE_[MARBLE]_WALL04.jpg' }),
     texture: new Texture({ filename: 'l2_troll_[sand]_ground04.jpg' }),
   })
   hills.rotateX(MathUtils.degToRad(-8))
@@ -147,6 +148,35 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
     )
   }
 
+  const trashDetectorZone = createZone({
+    name: 'trash_detector_zone',
+    position: new Vector3(0, 0, -1250),
+    size: new Vector3(cityWidth, 50, 500),
+  })
+
+  const trashDetector = Entity.marker.withScript().at({ position: new Vector3(0, 0, -1000) })
+  trashDetector.script?.properties.push(new ControlZone(trashDetectorZone))
+  trashDetector.script?.on('controlledzone_enter', () => {
+    return `
+      if (^$param1 isclass broken_bottle) {
+        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
+        accept
+      }
+      if (^$param1 isclass broken_shield) {
+        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
+        accept
+      }
+      if (^$param1 isclass broken_stool) {
+        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
+        accept
+      }
+      if (^$param1 isclass akbaa_blood_chicken_head) {
+        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
+        accept
+      }
+    `
+  })
+
   // ----------
 
   // "the dark end of the front yard" part
@@ -185,7 +215,18 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
 
   return {
     meshes: [...wallLight1.meshes, ...wallLight2.meshes, fence, hills, city],
-    entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk, ...crickets, traffic1, traffic2, traffic3],
+    entities: [
+      game1,
+      fern,
+      runeComunicatum,
+      barrel,
+      game2,
+      ...randomJunk,
+      ...crickets,
+      ...trafficSounds,
+      trashDetector,
+    ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
+    zones: [trashDetectorZone],
   }
 }

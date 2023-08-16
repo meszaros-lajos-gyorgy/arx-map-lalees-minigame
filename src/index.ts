@@ -109,6 +109,15 @@ map.lights.push(
   ...pantry.lights,
 )
 
+map.zones.push(
+  ...pcRoom.zones,
+  ...bathRoom.zones,
+  ...frontYard.zones,
+  ...backYard.zones,
+  ...livingRoom.zones,
+  ...pantry.zones,
+)
+
 const meshes = [
   ...pcRoom.meshes,
   ...bathRoom.meshes,

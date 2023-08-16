@@ -43,6 +43,9 @@
   "achievement--collected-games-large": {
     "english": "Achievement reached: Collected all games. Enjoy your collection!"
   },
+  "achievement--littering": {
+    "english": "Achievement reached: That is no longer my problem!"
+  },
 
   "ring--powerup": {
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)"
