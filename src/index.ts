@@ -1,4 +1,13 @@
-import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements, Vector3 } from 'arx-level-generator'
+import {
+  ArxMap,
+  DONT_QUADIFY,
+  HudElements,
+  SHADING_SMOOTH,
+  Settings,
+  UiElements,
+  Vector3,
+  Versions,
+} from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
@@ -19,6 +28,8 @@ const settings = new Settings({
   levelIdx: parseInt(process.env.levelIdx ?? '1'),
   outputDir: process.env.outputDir,
   seed: process.env.seed,
+  version: process.env.version === 'premium' ? Versions.Premium : Versions.Normal,
+  calculateLighting: process.env.calculateLighting === 'false' ? false : true,
 })
 
 const map = new ArxMap()

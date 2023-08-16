@@ -4,6 +4,8 @@ declare global {
       outputDir?: string
       levelIdx?: string
       seed?: string
+      version?: string
+      calculateLighting?: string
     }
   }
 }
