@@ -135,5 +135,6 @@ export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGa
       curtain,
     ],
     lights: [...windowLights],
+    zones: [],
   }
 }

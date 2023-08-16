@@ -25,6 +25,7 @@ export const createBathRoom = async (gameStateManager: Entity) => {
     meshes: [...counter.meshes],
     entities: [nhi, ...counter.entities, door],
     lights: [],
+    zones: [],
     _: {
       door,
     },

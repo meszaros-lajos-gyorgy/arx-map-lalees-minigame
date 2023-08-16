@@ -93,5 +93,6 @@ export const createPCRoom = async (gameStateManager: Entity) => {
     meshes: [...table.meshes, ...computer.meshes],
     entities: [tippedStool, normalStool, bigRigs, hangedGoblin, door, ...computer.entities],
     lights: [ambientLight, monitorLight],
+    zones: [],
   }
 }

@@ -41,6 +41,7 @@ export const createPantry = async (gameStateManager: Entity, gameVariant: PCGame
     ],
     entities: [game, barrel, bathroomKey],
     lights: [],
+    zones: [],
     _: {
       bathroomKey,
     },
