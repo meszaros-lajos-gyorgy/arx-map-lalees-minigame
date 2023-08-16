@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Color, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
@@ -100,6 +100,7 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   hills.translateZ(cityOffsetZ)
   transformEdge(new Vector3(0, 50, 0), hills)
   makeBumpy(20, 60, true, hills.geometry)
+  scaleUV(new Vector2(5, 5), hills.geometry)
 
   const city = createPlaneMesh({
     size: new Vector2(cityWidth, cityHeight),
@@ -130,7 +131,7 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
           cityOffsetZ - cityDepth / 2 + 200 - 250,
         ),
         radius: 500 + randomBetween(0, 100),
-        intensity: 1.6,
+        intensity: 0.9,
       }),
     )
 
@@ -143,7 +144,8 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
           cityOffsetZ - cityDepth / 2 + 200 - 150,
         ),
         radius: 600 + randomBetween(0, 100),
-        intensity: 0.5,
+        color: Color.fromCSS('#1a2032').lighten(30),
+        intensity: 0.75,
       }),
     )
   }
