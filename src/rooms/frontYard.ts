@@ -1,11 +1,17 @@
-import { Entity, Rotation, Vector3 } from 'arx-level-generator'
+import { ArxPolygonFlags } from 'arx-convert/types'
+import { Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
+import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Interactivity, Scale } from 'arx-level-generator/scripting/properties'
+import { createLight } from 'arx-level-generator/tools'
+import { makeBumpy, scaleUV, transformEdge } from 'arx-level-generator/tools/mesh'
+import { applyTransformations } from 'arx-level-generator/utils'
 import { times } from 'arx-level-generator/utils/faux-ramda'
 import { pickRandom, randomBetween } from 'arx-level-generator/utils/random'
-import { MathUtils } from 'three'
+import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
+import { TrafficSounds } from '@/entities/TrafficSounds.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
 export const createFrontYard = async (gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
@@ -42,11 +48,103 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
     const cricket = new Crickets({
       position: new Vector3(
         1800 - i * 600 + randomBetween(-100, 100),
-        randomBetween(0, -300),
+        200 + randomBetween(0, -300),
         -1500 + randomBetween(-300, 300),
       ),
     })
     crickets.push(cricket)
+  }
+
+  const traffic1 = new TrafficSounds({ position: new Vector3(-2000, 0, -1500) })
+  const traffic2 = new TrafficSounds({ position: new Vector3(0, 0, -1500) })
+  const traffic3 = new TrafficSounds({ position: new Vector3(2000, 0, -1500) })
+
+  const fenceHeight = 250
+  const fence = createPlaneMesh({
+    size: new Vector2(1450 * 2 + 500, fenceHeight),
+    texture: Material.fromTexture(
+      Texture.fromCustomFile({
+        filename: 'fence.bmp',
+        sourcePath: './textures',
+      }),
+      { flags: ArxPolygonFlags.NoShadow },
+    ),
+    tileUV: true,
+  })
+  fence.rotateX(MathUtils.degToRad(90))
+  applyTransformations(fence)
+  fence.translateY(-fenceHeight / 2)
+  fence.translateZ(-1000)
+  fence.rotateY(MathUtils.degToRad(180))
+  scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fence.geometry)
+
+  // ----------
+
+  // beyond the fence
+
+  const cityOffsetY = -10
+  const cityOffsetZ = -1700
+  const cityWidth = 3800
+  const cityHeight = 500
+  const cityDepth = 600
+
+  const hills = createPlaneMesh({
+    size: new Vector2(cityWidth, cityDepth),
+    // texture: new Texture({ filename: 'L5_SNAKE_[MARBLE]_WALL04.jpg' }),
+    texture: new Texture({ filename: 'l2_troll_[sand]_ground04.jpg' }),
+  })
+  hills.rotateX(MathUtils.degToRad(-8))
+  applyTransformations(hills)
+  hills.translateY(cityOffsetY)
+  hills.translateZ(cityOffsetZ)
+  transformEdge(new Vector3(0, 50, 0), hills)
+  makeBumpy(20, 60, true, hills.geometry)
+
+  const city = createPlaneMesh({
+    size: new Vector2(cityWidth, cityHeight),
+    texture: Material.fromTexture(
+      Texture.fromCustomFile({
+        filename: 'city-at-night.jpg',
+        sourcePath: './textures',
+      }),
+      { flags: ArxPolygonFlags.NoShadow },
+    ),
+    tileUV: true,
+  })
+  city.translateY(-cityHeight / 2 + cityOffsetY + 65)
+  city.translateZ(cityOffsetZ - cityDepth / 2 - 50 - 250)
+  city.rotateX(MathUtils.degToRad(90))
+  city.rotateZ(MathUtils.degToRad(180))
+  scaleUV(new Vector2(100 / cityHeight, 100 / cityHeight), city.geometry)
+
+  const cityLights = []
+  const numberOfLights = 7
+  for (let i = 1; i < numberOfLights; i++) {
+    // lower, but brighter lights to illuminate city
+    cityLights.push(
+      createLight({
+        position: new Vector3(
+          cityWidth / 2 - (cityWidth / numberOfLights) * i,
+          -30,
+          cityOffsetZ - cityDepth / 2 + 200 - 250,
+        ),
+        radius: 500 + randomBetween(0, 100),
+        intensity: 1.6,
+      }),
+    )
+
+    // upper, but dimmer lights to illuminate cliff
+    cityLights.push(
+      createLight({
+        position: new Vector3(
+          cityWidth / 2 - (cityWidth / numberOfLights) * i,
+          -300 + randomBetween(-50, 50),
+          cityOffsetZ - cityDepth / 2 + 200 - 150,
+        ),
+        radius: 600 + randomBetween(0, 100),
+        intensity: 0.5,
+      }),
+    )
   }
 
   // ----------
@@ -86,8 +184,8 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   )
 
   return {
-    meshes: [...wallLight1.meshes, ...wallLight2.meshes],
-    entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk, ...crickets],
-    lights: [...wallLight1.lights, ...wallLight2.lights],
+    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fence, hills, city],
+    entities: [game1, fern, runeComunicatum, barrel, game2, ...randomJunk, ...crickets, traffic1, traffic2, traffic3],
+    lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
   }
 }
