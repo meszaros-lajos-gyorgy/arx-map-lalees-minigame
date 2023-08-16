@@ -16,7 +16,7 @@ export const createBathRoom = async (gameStateManager: Entity) => {
   })
 
   const door = new LightDoor({
-    // isLocked: true,
+    isLocked: true,
     position: new Vector3(850, -200, 120),
     orientation: new Rotation(0, MathUtils.degToRad(-90), MathUtils.degToRad(180)),
   })
@@ -25,5 +25,8 @@ export const createBathRoom = async (gameStateManager: Entity) => {
     meshes: [...counter.meshes],
     entities: [nhi, ...counter.entities, door],
     lights: [],
+    _: {
+      door,
+    },
   }
 }

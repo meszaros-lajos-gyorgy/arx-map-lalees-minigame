@@ -17,11 +17,11 @@ import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
-import { createPantry } from './rooms/Pantry.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
 import { createMainHall } from './rooms/mainHall.js'
+import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
 
 const settings = new Settings({
@@ -86,6 +86,8 @@ const frontYard = await createFrontYard(gameStateManager, [gameVariants[0], game
 const backYard = await createBackYard(gameStateManager, gameVariants[2])
 const livingRoom = await createMainHall(gameStateManager, gameVariants[3])
 const pantry = await createPantry(gameStateManager, gameVariants[4])
+
+bathRoom._.door.setKey(pantry._.bathroomKey)
 
 // -----------------------------------
 

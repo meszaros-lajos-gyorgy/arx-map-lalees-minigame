@@ -1,5 +1,5 @@
 import { Entity, Rotation, Vector3 } from 'arx-level-generator'
-import { Shadow } from 'arx-level-generator/scripting/properties'
+import { Label, Shadow } from 'arx-level-generator/scripting/properties'
 import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
@@ -27,6 +27,9 @@ export const createPantry = async (gameStateManager: Entity, gameVariant: PCGame
   const table2b = createTable({ position: new Vector3(862, -160, -172), hasShadow: false })
   const table2c = createTable({ position: new Vector3(862, -240, -172), hasShadow: false })
 
+  const bathroomKey = Entity.key.at({ position: new Vector3(912, -160, -172) }).withScript()
+  bathroomKey.script?.properties.push(new Label('[key--bathroom]'))
+
   return {
     meshes: [
       ...table1a.meshes,
@@ -36,7 +39,10 @@ export const createPantry = async (gameStateManager: Entity, gameVariant: PCGame
       ...table2b.meshes,
       ...table2c.meshes,
     ],
-    entities: [game, barrel],
+    entities: [game, barrel, bathroomKey],
     lights: [],
+    _: {
+      bathroomKey,
+    },
   }
 }

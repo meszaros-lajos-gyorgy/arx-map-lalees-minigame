@@ -48,10 +48,7 @@
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)"
   },
 
-  "key--pcroom-key": {
-    "english": "PC room key"
-  },
-  "key--bathroom-key": {
+  "key--bathroom": {
     "english": "Bathroom key"
   }
 }
