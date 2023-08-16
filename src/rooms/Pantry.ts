@@ -3,7 +3,7 @@ import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
 
-export const createStorage = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createPantry = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(450, -80, -160),

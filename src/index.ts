@@ -17,7 +17,7 @@ import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
-import { createStorage } from './rooms/Storage.js'
+import { createPantry } from './rooms/Pantry.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
@@ -85,7 +85,7 @@ const bathRoom = await createBathRoom(gameStateManager)
 const frontYard = await createFrontYard(gameStateManager, [gameVariants[0], gameVariants[1]])
 const backYard = await createBackYard(gameStateManager, gameVariants[2])
 const livingRoom = await createMainHall(gameStateManager, gameVariants[3])
-const storage = await createStorage(gameStateManager, gameVariants[4])
+const pantry = await createPantry(gameStateManager, gameVariants[4])
 
 // -----------------------------------
 
@@ -95,7 +95,7 @@ map.entities.push(
   ...frontYard.entities,
   ...backYard.entities,
   ...livingRoom.entities,
-  ...storage.entities,
+  ...pantry.entities,
 )
 
 map.lights.push(
@@ -104,7 +104,7 @@ map.lights.push(
   ...frontYard.lights,
   ...backYard.lights,
   ...livingRoom.lights,
-  ...storage.lights,
+  ...pantry.lights,
 )
 
 const meshes = [
@@ -113,7 +113,7 @@ const meshes = [
   ...frontYard.meshes,
   ...backYard.meshes,
   ...livingRoom.meshes,
-  ...storage.meshes,
+  ...pantry.meshes,
 ]
 meshes.forEach((mesh) => {
   applyTransformations(mesh)
