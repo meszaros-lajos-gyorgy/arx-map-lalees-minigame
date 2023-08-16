@@ -52,5 +52,6 @@ export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGa
     meshes: [...moon.meshes, ...tree, ...wallLight1.meshes, ...wallLight2.meshes],
     entities: [door, game, ...crickets],
     lights: [...moon.lights, ...wallLight1.lights, ...wallLight2.lights],
+    zones: [],
   }
 }
