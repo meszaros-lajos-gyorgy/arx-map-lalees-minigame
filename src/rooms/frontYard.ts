@@ -56,9 +56,9 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
   }
 
   const trafficSounds = [
-    new TrafficSounds({ position: new Vector3(-2000, 0, -1800) }),
-    new TrafficSounds({ position: new Vector3(0, 0, -1800) }),
-    new TrafficSounds({ position: new Vector3(2000, 0, -1800) }),
+    new TrafficSounds({ position: new Vector3(-2000, 0, -2000) }),
+    new TrafficSounds({ position: new Vector3(0, 0, -2000) }),
+    new TrafficSounds({ position: new Vector3(2000, 0, -2000) }),
   ]
 
   const fenceHeight = 200
@@ -126,7 +126,7 @@ export const createFrontYard = async (gameStateManager: Entity, gameVariants: PC
       createLight({
         position: new Vector3(
           cityWidth / 2 - (cityWidth / numberOfLights) * i,
-          -30,
+          100,
           cityOffsetZ - cityDepth / 2 + 200 - 250,
         ),
         radius: 500 + randomBetween(0, 100),
