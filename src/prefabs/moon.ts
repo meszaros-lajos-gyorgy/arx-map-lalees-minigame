@@ -49,6 +49,7 @@ export const createMoon = ({
     color: Color.white.darken(30),
     fallStart: 200,
     radius: lightRadius,
+    intensity: 0.7,
   })
 
   return {
