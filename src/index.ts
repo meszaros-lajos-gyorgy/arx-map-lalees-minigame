@@ -85,56 +85,30 @@ const pcRoom = await createPCRoom(settings, gameStateManager)
 const bathRoom = await createBathRoom(settings, gameStateManager, gameVariants[0])
 const frontYard = await createFrontYard(settings, gameStateManager, [gameVariants[1], gameVariants[2]])
 const backYard = await createBackYard(settings, gameStateManager, gameVariants[3])
-const livingRoom = await createMainHall(settings, gameStateManager, gameVariants[4])
+const mainHall = await createMainHall(settings, gameStateManager, gameVariants[4])
 const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 
-;(bathRoom._.door as LightDoor).setKey(pantry._.bathroomKey)
+const bathroomDoor = bathRoom._.door as LightDoor
+bathroomDoor.setKey(pantry._.bathroomKey)
 
 // -----------------------------------
 
-map.entities.push(
-  ...pcRoom.entities,
-  ...bathRoom.entities,
-  ...frontYard.entities,
-  ...backYard.entities,
-  ...livingRoom.entities,
-  ...pantry.entities,
-)
+const roomInteriors = [pcRoom, bathRoom, frontYard, backYard, mainHall, pantry]
 
-map.lights.push(
-  ...pcRoom.lights,
-  ...bathRoom.lights,
-  ...frontYard.lights,
-  ...backYard.lights,
-  ...livingRoom.lights,
-  ...pantry.lights,
-)
+map.entities.push(...roomInteriors.flatMap(({ entities }) => entities))
+map.lights.push(...roomInteriors.flatMap(({ lights }) => lights))
+map.zones.push(...roomInteriors.flatMap(({ zones }) => zones))
 
-map.zones.push(
-  ...pcRoom.zones,
-  ...bathRoom.zones,
-  ...frontYard.zones,
-  ...backYard.zones,
-  ...livingRoom.zones,
-  ...pantry.zones,
-)
-
-const meshes = [
-  ...pcRoom.meshes,
-  ...bathRoom.meshes,
-  ...frontYard.meshes,
-  ...backYard.meshes,
-  ...livingRoom.meshes,
-  ...pantry.meshes,
-]
-meshes.forEach((mesh) => {
-  applyTransformations(mesh)
-  mesh.translateX(map.config.offset.x)
-  mesh.translateY(map.config.offset.y)
-  mesh.translateZ(map.config.offset.z)
-  applyTransformations(mesh)
-  map.polygons.addThreeJsMesh(mesh, { tryToQuadify: DONT_QUADIFY, shading: SHADING_SMOOTH })
-})
+roomInteriors
+  .flatMap(({ meshes }) => meshes)
+  .forEach((mesh) => {
+    applyTransformations(mesh)
+    mesh.translateX(map.config.offset.x)
+    mesh.translateY(map.config.offset.y)
+    mesh.translateZ(map.config.offset.z)
+    applyTransformations(mesh)
+    map.polygons.addThreeJsMesh(mesh, { tryToQuadify: DONT_QUADIFY, shading: SHADING_SMOOTH })
+  })
 
 // -----------------------------------
 
