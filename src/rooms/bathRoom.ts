@@ -8,8 +8,8 @@ import { createCounter } from '@/prefabs/counter.js'
 
 export const createBathRoom = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const nhi = new Rune('nhi', {
-    position: new Vector3(1051, -87, 502),
-    orientation: new Rotation(0, MathUtils.degToRad(57), 0),
+    position: new Vector3(942, -87, 462),
+    orientation: new Rotation(0, MathUtils.degToRad(137), 0),
   })
 
   const counter = createCounter({
@@ -21,8 +21,8 @@ export const createBathRoom = async (settings: Settings, gameStateManager: Entit
   counter._.rightDoor.isLocked = true
 
   const door = new LightDoor({
-    isLocked: true,
-    position: new Vector3(850, -200, 120),
+    isLocked: settings.mode === 'production',
+    position: new Vector3(840, -200, 120),
     orientation: new Rotation(0, MathUtils.degToRad(-90), MathUtils.degToRad(180)),
   })
 
@@ -50,9 +50,16 @@ export const createBathRoom = async (settings: Settings, gameStateManager: Entit
     `
   })
 
+  const jar = new Entity({
+    src: 'items/movable/jar',
+    position: new Vector3(1055, -87, 520),
+    orientation: new Rotation(0, MathUtils.degToRad(45), 0),
+  })
+  jar.withScript()
+
   return {
     meshes: [...counter.meshes],
-    entities: [nhi, ...counter.entities, door, mirrorOnWall, game],
+    entities: [nhi, ...counter.entities, door, mirrorOnWall, game, jar],
     lights: [],
     zones: [],
     _: {
