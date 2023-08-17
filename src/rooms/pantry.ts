@@ -2,6 +2,7 @@ import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { Label, Shadow } from 'arx-level-generator/scripting/properties'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
+import { Jar } from '@/entities/Jar.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
 
@@ -43,12 +44,10 @@ export const createPantry = async (settings: Settings, gameStateManager: Entity,
     Entity.rope.at({ position: new Vector3(760, lowestShelf, -180 + randomBetween(-5, 5)) }),
   ]
 
-  const jar = new Entity({
-    src: 'items/movable/jar',
+  const jar = new Jar({
     position: new Vector3(620, lowestShelf, -190),
     orientation: new Rotation(0, MathUtils.degToRad(90), 0),
   })
-  jar.withScript()
 
   return {
     meshes: [

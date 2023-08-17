@@ -2,6 +2,7 @@ import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
+import { Jar } from '@/entities/Jar.js'
 import { MirrorOnWall } from '@/entities/MirrorOnWall.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createCounter } from '@/prefabs/counter.js'
@@ -22,7 +23,7 @@ export const createBathRoom = async (settings: Settings, gameStateManager: Entit
 
   const door = new LightDoor({
     isLocked: settings.mode === 'production',
-    position: new Vector3(840, -200, 120),
+    position: new Vector3(850, -200, 120),
     orientation: new Rotation(0, MathUtils.degToRad(-90), MathUtils.degToRad(180)),
   })
 
@@ -50,12 +51,10 @@ export const createBathRoom = async (settings: Settings, gameStateManager: Entit
     `
   })
 
-  const jar = new Entity({
-    src: 'items/movable/jar',
+  const jar = new Jar({
     position: new Vector3(1055, -87, 520),
     orientation: new Rotation(0, MathUtils.degToRad(45), 0),
   })
-  jar.withScript()
 
   return {
     meshes: [...counter.meshes],
