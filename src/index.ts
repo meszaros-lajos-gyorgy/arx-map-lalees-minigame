@@ -81,11 +81,11 @@ const gameVariants: PCGameVariant[] = randomSort([
 ])
 
 const pcRoom = await createPCRoom(gameStateManager)
-const bathRoom = await createBathRoom(gameStateManager)
-const frontYard = await createFrontYard(gameStateManager, [gameVariants[0], gameVariants[1]])
-const backYard = await createBackYard(gameStateManager, gameVariants[2])
-const livingRoom = await createMainHall(gameStateManager, gameVariants[3])
-const pantry = await createPantry(gameStateManager, gameVariants[4])
+const bathRoom = await createBathRoom(gameStateManager, gameVariants[0])
+const frontYard = await createFrontYard(gameStateManager, [gameVariants[1], gameVariants[2]])
+const backYard = await createBackYard(gameStateManager, gameVariants[3])
+const livingRoom = await createMainHall(gameStateManager, gameVariants[4])
+const pantry = await createPantry(gameStateManager, gameVariants[5])
 
 bathRoom._.door.setKey(pantry._.bathroomKey)
 

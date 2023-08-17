@@ -118,6 +118,32 @@ export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGa
   curtain.withScript()
   curtain.script?.properties.push(new Scale(0.9))
 
+  // ---------------
+
+  const rootMirror = new Entity({
+    src: 'items/quest_item/mirror',
+  })
+  rootMirror.withScript()
+  rootMirror.script?.makeIntoRoot()
+  rootMirror.script?.on('init', () => {
+    return `
+      SETNAME [description_mirror]
+      SET_MATERIAL GLASS
+      SET_GROUP PROVISIONS
+      SET_PRICE 200
+      SET_STEAL 50
+      SET_WEIGHT 1
+    `
+  })
+
+  const mirror = new Entity({
+    src: 'items/quest_item/mirror',
+    position: new Vector3(-1396, -120, 0),
+  })
+  mirror.withScript()
+
+  // ---------------
+
   return {
     meshes: [...counter1.meshes, ...counter2.meshes, ...counter3.meshes, ...radio.meshes, ...table.meshes, windowGlass],
     entities: [
@@ -133,6 +159,8 @@ export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGa
       bucket,
       magicWall,
       curtain,
+      rootMirror,
+      mirror,
     ],
     lights: [...windowLights],
     zones: [],

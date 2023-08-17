@@ -67,5 +67,9 @@ export const createCounter = ({ position, angleY = 0 }: createCounterProps) => {
   return {
     entities: [leftDoor, rightDoor],
     meshes: [counterTop, counterLeftWall, counterRightWall],
+    _: {
+      leftDoor,
+      rightDoor,
+    },
   }
 }

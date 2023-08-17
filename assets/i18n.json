@@ -53,5 +53,9 @@
 
   "key--bathroom": {
     "english": "Bathroom key"
+  },
+
+  "unmounted-mirror-on-wall": {
+    "english": "The mirror is missing from the wall"
   }
 }
