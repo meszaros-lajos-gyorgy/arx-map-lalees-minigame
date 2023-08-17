@@ -56,7 +56,7 @@ rooms.forEach((room) => {
 const spawnZone = createZone({ name: 'spawn', drawDistance: 5000 })
 map.zones.push(spawnZone)
 
-const gameStateManager = createGameStateManager()
+const gameStateManager = createGameStateManager(settings)
 
 const rootRune = new Rune('aam', { arxTutorialEnabled: false })
 rootRune.script?.makeIntoRoot()

@@ -1,4 +1,4 @@
-import { Audio, Entity } from 'arx-level-generator'
+import { Audio, Entity, Settings } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { Variable } from 'arx-level-generator/scripting/properties'
@@ -58,7 +58,7 @@ const achievementLittering = new ScriptSubroutine('achievement_littering', () =>
   `
 })
 
-export const createGameStateManager = () => {
+export const createGameStateManager = (settings: Settings) => {
   const manager = Entity.marker.withScript()
 
   const numberOfGamesTheGoblinHas = new Variable('int', 'number_of_games_the_goblin_has', 0)
@@ -77,11 +77,14 @@ export const createGameStateManager = () => {
     achievementListenLarge,
     achievementLittering,
   )
-  manager.script?.on('init', () => {
-    return `
+
+  if (settings.mode === 'production') {
+    manager.script?.on('init', () => {
+      return `
       TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}
     `
-  })
+    })
+  }
 
   manager.script?.on('goblin_received_a_game', () => {
     return `
