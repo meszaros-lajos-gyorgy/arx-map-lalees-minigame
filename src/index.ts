@@ -8,7 +8,7 @@ import {
   Vector3,
   Versions,
 } from 'arx-level-generator'
-import { Rune } from 'arx-level-generator/prefabs/entity'
+import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
@@ -88,7 +88,7 @@ const backYard = await createBackYard(settings, gameStateManager, gameVariants[3
 const livingRoom = await createMainHall(settings, gameStateManager, gameVariants[4])
 const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 
-bathRoom._.door.setKey(pantry._.bathroomKey)
+;(bathRoom._.door as LightDoor).setKey(pantry._.bathroomKey)
 
 // -----------------------------------
 
