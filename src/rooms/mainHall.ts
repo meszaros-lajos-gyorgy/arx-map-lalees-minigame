@@ -11,6 +11,7 @@ import { Curtain2 } from '@/entities/Curtain.js'
 import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
 import { MagicWall } from '@/entities/MagicWall.js'
+import { Mirror } from '@/entities/Mirror.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { PowerupRing } from '@/entities/PowerupRing.js'
 import { createCounter } from '@/prefabs/counter.js'
@@ -129,27 +130,10 @@ export const createMainHall = async (settings: Settings, gameStateManager: Entit
 
   // ---------------
 
-  const rootMirror = new Entity({
-    src: 'items/quest_item/mirror',
-  })
-  rootMirror.withScript()
+  const rootMirror = new Mirror()
   rootMirror.script?.makeIntoRoot()
-  rootMirror.script?.on('init', () => {
-    return `
-      SETNAME [description_mirror]
-      SET_MATERIAL GLASS
-      SET_GROUP PROVISIONS
-      SET_PRICE 200
-      SET_STEAL 50
-      SET_WEIGHT 1
-    `
-  })
 
-  const mirror = new Entity({
-    src: 'items/quest_item/mirror',
-    position: new Vector3(-1396, -120, 0),
-  })
-  mirror.withScript()
+  const mirror = new Mirror({ position: new Vector3(-1396, -120, 0) })
 
   // ---------------
 
