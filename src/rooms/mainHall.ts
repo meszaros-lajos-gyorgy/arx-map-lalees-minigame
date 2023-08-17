@@ -6,6 +6,7 @@ import { Scale } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
+import { Bucket } from '@/entities/Bucket.js'
 import { Curtain2 } from '@/entities/Curtain.js'
 import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
@@ -90,8 +91,7 @@ export const createMainHall = async (settings: Settings, gameStateManager: Entit
   })
   lantern.script?.properties.push(new Scale(0.7))
 
-  const bucket = new Entity({
-    src: 'items/movable/bucket',
+  const bucket = new Bucket({
     position: new Vector3(310, 0, 335),
   })
 
