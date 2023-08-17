@@ -25,6 +25,9 @@ const goblinVoiceWish = Audio.fromCustomFile({
 })
 
 export class Goblin extends Entity {
+  isBusy: Variable<boolean>
+  doneSpeaking: ScriptSubroutine
+
   constructor({ gameStateMarker, ...props }: EntityConstructorPropsWithoutSrc & { gameStateMarker: Entity }) {
     super({
       src: 'npc/goblin_base',
@@ -33,12 +36,15 @@ export class Goblin extends Entity {
     this.withScript()
 
     const isBusy = new Variable('bool', 'busy', false)
+    this.isBusy = isBusy
 
     const doneSpeaking = new ScriptSubroutine('done_speaking', () => {
       return `
         set ${isBusy.name} 0
       `
     })
+    this.doneSpeaking = doneSpeaking
+
     this.script?.subroutines.push(doneSpeaking)
 
     this.otherDependencies.push(goblinVoiceYes, goblinVoiceWish)
@@ -67,11 +73,7 @@ export class Goblin extends Entity {
     })
 
     this.script?.on('initend', () => {
-      return `
-        set ${isBusy.name} 1
-        speak [goblin_wants_to_play_games] ${doneSpeaking.invoke()}
-        TIMERmisc_reflection -i 0 10 sendevent idle self ""
-      `
+      return `TIMERmisc_reflection -i 0 10 sendevent idle self ""`
     })
 
     this.script?.on('combine', () => {
