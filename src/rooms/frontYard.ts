@@ -6,8 +6,7 @@ import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { makeBumpy, scaleUV, transformEdge } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
-import { times } from 'arx-level-generator/utils/faux-ramda'
-import { pickRandom, randomBetween } from 'arx-level-generator/utils/random'
+import { pickWeightedRandoms, randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
@@ -164,24 +163,7 @@ export const createFrontYard = async (
   const trashDetector = Entity.marker.withScript().at({ position: new Vector3(0, 0, -1000) })
   trashDetector.script?.properties.push(new ControlZone(trashDetectorZone))
   trashDetector.script?.on('controlledzone_enter', () => {
-    return `
-      if (^$param1 isclass broken_bottle) {
-        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
-        accept
-      }
-      if (^$param1 isclass broken_shield) {
-        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
-        accept
-      }
-      if (^$param1 isclass broken_stool) {
-        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
-        accept
-      }
-      if (^$param1 isclass akbaa_blood_chicken_head) {
-        sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop
-        accept
-      }
-    `
+    return `sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop`
   })
 
   // ----------
@@ -190,35 +172,40 @@ export const createFrontYard = async (
 
   const game2 = new PCGame({
     variant: gameVariants[1],
-    position: new Vector3(-1650, -5, -670),
+    position: new Vector3(-1600, -5, -700),
   })
   game2.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`
   })
 
-  const randomJunk = times(
-    () => {
-      const position = game2.position
-        .clone()
-        .add(new Vector3(randomBetween(-30, 80), randomBetween(-5, 5), randomBetween(-50, 50)))
+  const randomJunk = pickWeightedRandoms(
+    Math.round(randomBetween(12, 16)),
+    [
+      { value: () => Entity.brokenBottle, weight: 5 },
+      { value: () => Entity.brokenShield, weight: 1 },
+      { value: () => new Entity({ src: 'items/movable/plate_dirty' }), weight: 10 },
+      { value: () => new Entity({ src: 'items/movable/chess' }), weight: 1 },
+      { value: () => new Entity({ src: 'items/provisions/candel' }), weight: 5 },
+      { value: () => new Entity({ src: 'items/movable/fork' }), weight: 10 },
+      { value: () => new Entity({ src: 'items/movable/mug' }), weight: 10 },
+      { value: () => new Entity({ src: 'items/movable/stone_big' }), weight: 5 },
+      { value: () => Entity.boneBassin, weight: 1 },
+      { value: () => Entity.brokenStool, weight: 1 },
+      { value: () => Entity.akbaaBloodChickenHead, weight: 10 },
+    ],
+    true,
+  ).map(({ value: createItem }) => {
+    const offset = new Vector3(randomBetween(-40, 40), randomBetween(0, -10), randomBetween(-50, 50))
+    const position = game2.position.clone().add(offset)
 
-      const orientation = new Rotation(
-        MathUtils.degToRad(randomBetween(-45, 45)),
-        MathUtils.degToRad(randomBetween(0, 360)),
-        MathUtils.degToRad(randomBetween(-45, 45)),
-      )
+    const orientation = new Rotation(
+      MathUtils.degToRad(randomBetween(-5, 5)),
+      MathUtils.degToRad(randomBetween(0, 360)),
+      MathUtils.degToRad(randomBetween(-5, 5)),
+    )
 
-      const item = pickRandom([
-        Entity.brokenBottle,
-        Entity.brokenShield,
-        Entity.brokenStool,
-        Entity.akbaaBloodChickenHead,
-      ])
-
-      return item.withScript().at({ position, orientation })
-    },
-    Math.round(randomBetween(7, 12)),
-  )
+    return createItem().withScript().at({ position, orientation })
+  })
 
   return {
     meshes: [...wallLight1.meshes, ...wallLight2.meshes, fence, hills, city],
