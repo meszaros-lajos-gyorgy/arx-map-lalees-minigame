@@ -38,6 +38,15 @@ export const createMainHall = async (settings: Settings, gameStateManager: Entit
     gameStateMarker: gameStateManager,
   })
 
+  if (settings.mode === 'production') {
+    goblin.script?.on('initend', () => {
+      return `
+        set ${goblin.isBusy.name} 1
+        speak [goblin_wants_to_play_games] ${goblin.doneSpeaking.invoke()}
+      `
+    })
+  }
+
   gameStateManager.script?.on('goblin_suicide', () => {
     return `destroy ${goblin.ref}`
   })
