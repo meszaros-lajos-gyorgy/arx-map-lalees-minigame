@@ -33,7 +33,7 @@ export const createPantry = async (gameStateManager: Entity, gameVariant: PCGame
   const table2c = createTable({ position: new Vector3(862, highestShelf, -172), hasShadow: false })
 
   const bathroomKey = Entity.key
-    .at({ position: new Vector3(912, middleShelf, -172), orientation: new Rotation(0, MathUtils.degToRad(90), 0) })
+    .at({ position: new Vector3(912, lowestShelf, -172), orientation: new Rotation(0, MathUtils.degToRad(90), 0) })
     .withScript()
   bathroomKey.script?.properties.push(new Label('[key--bathroom]'))
 
