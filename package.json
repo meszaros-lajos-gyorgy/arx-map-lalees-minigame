@@ -5,10 +5,12 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "dev": "npm run generate && npm run rungame",
-    "prod": "export mode=\"production\" && npm run generate && npm run rungame",
-    "generate": "tsc && tsc-alias && node -r dotenv/config ./dist/src/index.js",
-    "rungame": "~/projektek/arx/ArxLibertatis/build/arx --loadlevel 1"
+    "generate": "tsc && tsc-alias && node ./dist/src/index.js",
+    "generate:with-dotenv": "tsc && tsc-alias && node -r dotenv/config ./dist/src/index.js",
+    "rungame": "~/projektek/arx/ArxLibertatis/build/arx --loadlevel 1",
+    "dev": "npm run generate:with-dotenv && npm run rungame",
+    "prod": "export mode=\"production\" && npm run generate:with-dotenv && npm run rungame",
+    "release:normal": "npm run generate"
   },
   "repository": {
     "type": "git",
