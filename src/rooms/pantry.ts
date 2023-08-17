@@ -5,8 +5,13 @@ import { MathUtils } from 'three'
 import { Jar } from '@/entities/Jar.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
+import { RoomContents } from '@/types.js'
 
-export const createPantry = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createPantry = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  gameVariant: PCGameVariant,
+): Promise<RoomContents> => {
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(450, -80, -160),

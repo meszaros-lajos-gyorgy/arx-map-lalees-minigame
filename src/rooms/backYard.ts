@@ -8,8 +8,13 @@ import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createMoon } from '@/prefabs/moon.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
+import { RoomContents } from '@/types.js'
 
-export const createBackYard = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createBackYard = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  gameVariant: PCGameVariant,
+): Promise<RoomContents> => {
   const moon = createMoon({
     position: new Vector3(300, -750, 1500),
     size: 30,
@@ -53,5 +58,6 @@ export const createBackYard = async (settings: Settings, gameStateManager: Entit
     entities: [door, game, ...crickets],
     lights: [...moon.lights, ...wallLight1.lights, ...wallLight2.lights],
     zones: [],
+    _: {},
   }
 }

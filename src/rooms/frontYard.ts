@@ -13,8 +13,13 @@ import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { TrafficSounds } from '@/entities/TrafficSounds.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
+import { RoomContents } from '@/types.js'
 
-export const createFrontYard = async (settings: Settings, gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
+export const createFrontYard = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  gameVariants: PCGameVariant[],
+): Promise<RoomContents> => {
   // "around the corner and small alley" part
 
   const game1 = new PCGame({
@@ -230,5 +235,6 @@ export const createFrontYard = async (settings: Settings, gameStateManager: Enti
     ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
     zones: [trashDetectorZone],
+    _: {},
   }
 }

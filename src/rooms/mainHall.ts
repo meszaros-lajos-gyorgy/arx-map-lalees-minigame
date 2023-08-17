@@ -17,8 +17,13 @@ import { PowerupRing } from '@/entities/PowerupRing.js'
 import { createCounter } from '@/prefabs/counter.js'
 import { createRadio } from '@/prefabs/radio.js'
 import { createTable } from '@/prefabs/table.js'
+import { RoomContents } from '@/types.js'
 
-export const createMainHall = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createMainHall = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  gameVariant: PCGameVariant,
+): Promise<RoomContents> => {
   const counter1 = createCounter({ position: new Vector3(300, -100, 450), angleY: 90 + randomBetween(-2, 2) })
   const counter2 = createCounter({ position: new Vector3(300, -100, 295), angleY: 90 + randomBetween(-2, 2) })
   const counter3 = createCounter({ position: new Vector3(300, -100, -225), angleY: 90 + randomBetween(-2, 2) })
@@ -157,5 +162,6 @@ export const createMainHall = async (settings: Settings, gameStateManager: Entit
     ],
     lights: [...windowLights],
     zones: [],
+    _: {},
   }
 }

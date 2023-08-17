@@ -6,8 +6,9 @@ import { MathUtils } from 'three'
 import { PCGame } from '@/entities/PCGame.js'
 import { createComputer } from '@/prefabs/computer.js'
 import { createTable } from '@/prefabs/table.js'
+import { RoomContents } from '@/types.js'
 
-export const createPCRoom = async (settings: Settings, gameStateManager: Entity) => {
+export const createPCRoom = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
   // "normal state" parts
 
   const normalStool = Entity.seatStool1.withScript().at({ position: new Vector3(620, 0, 430) })
@@ -71,7 +72,6 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
   })
 
   const door = new LightDoor({
-    // isLocked: true,
     position: new Vector3(800, 20, 120),
     orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
   })
@@ -94,5 +94,6 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
     entities: [tippedStool, normalStool, bigRigs, hangedGoblin, door, ...computer.entities],
     lights: [ambientLight, monitorLight],
     zones: [],
+    _: {},
   }
 }

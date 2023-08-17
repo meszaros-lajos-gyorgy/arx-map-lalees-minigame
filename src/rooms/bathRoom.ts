@@ -6,8 +6,13 @@ import { Jar } from '@/entities/Jar.js'
 import { MirrorOnWall } from '@/entities/MirrorOnWall.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createCounter } from '@/prefabs/counter.js'
+import { RoomContents } from '@/types.js'
 
-export const createBathRoom = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createBathRoom = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  gameVariant: PCGameVariant,
+): Promise<RoomContents> => {
   const nhi = new Rune('nhi', {
     position: new Vector3(942, -87, 462),
     orientation: new Rotation(0, MathUtils.degToRad(137), 0),
