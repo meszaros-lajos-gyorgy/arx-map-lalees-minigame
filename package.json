@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run generate && npm run rungame",
+    "prod": "export mode=\"production\" && npm run generate && npm run rungame",
     "generate": "tsc && tsc-alias && node -r dotenv/config ./dist/src/index.js",
     "rungame": "~/projektek/arx/ArxLibertatis/build/arx --loadlevel 1"
   },
