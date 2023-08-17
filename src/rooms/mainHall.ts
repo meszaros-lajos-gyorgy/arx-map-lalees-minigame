@@ -58,7 +58,7 @@ export const createMainHall = async (settings: Settings, gameStateManager: Entit
 
   const runeSpacium = new Rune('spacium')
   runeSpacium.position = new Vector3(-300, -79, 280)
-  runeSpacium.orientation.y = MathUtils.degToRad(180)
+  runeSpacium.orientation.y = MathUtils.degToRad(195)
 
   const powerupRing = new PowerupRing({
     position: new Vector3(-300, -79, 370),
