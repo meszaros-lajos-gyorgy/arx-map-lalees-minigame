@@ -1,11 +1,11 @@
-import { Entity, Rotation, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { Label, Shadow } from 'arx-level-generator/scripting/properties'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createTable } from '@/prefabs/table.js'
 
-export const createPantry = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createPantry = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(450, -80, -160),

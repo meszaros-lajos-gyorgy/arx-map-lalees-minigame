@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Audio, Color, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
@@ -16,7 +16,7 @@ import { createCounter } from '@/prefabs/counter.js'
 import { createRadio } from '@/prefabs/radio.js'
 import { createTable } from '@/prefabs/table.js'
 
-export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createMainHall = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const counter1 = createCounter({ position: new Vector3(300, -100, 450), angleY: 90 + randomBetween(-2, 2) })
   const counter2 = createCounter({ position: new Vector3(300, -100, 295), angleY: 90 + randomBetween(-2, 2) })
   const counter3 = createCounter({ position: new Vector3(300, -100, -225), angleY: 90 + randomBetween(-2, 2) })
@@ -29,7 +29,7 @@ export const createMainHall = async (gameStateManager: Entity, gameVariant: PCGa
       filename: 'lalee-theme-song.wav',
       sourcePath: './sfx',
     }),
-    isOn: true,
+    isOn: settings.mode === 'production',
   })
 
   const goblin = new Goblin({

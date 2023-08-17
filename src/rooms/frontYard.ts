@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Color, Entity, Material, Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Color, Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
@@ -14,7 +14,7 @@ import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { TrafficSounds } from '@/entities/TrafficSounds.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
-export const createFrontYard = async (gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
+export const createFrontYard = async (settings: Settings, gameStateManager: Entity, gameVariants: PCGameVariant[]) => {
   // "around the corner and small alley" part
 
   const game1 = new PCGame({

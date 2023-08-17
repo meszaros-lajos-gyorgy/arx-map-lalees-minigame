@@ -1,4 +1,4 @@
-import { Color, Entity, Rotation, Vector3 } from 'arx-level-generator'
+import { Color, Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { LightDoor } from 'arx-level-generator/prefabs/entity'
 import { Interactivity, Shadow } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
@@ -7,7 +7,7 @@ import { PCGame } from '@/entities/PCGame.js'
 import { createComputer } from '@/prefabs/computer.js'
 import { createTable } from '@/prefabs/table.js'
 
-export const createPCRoom = async (gameStateManager: Entity) => {
+export const createPCRoom = async (settings: Settings, gameStateManager: Entity) => {
   // "normal state" parts
 
   const normalStool = Entity.seatStool1.withScript().at({ position: new Vector3(620, 0, 430) })

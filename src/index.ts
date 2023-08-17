@@ -30,6 +30,7 @@ const settings = new Settings({
   seed: process.env.seed,
   version: process.env.version === 'premium' ? Versions.Premium : Versions.Normal,
   calculateLighting: process.env.calculateLighting === 'false' ? false : true,
+  mode: process.env.mode === 'development' ? 'development' : 'production',
 })
 
 const map = new ArxMap()
@@ -80,12 +81,12 @@ const gameVariants: PCGameVariant[] = randomSort([
   'bikini-karate-babes',
 ])
 
-const pcRoom = await createPCRoom(gameStateManager)
-const bathRoom = await createBathRoom(gameStateManager, gameVariants[0])
-const frontYard = await createFrontYard(gameStateManager, [gameVariants[1], gameVariants[2]])
-const backYard = await createBackYard(gameStateManager, gameVariants[3])
-const livingRoom = await createMainHall(gameStateManager, gameVariants[4])
-const pantry = await createPantry(gameStateManager, gameVariants[5])
+const pcRoom = await createPCRoom(settings, gameStateManager)
+const bathRoom = await createBathRoom(settings, gameStateManager, gameVariants[0])
+const frontYard = await createFrontYard(settings, gameStateManager, [gameVariants[1], gameVariants[2]])
+const backYard = await createBackYard(settings, gameStateManager, gameVariants[3])
+const livingRoom = await createMainHall(settings, gameStateManager, gameVariants[4])
+const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 
 bathRoom._.door.setKey(pantry._.bathroomKey)
 

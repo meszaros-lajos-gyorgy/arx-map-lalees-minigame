@@ -1,4 +1,4 @@
-import { Entity, Rotation, Texture, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { CatacombHeavyDoor } from 'arx-level-generator/prefabs/entity'
 import { Scale } from 'arx-level-generator/scripting/properties'
 import { loadOBJ } from 'arx-level-generator/tools/mesh'
@@ -9,7 +9,7 @@ import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createMoon } from '@/prefabs/moon.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 
-export const createBackYard = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createBackYard = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const moon = createMoon({
     position: new Vector3(300, -750, 1500),
     size: 30,

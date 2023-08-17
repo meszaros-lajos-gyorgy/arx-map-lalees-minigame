@@ -1,4 +1,4 @@
-import { Entity, Rotation, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -6,7 +6,7 @@ import { MirrorOnWall } from '@/entities/MirrorOnWall.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createCounter } from '@/prefabs/counter.js'
 
-export const createBathRoom = async (gameStateManager: Entity, gameVariant: PCGameVariant) => {
+export const createBathRoom = async (settings: Settings, gameStateManager: Entity, gameVariant: PCGameVariant) => {
   const nhi = new Rune('nhi', {
     position: new Vector3(1051, -87, 502),
     orientation: new Rotation(0, MathUtils.degToRad(57), 0),
