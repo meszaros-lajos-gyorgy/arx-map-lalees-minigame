@@ -6,6 +6,7 @@ declare global {
       seed?: string
       version?: string
       calculateLighting?: string
+      mode?: string
     }
   }
 }
