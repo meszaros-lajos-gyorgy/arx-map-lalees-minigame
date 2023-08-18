@@ -4,15 +4,19 @@ import { createBox } from 'arx-level-generator/prefabs/mesh'
 import { toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
 import { CylinderGeometry, MathUtils, Mesh, MeshBasicMaterial } from 'three'
 
-export const createTable = ({
-  position,
-  angleY = 0,
-  hasShadow = true,
-}: {
+type createTableProps = {
   position: Vector3
+  /**
+   * default value is 0.0
+   */
   angleY?: number
+  /**
+   * default value is true
+   */
   hasShadow?: boolean
-}) => {
+}
+
+export const createTable = ({ position, angleY = 0, hasShadow = true }: createTableProps) => {
   const tableLegMaterial = new MeshBasicMaterial({
     map: Material.fromTexture(Texture.l2TrollWoodPillar08, {
       flags: hasShadow ? ArxPolygonFlags.None : ArxPolygonFlags.NoShadow,
