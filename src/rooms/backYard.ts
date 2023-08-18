@@ -1,13 +1,13 @@
-import { Entity, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { CatacombHeavyDoor } from 'arx-level-generator/prefabs/entity'
 import { Scale } from 'arx-level-generator/scripting/properties'
-import { loadOBJ } from 'arx-level-generator/tools/mesh'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createMoon } from '@/prefabs/moon.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
+import { createTree } from '@/prefabs/tree.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackYard = async (
@@ -22,11 +22,10 @@ export const createBackYard = async (
     moonOffset: new Vector3(100, 100, 50),
   })
 
-  const tree = await loadOBJ('models/tree/tree', {
+  const tree = await createTree({
     position: new Vector3(200, -10, 1300),
     scale: 0.7,
     orientation: new Rotation(0, MathUtils.degToRad(70), 0),
-    fallbackTexture: Texture.l2TrollWoodPillar08,
   })
 
   const door = new CatacombHeavyDoor({
