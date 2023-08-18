@@ -1,19 +1,26 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { FTL } from 'arx-convert'
+import { ArxFTL, ArxFace, ArxFaceType, ArxPolygonFlags } from 'arx-convert/types'
+import { TripleOf } from 'arx-convert/utils'
 import {
   ArxMap,
   DONT_QUADIFY,
   HudElements,
   SHADING_SMOOTH,
   Settings,
+  Texture,
   UiElements,
   Vector3,
-  Versions,
 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
-import { applyTransformations, compile } from 'arx-level-generator/utils'
+import { getNonIndexedVertices, loadOBJ } from 'arx-level-generator/tools/mesh'
+import { applyTransformations, compile, roundToNDecimals } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
+import { BufferAttribute, MeshBasicMaterial, Vector2 } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
@@ -28,7 +35,7 @@ const settings = new Settings({
   levelIdx: parseInt(process.env.levelIdx ?? '1'),
   outputDir: process.env.outputDir,
   seed: process.env.seed,
-  version: process.env.version === 'premium' ? Versions.Premium : Versions.Normal,
+  version: process.env.version === 'premium' ? 'premium' : 'normal',
   calculateLighting: process.env.calculateLighting === 'false' ? false : true,
   mode: process.env.mode === 'development' ? 'development' : 'production',
 })
@@ -45,6 +52,123 @@ map.hud.show(HudElements.BookIcon)
 map.hud.show(HudElements.BackpackIcon)
 map.ui.set(UiElements.MainMenuBackground, './ui/menu_main_background.jpg')
 await map.i18n.addFromFile('./i18n.json', settings)
+
+// -----------------------------------
+
+const originIdx = 4
+const pcGameMesh = await loadOBJ('./pcgame', {
+  scale: 0.1,
+  materialFlags: ArxPolygonFlags.None,
+  reversedPolygonWinding: true,
+})
+
+// ------------
+
+const mesh = pcGameMesh[0]
+
+const normals = mesh.geometry.getAttribute('normal') as BufferAttribute
+const uvs = mesh.geometry.getAttribute('uv') as BufferAttribute
+
+const ftlData: ArxFTL = {
+  header: {
+    origin: originIdx,
+    name: 'pcgame',
+  },
+  vertices: [],
+  faces: [],
+  textureContainers: [],
+  groups: [],
+  actions: [],
+  selections: [],
+}
+
+const vertexPrecision = 5
+
+const vertices: { vector: Vector3; norm: Vector3; uv: Vector2; textureIdx: number }[] = []
+const faceIndexes: TripleOf<number>[] = []
+getNonIndexedVertices(mesh.geometry).forEach(({ idx, vector, materialIndex }, i) => {
+  vertices.push({
+    vector: new Vector3(
+      roundToNDecimals(vertexPrecision, vector.x),
+      roundToNDecimals(vertexPrecision, vector.y),
+      roundToNDecimals(vertexPrecision, vector.z),
+    ),
+    norm: new Vector3(normals.getX(idx), normals.getY(idx), normals.getZ(idx)),
+    uv: new Vector2(uvs.getX(idx), uvs.getY(idx)),
+    textureIdx: materialIndex ?? 0,
+  })
+
+  if (i % 3 === 0) {
+    faceIndexes.push([idx, -1, -1])
+  } else {
+    faceIndexes[faceIndexes.length - 1][i % 3] = idx
+  }
+})
+
+const origin = vertices[ftlData.header.origin].vector.clone()
+
+ftlData.vertices = vertices.map(({ vector, norm }) => ({
+  vector: vector.sub(origin).toArxVector3(),
+  norm: norm.toArxVector3(),
+}))
+
+ftlData.faces = faceIndexes.map(([aIdx, bIdx, cIdx]) => {
+  const a = vertices[aIdx]
+  const b = vertices[bIdx]
+  const c = vertices[cIdx]
+  const faceNormal = new Vector3().crossVectors(b.norm.clone().sub(a.norm), c.norm.clone().sub(a.norm)).normalize()
+
+  return {
+    faceType: ArxFaceType.Flat,
+    vertexIdx: [aIdx, bIdx, cIdx],
+    textureIdx: a.textureIdx,
+    u: [a.uv.x, b.uv.x, c.uv.x],
+    v: [a.uv.y, b.uv.y, c.uv.y],
+    norm: faceNormal.toArxVector3(),
+  }
+})
+
+let texture: Texture | undefined | (Texture | undefined)[] = undefined
+if (mesh.material instanceof MeshBasicMaterial) {
+  if (mesh.material.map instanceof Texture) {
+    texture = mesh.material.map
+  } else {
+    console.warn('[warning] POC: Unsupported texture map in material when adding threejs mesh')
+  }
+} else if (Array.isArray(mesh.material)) {
+  texture = mesh.material.map((material) => {
+    if (material instanceof MeshBasicMaterial) {
+      if (material.map instanceof Texture) {
+        return material.map
+      } else {
+        console.warn('[warning] POC: Unsupported texture map in material when adding threejs mesh')
+        return undefined
+      }
+    } else {
+      console.warn('[warning] POC: Unsupported material found when adding threejs mesh')
+      return undefined
+    }
+  })
+} else if (typeof mesh.material !== 'undefined') {
+  console.warn('[warning] POC: Unsupported material found when adding threejs mesh')
+}
+
+if (Array.isArray(texture)) {
+  texture.forEach((t) => {
+    if (typeof t !== 'undefined') {
+      ftlData.textureContainers.push({
+        filename: t.filename,
+      })
+    }
+  })
+} else if (typeof texture !== 'undefined') {
+  ftlData.textureContainers.push({
+    filename: texture.filename,
+  })
+}
+
+const ftl = FTL.save(ftlData)
+await fs.promises.writeFile(path.join(settings.assetsDir, 'pcgame.ftl'), ftl)
 
 // -----------------------------------
 
