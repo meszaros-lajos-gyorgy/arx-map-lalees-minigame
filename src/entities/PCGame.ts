@@ -1,7 +1,9 @@
+import { ArxPolygonFlags } from 'arx-convert/types'
 import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Label, Material, Shadow, StackSize, Variable } from 'arx-level-generator/scripting/properties'
+import { loadOBJ } from 'arx-level-generator/tools/mesh'
 
 export type PCGameVariant =
   | 'blank'
@@ -59,6 +61,12 @@ type PCGameConstructorProps = Expand<
   }
 >
 
+const pcGameMesh = await loadOBJ('./pcgame', {
+  scale: 0.1,
+  materialFlags: ArxPolygonFlags.None,
+  reversedPolygonWinding: true,
+})
+
 export class PCGame extends Entity {
   private propVariant: Variable<string>
 
@@ -69,9 +77,9 @@ export class PCGame extends Entity {
         filename: 'pcgame[icon].bmp',
         sourcePath: './',
       }),
-      model: new EntityModel({
+      model: EntityModel.fromThreeJsObj(pcGameMesh[0], {
         filename: 'pcgame.ftl',
-        sourcePath: './',
+        originIdx: 4,
       }),
       otherDependencies: Object.values(TEXTURES),
       ...props,
