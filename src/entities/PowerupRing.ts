@@ -1,4 +1,4 @@
-import { Color, Entity, EntityConstructorPropsWithoutSrc, Texture } from 'arx-level-generator'
+import { Color, Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { Sound } from 'arx-level-generator/scripting/classes'
 import { Label, Material } from 'arx-level-generator/scripting/properties'
 
@@ -12,10 +12,10 @@ export class PowerupRing extends Entity {
         filename: 'powerup_ring[icon].bmp',
         sourcePath: './',
       }),
-      model: {
+      model: new EntityModel({
         filename: 'powerup_ring.ftl',
         sourcePath: './',
-      },
+      }),
       ...props,
     })
 

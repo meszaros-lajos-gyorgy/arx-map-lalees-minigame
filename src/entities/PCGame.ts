@@ -1,5 +1,5 @@
 import { Expand } from 'arx-convert/utils'
-import { Entity, EntityConstructorPropsWithoutSrc, Texture } from 'arx-level-generator'
+import { Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Label, Material, Shadow, StackSize, Variable } from 'arx-level-generator/scripting/properties'
 
@@ -69,13 +69,11 @@ export class PCGame extends Entity {
         filename: 'pcgame[icon].bmp',
         sourcePath: './',
       }),
-      model: {
-        // TODO: convert the pcgame.obj file programmatically into pcgame.ftl
+      model: new EntityModel({
         filename: 'pcgame.ftl',
         sourcePath: './',
-        textures: Object.values(TEXTURES),
-        // scale: 0.1 // (after loadObj() have already scaled it up 100x)
-      },
+      }),
+      otherDependencies: Object.values(TEXTURES),
       ...props,
     })
 

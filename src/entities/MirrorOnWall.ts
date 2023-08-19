@@ -1,4 +1,4 @@
-import { Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
+import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
 import { Interactivity, Label, Scale, Transparency, Variable } from 'arx-level-generator/scripting/properties'
 
 // TODO: make this into a fix inter
@@ -8,10 +8,10 @@ export class MirrorOnWall extends Entity {
   constructor(props: EntityConstructorPropsWithoutSrc = {}) {
     super({
       src: 'fix_inter/mirror_on_wall',
-      model: {
+      model: new EntityModel({
         sourcePath: './',
         filename: 'mirror_on_wall.ftl',
-      },
+      }),
       ...props,
     })
 
