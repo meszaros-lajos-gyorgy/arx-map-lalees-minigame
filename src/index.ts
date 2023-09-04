@@ -3,7 +3,7 @@ import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
-import { applyTransformations, compile, roundToNDecimals } from 'arx-level-generator/utils'
+import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
@@ -15,17 +15,9 @@ import { createMainHall } from './rooms/mainHall.js'
 import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
 
-const settings = new Settings({
-  levelIdx: parseInt(process.env.levelIdx ?? '1'),
-  outputDir: process.env.outputDir,
-  seed: process.env.seed,
-  version: process.env.version === 'premium' ? 'premium' : 'normal',
-  calculateLighting: process.env.calculateLighting === 'false' ? false : true,
-  mode: process.env.mode === 'development' ? 'development' : 'production',
-})
+const settings = new Settings()
 
 const map = new ArxMap()
-map.meta.mapName = "LaLee's minigame"
 map.config.offset = new Vector3(6000, 0, 6000)
 map.player.position.adjustToPlayerHeight()
 map.player.withScript()
@@ -105,7 +97,5 @@ roomInteriors
 
 map.finalize()
 await map.saveToDisk(settings)
-
-await compile(settings)
 
 console.log('done')
