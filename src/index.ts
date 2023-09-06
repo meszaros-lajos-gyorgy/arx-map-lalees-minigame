@@ -11,6 +11,7 @@ import { PowerupRing } from './entities/PowerupRing.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
+import { createLeftCorridor } from './rooms/leftCorridor.js'
 import { createMainHall } from './rooms/mainHall.js'
 import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
@@ -55,6 +56,7 @@ map.entities.push(gameStateManager, rootRune, rootPCGame, rootPowerupRing)
 // -----------------------------------
 
 const gameVariants: PCGameVariant[] = randomSort([
+  // pcGameVariants without "big-rigs" and "blank"
   'mesterlovesz',
   'mortyr',
   'wolfschanze',
@@ -70,13 +72,14 @@ const frontYard = await createFrontYard(settings, gameStateManager, [gameVariant
 const backYard = await createBackYard(settings, gameStateManager, gameVariants[3])
 const mainHall = await createMainHall(settings, gameStateManager, gameVariants[4])
 const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
+const leftCorridor = await createLeftCorridor(settings, gameStateManager, gameVariants[6])
 
 const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)
 
 // -----------------------------------
 
-const roomInteriors = [pcRoom, bathRoom, frontYard, backYard, mainHall, pantry]
+const roomInteriors = [pcRoom, bathRoom, frontYard, backYard, mainHall, pantry, leftCorridor]
 
 map.entities.push(...roomInteriors.flatMap(({ entities }) => entities))
 map.lights.push(...roomInteriors.flatMap(({ lights }) => lights))

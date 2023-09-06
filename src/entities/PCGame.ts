@@ -5,18 +5,21 @@ import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Label, Material, Shadow, StackSize, Variable } from 'arx-level-generator/scripting/properties'
 import { loadOBJ } from 'arx-level-generator/tools/mesh'
 
-export type PCGameVariant =
-  | 'blank'
-  | 'mesterlovesz'
-  | 'mortyr'
-  | 'wolfschanze'
-  | 'traktor-racer'
-  | 'americas-10-most-wanted'
-  | 'big-rigs'
-  | 'streets-racer'
-  | 'bikini-karate-babes'
+export const pcGameVariants = [
+  'blank',
+  'mesterlovesz',
+  'mortyr',
+  'wolfschanze',
+  'traktor-racer',
+  'americas-10-most-wanted',
+  'big-rigs',
+  'streets-racer',
+  'bikini-karate-babes',
+] as const
 
-const TEXTURES: Record<PCGameVariant, Texture> = {
+export type PCGameVariant = (typeof pcGameVariants)[number]
+
+export const TEXTURES: Record<PCGameVariant, Texture> = {
   blank: Texture.fromCustomFile({
     filename: 'pcgame_box_art_blank.png',
     sourcePath: './textures/',
@@ -61,7 +64,7 @@ type PCGameConstructorProps = Expand<
   }
 >
 
-const pcGameMesh = await loadOBJ('./pcgame', {
+export const pcGameMesh = await loadOBJ('./pcgame', {
   scale: 0.1,
   materialFlags: ArxPolygonFlags.None,
   reversedPolygonWinding: true,

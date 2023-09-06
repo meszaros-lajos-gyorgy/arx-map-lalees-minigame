@@ -11,7 +11,6 @@ import { Curtain2 } from '@/entities/Curtain.js'
 import { Goblin } from '@/entities/Goblin.js'
 import { Lantern } from '@/entities/Lantern.js'
 import { MagicWall } from '@/entities/MagicWall.js'
-import { Mirror } from '@/entities/Mirror.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { PowerupRing } from '@/entities/PowerupRing.js'
 import { createCounter } from '@/prefabs/counter.js'
@@ -133,15 +132,6 @@ export const createMainHall = async (
   curtain.withScript()
   curtain.script?.properties.push(new Scale(0.9))
 
-  // ---------------
-
-  const rootMirror = new Mirror()
-  rootMirror.script?.makeIntoRoot()
-
-  const mirror = new Mirror({ position: new Vector3(-1396, -120, 0) })
-
-  // ---------------
-
   return {
     meshes: [...counter1.meshes, ...counter2.meshes, ...counter3.meshes, ...radio.meshes, ...table.meshes, windowGlass],
     entities: [
@@ -155,10 +145,8 @@ export const createMainHall = async (
       game,
       lantern,
       bucket,
-      magicWall,
+      ...(settings.mode === 'production' ? [magicWall] : []),
       curtain,
-      rootMirror,
-      mirror,
     ],
     lights: [...windowLights],
     zones: [],

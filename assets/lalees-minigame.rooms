@@ -137,3 +137,14 @@ with light
 room add 500 $corridorHeight 200 room x-- y-
 with light
 cursor save left-corridor
+
+room add 200 $corridorHeight 200 room x- y- z--
+room add 200 $corridorHeight 200 room x-- y-
+cursor restore left-corridor
+room add 200 $corridorHeight 200 room x- y- z++
+room add 200 $corridorHeight 200 room x-- y-
+room add 200 $corridorHeight 600 room x-- y- z+
+room add 200 $corridorHeight 200 room x-- y-
+with light
+room add 1000 $corridorHeight 1000 room x-- y-
+with light

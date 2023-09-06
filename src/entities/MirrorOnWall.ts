@@ -1,7 +1,6 @@
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
 import { Interactivity, Label, Scale, Transparency, Variable } from 'arx-level-generator/scripting/properties'
 
-// TODO: make this into a fix inter
 export class MirrorOnWall extends Entity {
   protected propIsMounted: Variable<boolean>
 
