@@ -34,7 +34,7 @@ export const createLeftCorridor = async (
     theta + MathUtils.degToRad(2.4),
   ).map((position, i) => {
     return new GameDisplay({
-      variant: 'blank',
+      variant: variants[i],
       position,
       orientation: new Rotation(
         MathUtils.degToRad(90) + i * angle + theta,
