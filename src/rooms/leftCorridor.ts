@@ -5,7 +5,7 @@ import { circleOfVectors } from 'arx-level-generator/utils'
 import { MathUtils } from 'three'
 import { GameDisplay } from '@/entities/GameDisplay.js'
 import { Mirror } from '@/entities/Mirror.js'
-import { PCGameVariant, pcGameVariants } from '@/entities/PCGame.js'
+import { PCGame, PCGameVariant, pcGameVariants } from '@/entities/PCGame.js'
 import { RoomContents } from '@/types.js'
 
 export const createLeftCorridor = async (
@@ -109,9 +109,22 @@ export const createLeftCorridor = async (
     })
   })
 
+  const game = new PCGame({
+    variant: gameVariant,
+    position: new Vector3(-2660, 0, 340),
+    orientation: new Rotation(
+      MathUtils.degToRad(-90) + 7 * angle + theta,
+      MathUtils.degToRad(180),
+      MathUtils.degToRad(-90),
+    ),
+  })
+  game.script?.on('inventoryin', () => {
+    return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
+  })
+
   return {
     meshes: [...bases],
-    entities: [rootMirror, mirror, ...Object.values(gameDisplays)],
+    entities: [rootMirror, mirror, ...Object.values(gameDisplays), game],
     lights: [],
     zones: [],
     _: {},
