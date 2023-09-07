@@ -2,6 +2,8 @@
 
 An Arx Fatalis map to promote ["LaLee's Games" youtube channel](https://www.youtube.com/@rockerlalee)
 
+Moddb page: https://www.moddb.com/mods/lalees-minigame
+
 ![Preview](preview.jpg?raw=true 'Preview')
 
 ## Credits
