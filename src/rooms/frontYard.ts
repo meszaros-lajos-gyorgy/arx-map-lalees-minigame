@@ -4,7 +4,7 @@ import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
-import { makeBumpy, scaleUV, transformEdge } from 'arx-level-generator/tools/mesh'
+import { makeBumpy, scaleUV, transformEdge, translateUV } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { pickWeightedRandoms, randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
@@ -66,8 +66,9 @@ export const createFrontYard = async (
   ]
 
   const fenceHeight = 200
-  const fence = createPlaneMesh({
-    size: new Vector2(1450 * 2 + 500, fenceHeight),
+
+  const fenceRight = createPlaneMesh({
+    size: new Vector2(1450 * 2, fenceHeight),
     texture: Material.fromTexture(
       Texture.fromCustomFile({
         filename: 'fence.bmp',
@@ -77,12 +78,52 @@ export const createFrontYard = async (
     ),
     tileUV: true,
   })
-  fence.rotateX(MathUtils.degToRad(90))
-  applyTransformations(fence)
-  fence.translateY(-fenceHeight / 2)
-  fence.translateZ(-1000)
-  fence.rotateY(MathUtils.degToRad(180))
-  scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fence.geometry)
+  fenceRight.rotateX(MathUtils.degToRad(90))
+  applyTransformations(fenceRight)
+  fenceRight.translateX(-250)
+  fenceRight.translateY(-fenceHeight / 2)
+  fenceRight.translateZ(-1000)
+  fenceRight.rotateY(MathUtils.degToRad(180))
+  scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceRight.geometry)
+
+  const fenceGate = createPlaneMesh({
+    size: new Vector2(100 * 2, fenceHeight),
+    texture: Material.fromTexture(
+      Texture.fromCustomFile({
+        filename: 'fence-gate.bmp',
+        sourcePath: './textures',
+      }),
+      { flags: ArxPolygonFlags.NoShadow },
+    ),
+    tileUV: true,
+  })
+  fenceGate.rotateX(MathUtils.degToRad(90))
+  applyTransformations(fenceGate)
+  fenceGate.translateX(1450 - 150)
+  fenceGate.translateY(-fenceHeight / 2)
+  fenceGate.translateZ(-1000)
+  fenceGate.rotateY(MathUtils.degToRad(180))
+  scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceGate.geometry)
+
+  const fenceLeft = createPlaneMesh({
+    size: new Vector2(300, fenceHeight),
+    texture: Material.fromTexture(
+      Texture.fromCustomFile({
+        filename: 'fence.bmp',
+        sourcePath: './textures',
+      }),
+      { flags: ArxPolygonFlags.NoShadow },
+    ),
+    tileUV: true,
+  })
+  fenceLeft.rotateX(MathUtils.degToRad(90))
+  applyTransformations(fenceLeft)
+  fenceLeft.translateX(1450 + 100)
+  fenceLeft.translateY(-fenceHeight / 2)
+  fenceLeft.translateZ(-1000)
+  fenceLeft.rotateY(MathUtils.degToRad(180))
+  scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceLeft.geometry)
+  translateUV(new Vector2(0.5, 0), fenceLeft.geometry)
 
   // ----------
 
@@ -208,7 +249,7 @@ export const createFrontYard = async (
   })
 
   return {
-    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fence, hills, city],
+    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, hills, city],
     entities: [
       game1,
       fern,
