@@ -1,6 +1,7 @@
 import { Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { createBox } from 'arx-level-generator/prefabs/mesh'
-import { Scale, Shadow } from 'arx-level-generator/scripting/properties'
+import { ControlZone, Scale, Shadow } from 'arx-level-generator/scripting/properties'
+import { createZone } from 'arx-level-generator/tools'
 import { circleOfVectors } from 'arx-level-generator/utils'
 import { MathUtils } from 'three'
 import { GameDisplay } from '@/entities/GameDisplay.js'
@@ -122,11 +123,42 @@ export const createLeftCorridor = async (
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
   })
 
+  const atTheGameDisplaysZone = createZone({
+    name: 'at_the_game_displays',
+    size: new Vector3(200, Infinity, 200),
+    position: new Vector3(-1900, 0, 0),
+  })
+
+  const atTheGameDisplaysZoneController = Entity.marker.at({ position: new Vector3(-1900, 0, 0) }).withScript()
+  atTheGameDisplaysZoneController.script?.properties.push(new ControlZone(atTheGameDisplaysZone))
+  atTheGameDisplaysZoneController.script?.on('controlledzone_enter', () => {
+    return `sendevent entered_at_the_game_displays_zone ${gameStateManager.ref} nop`
+  })
+
+  const atTheMainHallZone = createZone({
+    name: 'at_the_main_hall',
+    size: new Vector3(200, Infinity, 200),
+    position: new Vector3(-400, 0, 0),
+  })
+
+  const atTheMainHallZoneController = Entity.marker.at({ position: new Vector3(-1900, 0, 0) }).withScript()
+  atTheMainHallZoneController.script?.properties.push(new ControlZone(atTheMainHallZone))
+  atTheMainHallZoneController.script?.on('controlledzone_enter', () => {
+    return `sendevent entered_at_the_main_hall_zone ${gameStateManager.ref} nop`
+  })
+
   return {
     meshes: [...bases],
-    entities: [rootMirror, mirror, ...Object.values(gameDisplays), game],
+    entities: [
+      rootMirror,
+      mirror,
+      ...Object.values(gameDisplays),
+      game,
+      atTheGameDisplaysZoneController,
+      atTheMainHallZoneController,
+    ],
     lights: [],
-    zones: [],
+    zones: [atTheGameDisplaysZone, atTheMainHallZone],
     _: {},
   }
 }

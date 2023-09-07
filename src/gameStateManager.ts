@@ -63,10 +63,11 @@ export const createGameStateManager = (settings: Settings) => {
 
   const numberOfCollectedGames = new Variable('int', 'number_of_collected_games', 0)
   const playerFoundAnyGames = new Variable('bool', 'player_found_any_games', false)
+  const isGoblinReadyForSuicide = new Variable('bool', 'is_goblin_ready_for_suicide', false)
   const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
   const haveLittered = new Variable('bool', 'have_littered', false)
 
-  manager.script?.properties.push(numberOfCollectedGames, playerFoundAnyGames, isGoblinDead)
+  manager.script?.properties.push(numberOfCollectedGames, playerFoundAnyGames, isGoblinReadyForSuicide, isGoblinDead)
 
   manager.script?.subroutines.push(
     tutorialWelcome,
@@ -120,6 +121,44 @@ export const createGameStateManager = (settings: Settings) => {
         set ${haveLittered.name} 1
         ${achievementLittering.invoke()}
       }
+    `
+  })
+
+  manager.script?.on('entered_at_the_game_displays_zone', () => {
+    return `
+      if (${numberOfCollectedGames.name} < 7) {
+        accept
+      }
+
+      if (${isGoblinDead.name} == 1) {
+        accept
+      }
+
+      if (${isGoblinReadyForSuicide.name} == 1) {
+        accept
+      }
+
+      set ${isGoblinReadyForSuicide.name} 1
+      sendevent goblin_vanishes self nop
+    `
+  })
+
+  manager.script?.on('entered_at_the_main_hall_zone', () => {
+    return `
+      if (${numberOfCollectedGames.name} < 7) {
+        accept
+      }
+
+      if (${isGoblinReadyForSuicide.name} == 0) {
+        accept
+      }
+
+      if (${isGoblinDead.name} == 1) {
+        accept
+      }
+
+      set ${isGoblinDead.name} 1
+      sendevent goblin_suicide self nop
     `
   })
 

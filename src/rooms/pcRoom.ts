@@ -86,6 +86,8 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
 
       sendevent change_to_big_rigs ${computer._.screen.ref} nop
       sendevent emit_dying_sound ${hangedGoblin.ref} nop
+
+      // TODO: close the door
     `
   })
 

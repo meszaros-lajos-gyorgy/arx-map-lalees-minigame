@@ -53,7 +53,7 @@ export const createMainHall = async (
     })
   }
 
-  gameStateManager.script?.on('goblin_suicide', () => {
+  gameStateManager.script?.on('goblin_vanishes', () => {
     return `destroy ${goblin.ref}`
   })
 
