@@ -34,12 +34,7 @@ export class GameDisplay extends Entity {
     this.propVariant = new Variable('string', 'variant', variant)
     this.propIsMounted = new Variable('bool', 'isMounted', false)
 
-    this.script?.properties.push(
-      new Label('[unmounted-game-display]'),
-      Interactivity.off,
-      this.propVariant,
-      this.propIsMounted,
-    )
+    this.script?.properties.push(this.propVariant, this.propIsMounted)
 
     this.script?.on('init', () => {
       return `
@@ -53,6 +48,7 @@ export class GameDisplay extends Entity {
 
     this.script?.on('initend', () => {
       return [
+        new Label(`[unmounted-game-display]`),
         `
         if (${this.propVariant.name} == "mesterlovesz") {
           ${new TweakSkin(TEXTURES['blank'], TEXTURES['mesterlovesz'])}
@@ -80,6 +76,13 @@ export class GameDisplay extends Entity {
         }
         `,
       ]
+    })
+
+    this.script?.on('mount', () => {
+      return `
+        ${new Transparency(1)}
+        ${new Label(`[game--~${this.propVariant.name}~]`)}
+      `
     })
   }
 

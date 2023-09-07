@@ -41,7 +41,7 @@ export const createMainHall = async (
   const goblin = new Goblin({
     position: new Vector3(-200, -2, 425),
     orientation: new Rotation(0, MathUtils.degToRad(-100), 0),
-    gameStateMarker: gameStateManager,
+    gameStateManager,
   })
 
   if (settings.mode === 'production') {

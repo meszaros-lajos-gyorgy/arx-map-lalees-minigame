@@ -72,6 +72,7 @@ export const pcGameMesh = await loadOBJ('./pcgame', {
 
 export class PCGame extends Entity {
   private propVariant: Variable<string>
+  private propVariantPublic: Variable<string>
 
   constructor({ variant, ...props }: PCGameConstructorProps) {
     super({
@@ -91,8 +92,10 @@ export class PCGame extends Entity {
     this.withScript()
 
     this.propVariant = new Variable('string', 'variant', variant)
+    // a copy of propVariant to be able to read it outside the entity
+    this.propVariantPublic = new Variable('global string', `${this.ref}__variant`, variant)
 
-    this.script?.properties.push(this.propVariant)
+    this.script?.properties.push(this.propVariant, this.propVariantPublic)
 
     this.script?.on('init', () => {
       if (!this.script?.isRoot) {
@@ -106,6 +109,9 @@ export class PCGame extends Entity {
       if (!this.script?.isRoot) {
         return ''
       }
+
+      // at this point this.ref is pointing to the root entity, not the invoker, so
+      // we have to use the private version of variant
 
       return [
         new Label(`[game--~${this.propVariant.name}~]`),
@@ -145,5 +151,6 @@ export class PCGame extends Entity {
 
   set variant(value: PCGameVariant) {
     this.propVariant.value = value
+    this.propVariantPublic.value = value
   }
 }

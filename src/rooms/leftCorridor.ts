@@ -32,15 +32,71 @@ export const createLeftCorridor = async (
     350,
     variants.length,
     theta + MathUtils.degToRad(2.4),
-  ).map((position, i) => {
-    return new GameDisplay({
-      variant: variants[i],
-      position,
-      orientation: new Rotation(
-        MathUtils.degToRad(90) + i * angle + theta,
-        MathUtils.degToRad(180),
-        MathUtils.degToRad(-90),
-      ),
+  ).reduce(
+    (acc, position, i) => {
+      const variant = variants[i]
+      const gameDisplay = new GameDisplay({
+        variant,
+        position,
+        orientation: new Rotation(
+          MathUtils.degToRad(90) + i * angle + theta,
+          MathUtils.degToRad(180),
+          MathUtils.degToRad(-90),
+        ),
+      })
+
+      return { ...acc, [variant]: gameDisplay }
+    },
+    {} as Record<PCGameVariant, GameDisplay>,
+  )
+
+  gameStateManager.script?.on('goblin_received_a_game', () => {
+    return `
+      sendevent game_collected ${gameStateManager.ref} nop
+
+      if (^$param1 == "mesterlovesz") {
+        sendevent mount ${gameDisplays['mesterlovesz'].ref} nop
+      }
+      if (^$param1 == "mortyr") {
+        sendevent mount ${gameDisplays['mortyr'].ref} nop
+      }
+      if (^$param1 == "wolfschanze") {
+        sendevent mount ${gameDisplays['wolfschanze'].ref} nop
+      }
+      if (^$param1 == "traktor-racer") {
+        sendevent mount ${gameDisplays['traktor-racer'].ref} nop
+      }
+      if (^$param1 == "americas-10-most-wanted") {
+        sendevent mount ${gameDisplays['americas-10-most-wanted'].ref} nop
+      }
+      if (^$param1 == "big-rigs") {
+        sendevent mount ${gameDisplays['big-rigs'].ref} nop
+      }
+      if (^$param1 == "streets-racer") {
+        sendevent mount ${gameDisplays['streets-racer'].ref} nop
+      }
+      if (^$param1 == "bikini-karate-babes") {
+        sendevent mount ${gameDisplays['bikini-karate-babes'].ref} nop
+      }
+    `
+  })
+
+  Object.entries(gameDisplays).forEach(([variant, gameDisplay]) => {
+    gameDisplay.script?.on('combine', () => {
+      return `
+        if (^$param1 isclass pcgame) {
+          set £variant $~^$param1~__variant
+
+          if (£variant == "${variant}") {
+            sendevent game_collected ${gameStateManager.ref} nop
+            destroy ^$param1
+            play clip
+            sendevent mount ${gameDisplay.ref} nop
+          } else {
+            speak -p [player_not_this_way]
+          }
+        }
+      `
     })
   })
 
@@ -55,7 +111,7 @@ export const createLeftCorridor = async (
 
   return {
     meshes: [...bases],
-    entities: [rootMirror, mirror, ...gameDisplays],
+    entities: [rootMirror, mirror, ...Object.values(gameDisplays)],
     lights: [],
     zones: [],
     _: {},

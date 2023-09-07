@@ -61,12 +61,12 @@ const achievementLittering = new ScriptSubroutine('achievement_littering', () =>
 export const createGameStateManager = (settings: Settings) => {
   const manager = Entity.marker.withScript()
 
-  const numberOfGamesTheGoblinHas = new Variable('int', 'number_of_games_the_goblin_has', 0)
+  const numberOfCollectedGames = new Variable('int', 'number_of_collected_games', 0)
   const playerFoundAnyGames = new Variable('bool', 'player_found_any_games', false)
   const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
   const haveLittered = new Variable('bool', 'have_littered', false)
 
-  manager.script?.properties.push(numberOfGamesTheGoblinHas, playerFoundAnyGames, isGoblinDead)
+  manager.script?.properties.push(numberOfCollectedGames, playerFoundAnyGames, isGoblinDead)
 
   manager.script?.subroutines.push(
     tutorialWelcome,
@@ -81,25 +81,25 @@ export const createGameStateManager = (settings: Settings) => {
   if (settings.mode === 'production') {
     manager.script?.on('init', () => {
       return `
-      TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}
-    `
+        TIMERwelcome -m 1 3000 ${tutorialWelcome.invoke()}
+      `
     })
   }
 
-  manager.script?.on('goblin_received_a_game', () => {
+  manager.script?.on('game_collected', () => {
     return `
-      inc ${numberOfGamesTheGoblinHas.name} 1
+      inc ${numberOfCollectedGames.name} 1
 
-      if (${numberOfGamesTheGoblinHas.name} == 1) {
+      if (${numberOfCollectedGames.name} == 1) {
         ${tutorialGaveGameToGoblin.invoke()}
       }
-      if (${numberOfGamesTheGoblinHas.name} == 2) {
+      if (${numberOfCollectedGames.name} == 2) {
         ${achievementListenSmall.invoke()}
       }
-      if (${numberOfGamesTheGoblinHas.name} == 5) {
+      if (${numberOfCollectedGames.name} == 5) {
         ${achievementListenMedium.invoke()}
       }
-      if (${numberOfGamesTheGoblinHas.name} == 8) {
+      if (${numberOfCollectedGames.name} == 8) {
         ${achievementListenLarge.invoke()}
       }
     `

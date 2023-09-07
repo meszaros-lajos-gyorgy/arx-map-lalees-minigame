@@ -28,7 +28,7 @@ export class Goblin extends Entity {
   isBusy: Variable<boolean>
   doneSpeaking: ScriptSubroutine
 
-  constructor({ gameStateMarker, ...props }: EntityConstructorPropsWithoutSrc & { gameStateMarker: Entity }) {
+  constructor({ gameStateManager, ...props }: EntityConstructorPropsWithoutSrc & { gameStateManager: Entity }) {
     super({
       src: 'npc/goblin_base',
       ...props,
@@ -85,7 +85,9 @@ export class Goblin extends Entity {
 
         set ${isBusy.name} 1
         if (^$param1 isclass pcgame) {
-          sendevent goblin_received_a_game ${gameStateMarker.ref} nop
+          set £variant $~^$param1~__variant
+
+          sendevent goblin_received_a_game ${gameStateManager.ref} ~£variant~
 
           random 20 {
             speak -h [goblin_victory3_shorter] ${doneSpeaking.invoke()}

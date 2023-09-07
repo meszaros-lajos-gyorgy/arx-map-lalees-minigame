@@ -1,5 +1,5 @@
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
-import { Interactivity, Label, Scale, Transparency, Variable } from 'arx-level-generator/scripting/properties'
+import { Interactivity, Label, Scale, Shadow, Transparency, Variable } from 'arx-level-generator/scripting/properties'
 
 export class MirrorOnWall extends Entity {
   protected propIsMounted: Variable<boolean>
@@ -41,6 +41,6 @@ export class MirrorOnWall extends Entity {
       `
     })
 
-    this.script?.properties.push(new Label('[unmounted-mirror-on-wall]'), new Scale(2), this.propIsMounted)
+    this.script?.properties.push(new Label('[unmounted-mirror-on-wall]'), Shadow.off, new Scale(2), this.propIsMounted)
   }
 }
