@@ -90,6 +90,7 @@ export class Goblin extends Entity {
           sendevent goblin_received_a_game ${gameStateManager.ref} ~£variant~
 
           random 20 {
+            // [h] - speak with happy face
             speak -h [goblin_victory3_shorter] ${doneSpeaking.invoke()}
           } else {
             speak [goblin_ok] ${doneSpeaking.invoke()}
@@ -97,6 +98,7 @@ export class Goblin extends Entity {
   
           destroy ^$param1
         } else {
+          // [a] - speak with angry face
           speak -a [goblin_mad] ${doneSpeaking.invoke()}
         }
       `

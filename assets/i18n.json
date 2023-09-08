@@ -60,5 +60,12 @@
   },
   "unmounted-game-display": {
     "english": "A pc game is missing from the display"
+  },
+
+  "goblin_victory3_shorter": {
+    "english": "Yes, yes, YES!"
+  },
+  "goblin_this_game_is_shit": {
+    "english": "This game is shit!!!"
   }
 }
