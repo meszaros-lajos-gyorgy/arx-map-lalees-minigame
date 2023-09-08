@@ -102,7 +102,7 @@ export class PCGame extends Entity {
         return ''
       }
 
-      return [Shadow.off, Material.stone, StackSize.unstackable]
+      return [Shadow.off, Material.glass, StackSize.unstackable]
     })
 
     this.script?.on('initend', () => {
