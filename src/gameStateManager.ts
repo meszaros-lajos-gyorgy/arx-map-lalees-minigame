@@ -89,6 +89,10 @@ export const createGameStateManager = (settings: Settings) => {
 
   manager.script?.on('game_collected', () => {
     return `
+      if (${playerFoundAnyGames.name} == 0) {
+        set ${playerFoundAnyGames.name} 1
+      }
+
       inc ${numberOfCollectedGames.name} 1
 
       if (${numberOfCollectedGames.name} == 1) {
