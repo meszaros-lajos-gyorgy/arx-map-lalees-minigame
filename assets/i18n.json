@@ -28,7 +28,7 @@
     "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!"
   },
   "tutorial--found-a-game": {
-    "english": "Very good, you found a game! Show it to your goblin friend!"
+    "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!"
   },
   "tutorial--gave-game-to-goblin": {
     "english": "Good job, the game is now in the collection! See if you can find some more!"
@@ -41,10 +41,10 @@
     "english": "Achievement reached: Collected 5 games."
   },
   "achievement--collected-games-large": {
-    "english": "Achievement reached: Collected all games. Enjoy your collection!"
+    "english": "Achievement reached: Collected 8 games. The collection is now complete!"
   },
   "achievement--littering": {
-    "english": "Achievement reached: That is no longer my problem!"
+    "english": "Achievement reached: No longer my problem!"
   },
 
   "ring--powerup": {
