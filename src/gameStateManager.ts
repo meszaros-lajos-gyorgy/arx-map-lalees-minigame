@@ -124,7 +124,7 @@ export const createGameStateManager = (settings: Settings) => {
     `
   })
 
-  manager.script?.on('entered_at_the_game_displays_zone', () => {
+  manager.script?.on('entered_at_the_game_display_room_zone', () => {
     return `
       if (${numberOfCollectedGames.name} < 7) {
         accept
