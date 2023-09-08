@@ -34,59 +34,59 @@
 
   "tutorial--welcome": {
     "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!",
-    "deutsch": ""
+    "deutsch": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!"
   },
   "tutorial--found-a-game": {
     "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!",
-    "deutsch": ""
+    "deutsch": "Sehr gut, du hast ein Spiel gefunden! Zeig es deinem Goblin Freund oder platziere es in seinen zugehörigen Ausstellungsplatz!"
   },
   "tutorial--gave-game-to-goblin": {
     "english": "Good job, the game is now in the collection! See if you can find some more!",
-    "deutsch": ""
+    "deutsch": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!"
   },
 
   "achievement--collected-games-small": {
     "english": "Achievement reached: Collected 2 games.",
-    "deutsch": ""
+    "deutsch": "Errungenschaft: 2 Spiele gesammelt"
   },
   "achievement--collected-games-medium": {
     "english": "Achievement reached: Collected 5 games.",
-    "deutsch": ""
+    "deutsch": "Errungenschaft: 5 Spiele gesammelt"
   },
   "achievement--collected-games-large": {
     "english": "Achievement reached: Collected 8 games. The collection is now complete!",
-    "deutsch": ""
+    "deutsch": "Errungenschaft: 8 Spiele gesammelt. Das waren alle"
   },
   "achievement--littering": {
     "english": "Achievement reached: No longer my problem!",
-    "deutsch": ""
+    "deutsch": "Errungenschaft: Nicht länger mein Problem!"
   },
 
   "ring--powerup": {
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)",
-    "deutsch": ""
+    "deutsch": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)"
   },
 
   "key--bathroom": {
     "english": "Bathroom key",
-    "deutsch": ""
+    "deutsch": "Badezimmer Schlüssel"
   },
 
   "unmounted-mirror-on-wall": {
     "english": "The mirror is missing from the wall",
-    "deutsch": ""
+    "deutsch": "Der Spiegel an der Wand fehlt"
   },
   "unmounted-game-display": {
     "english": "A pc game is missing from the display",
-    "deutsch": ""
+    "deutsch": "Ein PC Spiel fehlt in der Ausstellung"
   },
 
   "goblin_victory3_shorter": {
     "english": "Yes, yes, YES!",
-    "deutsch": ""
+    "deutsch": "Ja, ja, JA!"
   },
   "goblin_this_game_is_shit": {
     "english": "This game is shit!!!",
-    "deutsch": ""
+    "deutsch": "Dieses spiel ist scheiße!!!"
   }
 }

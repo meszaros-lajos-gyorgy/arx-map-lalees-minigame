@@ -13,3 +13,5 @@ Moddb page: https://www.moddb.com/mods/lalees-minigame
 - night city sound: https://www.freesoundslibrary.com/night-city-ambience/
 - fence texture: https://clipart-library.com/clip-art/75-752459_fence-png-transparent-images-tianmu-baseball-stadium.htm
 - night city texture: https://wallpapersafari.com/w/dDW5JM
+
+- german translation: Fredlllll
