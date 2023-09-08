@@ -1,71 +1,92 @@
 {
   "game--mesterlovesz": {
-    "english": "A mesterlövész"
+    "english": "A mesterlövész",
+    "deutsch": "Snajper"
   },
   "game--mortyr": {
-    "english": "Mortyr"
+    "english": "Mortyr",
+    "deutsch": "Mortyr"
   },
   "game--wolfschanze": {
-    "english": "Wolfschanze"
+    "english": "Wolfschanze",
+    "deutsch": "Wolfschanze"
   },
   "game--traktor-racer": {
-    "english": "Traktor Racer"
+    "english": "Traktor Racer",
+    "deutsch": "Traktor Racer"
   },
   "game--americas-10-most-wanted": {
-    "english": "America's 10 most wanted"
+    "english": "America's 10 most wanted",
+    "deutsch": "America's 10 most wanted"
   },
   "game--big-rigs": {
-    "english": "Big Rigs: Over the Road Racing"
+    "english": "Big Rigs: Over the Road Racing",
+    "deutsch": "Big Rigs: Over the Road Racing"
   },
   "game--streets-racer": {
-    "english": "Streets Racer"
+    "english": "Streets Racer",
+    "deutsch": "Streets Racer"
   },
   "game--bikini-karate-babes": {
-    "english": "Bikini Karate Babes"
+    "english": "Bikini Karate Babes",
+    "deutsch": "Bikini Karate Babes"
   },
 
   "tutorial--welcome": {
-    "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!"
+    "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!",
+    "deutsch": ""
   },
   "tutorial--found-a-game": {
-    "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!"
+    "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!",
+    "deutsch": ""
   },
   "tutorial--gave-game-to-goblin": {
-    "english": "Good job, the game is now in the collection! See if you can find some more!"
+    "english": "Good job, the game is now in the collection! See if you can find some more!",
+    "deutsch": ""
   },
 
   "achievement--collected-games-small": {
-    "english": "Achievement reached: Collected 2 games."
+    "english": "Achievement reached: Collected 2 games.",
+    "deutsch": ""
   },
   "achievement--collected-games-medium": {
-    "english": "Achievement reached: Collected 5 games."
+    "english": "Achievement reached: Collected 5 games.",
+    "deutsch": ""
   },
   "achievement--collected-games-large": {
-    "english": "Achievement reached: Collected 8 games. The collection is now complete!"
+    "english": "Achievement reached: Collected 8 games. The collection is now complete!",
+    "deutsch": ""
   },
   "achievement--littering": {
-    "english": "Achievement reached: No longer my problem!"
+    "english": "Achievement reached: No longer my problem!",
+    "deutsch": ""
   },
 
   "ring--powerup": {
-    "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)"
+    "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)",
+    "deutsch": ""
   },
 
   "key--bathroom": {
-    "english": "Bathroom key"
+    "english": "Bathroom key",
+    "deutsch": ""
   },
 
   "unmounted-mirror-on-wall": {
-    "english": "The mirror is missing from the wall"
+    "english": "The mirror is missing from the wall",
+    "deutsch": ""
   },
   "unmounted-game-display": {
-    "english": "A pc game is missing from the display"
+    "english": "A pc game is missing from the display",
+    "deutsch": ""
   },
 
   "goblin_victory3_shorter": {
-    "english": "Yes, yes, YES!"
+    "english": "Yes, yes, YES!",
+    "deutsch": ""
   },
   "goblin_this_game_is_shit": {
-    "english": "This game is shit!!!"
+    "english": "This game is shit!!!",
+    "deutsch": ""
   }
 }
