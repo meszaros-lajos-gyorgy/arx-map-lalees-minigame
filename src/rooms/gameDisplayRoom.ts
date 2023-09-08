@@ -13,8 +13,8 @@ export const createGameDisplayRoom = async (
 ): Promise<RoomContents> => {
   const game = new PCGame({
     variant: gameVariant,
-    position: new Vector3(-2660, 0, 340),
-    orientation: new Rotation(),
+    position: new Vector3(-2050, 0, -450),
+    orientation: new Rotation(0, MathUtils.degToRad(-210), 0),
   })
   game.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
