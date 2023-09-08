@@ -1,92 +1,92 @@
 {
   "game--mesterlovesz": {
     "english": "A mesterlövész",
-    "deutsch": "Snajper"
+    "german": "Snajper"
   },
   "game--mortyr": {
     "english": "Mortyr",
-    "deutsch": "Mortyr"
+    "german": "Mortyr"
   },
   "game--wolfschanze": {
     "english": "Wolfschanze",
-    "deutsch": "Wolfschanze"
+    "german": "Wolfschanze"
   },
   "game--traktor-racer": {
     "english": "Traktor Racer",
-    "deutsch": "Traktor Racer"
+    "german": "Traktor Racer"
   },
   "game--americas-10-most-wanted": {
     "english": "America's 10 most wanted",
-    "deutsch": "America's 10 most wanted"
+    "german": "America's 10 most wanted"
   },
   "game--big-rigs": {
     "english": "Big Rigs: Over the Road Racing",
-    "deutsch": "Big Rigs: Over the Road Racing"
+    "german": "Big Rigs: Over the Road Racing"
   },
   "game--streets-racer": {
     "english": "Streets Racer",
-    "deutsch": "Streets Racer"
+    "german": "Streets Racer"
   },
   "game--bikini-karate-babes": {
     "english": "Bikini Karate Babes",
-    "deutsch": "Bikini Karate Babes"
+    "german": "Bikini Karate Babes"
   },
 
   "tutorial--welcome": {
     "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!",
-    "deutsch": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!"
+    "german": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!"
   },
   "tutorial--found-a-game": {
     "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!",
-    "deutsch": "Sehr gut, du hast ein Spiel gefunden! Zeig es deinem Goblin Freund oder platziere es in seinen zugehörigen Ausstellungsplatz!"
+    "german": "Sehr gut, du hast ein Spiel gefunden! Zeig es deinem Goblin Freund oder platziere es in seinen zugehörigen Ausstellungsplatz!"
   },
   "tutorial--gave-game-to-goblin": {
     "english": "Good job, the game is now in the collection! See if you can find some more!",
-    "deutsch": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!"
+    "german": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!"
   },
 
   "achievement--collected-games-small": {
     "english": "Achievement reached: Collected 2 games.",
-    "deutsch": "Errungenschaft: 2 Spiele gesammelt"
+    "german": "Errungenschaft: 2 Spiele gesammelt"
   },
   "achievement--collected-games-medium": {
     "english": "Achievement reached: Collected 5 games.",
-    "deutsch": "Errungenschaft: 5 Spiele gesammelt"
+    "german": "Errungenschaft: 5 Spiele gesammelt"
   },
   "achievement--collected-games-large": {
     "english": "Achievement reached: Collected 8 games. The collection is now complete!",
-    "deutsch": "Errungenschaft: 8 Spiele gesammelt. Das waren alle"
+    "german": "Errungenschaft: 8 Spiele gesammelt. Das waren alle"
   },
   "achievement--littering": {
     "english": "Achievement reached: No longer my problem!",
-    "deutsch": "Errungenschaft: Nicht länger mein Problem!"
+    "german": "Errungenschaft: Nicht länger mein Problem!"
   },
 
   "ring--powerup": {
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)",
-    "deutsch": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)"
+    "german": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)"
   },
 
   "key--bathroom": {
     "english": "Bathroom key",
-    "deutsch": "Badezimmer Schlüssel"
+    "german": "Badezimmer Schlüssel"
   },
 
   "unmounted-mirror-on-wall": {
     "english": "The mirror is missing from the wall",
-    "deutsch": "Der Spiegel an der Wand fehlt"
+    "german": "Der Spiegel an der Wand fehlt"
   },
   "unmounted-game-display": {
     "english": "A pc game is missing from the display",
-    "deutsch": "Ein PC Spiel fehlt in der Ausstellung"
+    "german": "Ein PC Spiel fehlt in der Ausstellung"
   },
 
   "goblin_victory3_shorter": {
     "english": "Yes, yes, YES!",
-    "deutsch": "Ja, ja, JA!"
+    "german": "Ja, ja, JA!"
   },
   "goblin_this_game_is_shit": {
     "english": "This game is shit!!!",
-    "deutsch": "Dieses spiel ist scheiße!!!"
+    "german": "Dieses spiel ist scheiße!!!"
   }
 }
