@@ -1,28 +1,7 @@
-import { Audio, Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
+import { Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Invulnerability, Variable } from 'arx-level-generator/scripting/properties'
-
-// speech/english:
-
-// Goblin_misc6.wav = "Me want play cards!" -> "Me want play ..."
-// Goblin_taste_water.wav = "This water is taste like shit!" -> "... shit ..."
-// Goblin_engaged.wav "Engaged!" -> "...ga..."
-// Goblin_only_gem_dealer_shall_pass.wav "Halt human, you enter goblin kingdom! Humans is ..." -> "...dom"
-// Goblin_misc_fish_scared2.wav "... we can't catch fishes!" -> "...es!"
-
-// Goblin_victory3.wav = "Yes, yes, yes! You dead!"
-
-const goblinVoiceYes = Audio.fromCustomFile({
-  filename: 'goblin_victory3_shorter.wav',
-  sourcePath: './speech',
-  type: 'speech',
-})
-
-const goblinVoiceWish = Audio.fromCustomFile({
-  filename: 'goblin_wants_to_play_games.wav',
-  sourcePath: './speech',
-  type: 'speech',
-})
+import { goblinVoiceWish, goblinVoiceYes } from '@/audios.js'
 
 export class Goblin extends Entity {
   isBusy: Variable<boolean>
@@ -47,7 +26,7 @@ export class Goblin extends Entity {
 
     this.script?.subroutines.push(doneSpeaking)
 
-    this.otherDependencies.push(goblinVoiceYes, goblinVoiceWish)
+    this.otherDependencies.push(...Object.values(goblinVoiceYes), ...Object.values(goblinVoiceWish))
 
     this.script?.properties.push(Invulnerability.on)
     this.script?.on('chat', () => {

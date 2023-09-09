@@ -1,19 +1,14 @@
 import { Audio, Color, Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
-import { LightDoor, SoundPlayer } from 'arx-level-generator/prefabs/entity'
+import { LightDoor } from 'arx-level-generator/prefabs/entity'
 import { Interactivity, Shadow } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
 import { MathUtils } from 'three'
+import { goblinVoiceThisGameIsShit } from '@/audios.js'
 import { PCGame } from '@/entities/PCGame.js'
 import { delayAdd, resetDelay } from '@/misc/scripting/delay.js'
 import { createComputer } from '@/prefabs/computer.js'
 import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
-
-const goblinVoiceThisGameIsShit = Audio.fromCustomFile({
-  filename: 'goblin_this_game_is_shit.wav',
-  sourcePath: './speech',
-  type: 'speech',
-})
 
 const bigRigsGameplay = Audio.fromCustomFile({
   filename: 'big_rigs_gameplay.wav',
@@ -52,7 +47,7 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
     position: new Vector3(505, -120, 260),
     orientation: new Rotation(0, MathUtils.degToRad(180 - 45), 0),
   })
-  hangedGoblin.otherDependencies.push(goblinVoiceThisGameIsShit, bigRigsGameplay, keyboardRage)
+  hangedGoblin.otherDependencies.push(...Object.values(goblinVoiceThisGameIsShit), bigRigsGameplay, keyboardRage)
   hangedGoblin.script?.on('init', () => {
     return `objecthide ${hangedGoblin.ref} yes`
   })
