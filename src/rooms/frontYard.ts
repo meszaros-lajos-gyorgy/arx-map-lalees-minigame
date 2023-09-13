@@ -113,24 +113,22 @@ export const createFrontYard = async (
   fenceGate.rotateY(MathUtils.degToRad(180))
   scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceGate.geometry)
 
-  const markerAtFenceGate = Entity.marker
-    .at({
-      position: Vector3.fromThreeJsVector3(fenceGate.position),
-    })
-    .withScript()
-  markerAtFenceGate.otherDependencies.push(chainlinkGateClose)
-
-  const chainlinkGateCloseSound = new Sound(chainlinkGateClose.filename)
-
-  markerAtFenceGate.script?.on('init', () => {
-    resetDelay()
-
-    return `
-      worldfade out 0 ${Color.fromCSS('black').toScriptColor()}
-      ${delay(400)} ${chainlinkGateCloseSound.play()}
-      ${delay(800)} worldfade in 1000
-    `
+  const markerAtFenceGate = Entity.marker.withScript().at({
+    position: Vector3.fromThreeJsVector3(fenceGate.position),
   })
+  if (settings.mode === 'production') {
+    markerAtFenceGate.otherDependencies.push(chainlinkGateClose)
+    const chainlinkGateCloseSound = new Sound(chainlinkGateClose.filename)
+    markerAtFenceGate.script?.on('init', () => {
+      resetDelay()
+
+      return `
+        worldfade out 0 ${Color.fromCSS('black').toScriptColor()}
+        ${delay(400)} ${chainlinkGateCloseSound.play()}
+        ${delay(800)} worldfade in 1000
+      `
+    })
+  }
 
   const fenceLeft = createPlaneMesh({
     size: new Vector2(300, fenceHeight),
@@ -151,6 +149,20 @@ export const createFrontYard = async (
   fenceLeft.rotateY(MathUtils.degToRad(180))
   scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceLeft.geometry)
   translateUV(new Vector2(0.5, 0), fenceLeft.geometry)
+
+  const houseNumber = createPlaneMesh({
+    size: new Vector2(30, 30),
+    texture: Texture.fromCustomFile({
+      filename: 'house-number.bmp',
+      sourcePath: './textures',
+    }),
+    tileSize: 30,
+  })
+  houseNumber.rotateX(MathUtils.degToRad(90))
+  applyTransformations(houseNumber)
+  houseNumber.translateX(1250)
+  houseNumber.translateY(-275)
+  houseNumber.translateZ(-601)
 
   // ----------
 
@@ -276,7 +288,7 @@ export const createFrontYard = async (
   })
 
   return {
-    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, hills, city],
+    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, hills, city, houseNumber],
     entities: [
       game1,
       fern,
