@@ -5,6 +5,7 @@ import { Speed } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
+import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
@@ -21,7 +22,8 @@ const settings = new Settings()
 
 const map = new ArxMap()
 map.config.offset = new Vector3(6000, 0, 6000)
-map.player.position.adjustToPlayerHeight()
+map.player.position.adjustToPlayerHeight().add(new Vector3(1300, 0, -900))
+map.player.orientation.y += MathUtils.degToRad(13)
 map.player.withScript()
 map.player.script?.properties.push(new Speed(1.3))
 map.hud.hide('all')
