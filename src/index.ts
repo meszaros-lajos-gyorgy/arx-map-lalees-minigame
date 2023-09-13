@@ -1,4 +1,14 @@
-import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements, Vector3 } from 'arx-level-generator'
+import {
+  ArxMap,
+  DONT_QUADIFY,
+  HudElements,
+  Polygon,
+  SHADING_SMOOTH,
+  Settings,
+  Texture,
+  UiElements,
+  Vector3,
+} from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
@@ -9,6 +19,7 @@ import { MathUtils } from 'three'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
+import { createBathtub } from './prefabs/bathtub.js'
 import { createBackYard } from './rooms/backYard.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
@@ -80,6 +91,14 @@ const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, 
 
 const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)
+
+// -----------------------------------
+
+const bathtub = await createBathtub({ position: new Vector3(1270, 0, 300), scale: 1.5 }, settings)
+bathtub.polygons.forEach((polygon) => {
+  polygon.move(map.config.offset)
+  map.polygons.push(polygon)
+})
 
 // -----------------------------------
 
