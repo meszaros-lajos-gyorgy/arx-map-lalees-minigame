@@ -1,7 +1,8 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Color, Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
+import { Sound } from 'arx-level-generator/scripting/classes'
 import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { makeBumpy, scaleUV, transformEdge, translateUV } from 'arx-level-generator/tools/mesh'
@@ -11,8 +12,15 @@ import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { TrafficSounds } from '@/entities/TrafficSounds.js'
+import { delay, resetDelay } from '@/misc/scripting/delay.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 import { RoomContents } from '@/types.js'
+
+const chainlinkGateClose = Audio.fromCustomFile({
+  filename: 'chainlink-gate-close.wav',
+  sourcePath: './sfx',
+  type: 'sfx',
+})
 
 export const createFrontYard = async (
   settings: Settings,
@@ -104,6 +112,25 @@ export const createFrontYard = async (
   fenceGate.translateZ(-1000)
   fenceGate.rotateY(MathUtils.degToRad(180))
   scaleUV(new Vector2(100 / fenceHeight, 100 / fenceHeight), fenceGate.geometry)
+
+  const markerAtFenceGate = Entity.marker
+    .at({
+      position: Vector3.fromThreeJsVector3(fenceGate.position),
+    })
+    .withScript()
+  markerAtFenceGate.otherDependencies.push(chainlinkGateClose)
+
+  const chainlinkGateCloseSound = new Sound(chainlinkGateClose.filename)
+
+  markerAtFenceGate.script?.on('init', () => {
+    resetDelay()
+
+    return `
+      worldfade out 0 ${Color.fromCSS('black').toScriptColor()}
+      ${delay(400)} ${chainlinkGateCloseSound.play()}
+      ${delay(800)} worldfade in 1000
+    `
+  })
 
   const fenceLeft = createPlaneMesh({
     size: new Vector2(300, fenceHeight),
@@ -260,6 +287,7 @@ export const createFrontYard = async (
       ...crickets,
       ...trafficSounds,
       trashDetector,
+      markerAtFenceGate,
     ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
     zones: [trashDetectorZone],
