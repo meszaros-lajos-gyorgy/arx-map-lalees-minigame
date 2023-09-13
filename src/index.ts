@@ -1,14 +1,4 @@
-import {
-  ArxMap,
-  DONT_QUADIFY,
-  HudElements,
-  Polygon,
-  SHADING_SMOOTH,
-  Settings,
-  Texture,
-  UiElements,
-  Vector3,
-} from 'arx-level-generator'
+import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements, Vector3 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
