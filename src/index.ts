@@ -18,6 +18,7 @@ import { createLeftCorridor } from './rooms/leftCorridor.js'
 import { createMainHall } from './rooms/mainHall.js'
 import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
+import { createRightCorridor } from './rooms/rightCorridor.js'
 
 const settings = new Settings()
 
@@ -77,6 +78,7 @@ const backYard = await createBackYard(settings, gameStateManager, gameVariants[3
 const mainHall = await createMainHall(settings, gameStateManager, gameVariants[4])
 const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 const leftCorridor = await createLeftCorridor(settings, gameStateManager)
+const rightCorridor = await createRightCorridor(settings, gameStateManager)
 const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, gameVariants[6])
 
 const bathroomDoor = bathRoom._.door as LightDoor
@@ -92,7 +94,17 @@ bathtub.polygons.forEach((polygon) => {
 
 // -----------------------------------
 
-const roomInteriors = [pcRoom, bathRoom, frontYard, backYard, mainHall, pantry, leftCorridor, gameDisplayRoom]
+const roomInteriors = [
+  pcRoom,
+  bathRoom,
+  frontYard,
+  backYard,
+  mainHall,
+  pantry,
+  leftCorridor,
+  rightCorridor,
+  gameDisplayRoom,
+]
 
 map.entities.push(...roomInteriors.flatMap(({ entities }) => entities))
 map.lights.push(...roomInteriors.flatMap(({ lights }) => lights))

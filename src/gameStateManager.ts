@@ -128,7 +128,7 @@ export const createGameStateManager = (settings: Settings) => {
     `
   })
 
-  manager.script?.on('entered_at_the_game_display_room_zone', () => {
+  const vanishGoblin = () => {
     return `
       if (${numberOfCollectedGames.name} < 7) {
         accept
@@ -145,9 +145,13 @@ export const createGameStateManager = (settings: Settings) => {
       set ${isGoblinReadyForSuicide.name} 1
       sendevent goblin_vanishes self nop
     `
-  })
+  }
 
-  manager.script?.on('entered_at_the_main_hall_zone', () => {
+  manager.script
+    ?.on('entered_at_the_game_display_room_zone', vanishGoblin)
+    .on('entered_at_the_front_yard_zone', vanishGoblin)
+
+  const killGoblin = () => {
     return `
       if (${numberOfCollectedGames.name} < 7) {
         accept
@@ -164,7 +168,9 @@ export const createGameStateManager = (settings: Settings) => {
       set ${isGoblinDead.name} 1
       sendevent goblin_suicide self nop
     `
-  })
+  }
+
+  manager.script?.on('entered_at_the_main_hall_zone', killGoblin).on('entered_at_the_entrance_zone', killGoblin)
 
   return manager
 }
