@@ -5,7 +5,7 @@ import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Sound } from 'arx-level-generator/scripting/classes'
 import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
-import { makeBumpy, scaleUV, transformEdge, translateUV } from 'arx-level-generator/tools/mesh'
+import { scaleUV, translateUV } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { pickWeightedRandoms, randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
@@ -169,22 +169,10 @@ export const createFrontYard = async (
   // beyond the fence
 
   const cityOffsetY = -10
-  const cityOffsetZ = -1700
+  const cityOffsetZ = -2200
   const cityWidth = 3800
-  const cityHeight = 500
+  const cityHeight = 400
   const cityDepth = 600
-
-  const hills = createPlaneMesh({
-    size: new Vector2(cityWidth, cityDepth),
-    texture: new Texture({ filename: 'l2_troll_[sand]_ground04.jpg' }),
-  })
-  hills.rotateX(MathUtils.degToRad(-8))
-  applyTransformations(hills)
-  hills.translateY(cityOffsetY)
-  hills.translateZ(cityOffsetZ)
-  transformEdge(new Vector3(0, 50, 0), hills)
-  makeBumpy(20, 60, true, hills.geometry)
-  scaleUV(new Vector2(5, 5), hills.geometry)
 
   const city = createPlaneMesh({
     size: new Vector2(cityWidth, cityHeight),
@@ -288,7 +276,16 @@ export const createFrontYard = async (
   })
 
   return {
-    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, hills, city, houseNumber],
+    meshes: [
+      ...wallLight1.meshes,
+      ...wallLight2.meshes,
+      fenceRight,
+      fenceGate,
+      fenceLeft,
+      /* hills,*/
+      city,
+      houseNumber,
+    ],
     entities: [
       game1,
       fern,
