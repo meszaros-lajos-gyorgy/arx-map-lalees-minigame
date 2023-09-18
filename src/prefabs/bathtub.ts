@@ -1,4 +1,3 @@
-import { QuadrupleOf } from 'arx-convert/utils'
 import { ArxMap, Polygon, Settings, Texture, Vector3, Vertex } from 'arx-level-generator'
 import { Box3 } from 'three'
 
