@@ -2,7 +2,6 @@ import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
-import { createZone } from 'arx-level-generator/tools'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -41,9 +40,6 @@ const rooms = await loadRooms('./lalees-minigame.rooms', settings)
 rooms.forEach((room) => {
   map.add(room, true)
 })
-
-const spawnZone = createZone({ name: 'spawn', drawDistance: 5000 })
-map.zones.push(spawnZone)
 
 const gameStateManager = createGameStateManager(settings)
 
