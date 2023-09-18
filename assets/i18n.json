@@ -88,5 +88,10 @@
   "goblin_this_game_is_shit": {
     "english": "This game is shit!!!",
     "german": "Dieses spiel ist scheiße!!!"
+  },
+
+  "level-completed": {
+    "english": "Congratulations, you have completed the map! Feel free to stay on the map as long as you like and keep exploring!",
+    "german": "Herzlichen Glückwunsch, Sie haben die Karte fertiggestellt! Bleiben Sie gerne so lange auf der Karte, wie Sie möchten, und erkunden Sie weiter!"
   }
 }

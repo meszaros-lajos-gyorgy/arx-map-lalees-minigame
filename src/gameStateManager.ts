@@ -2,9 +2,11 @@ import { Audio, Entity, Settings } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { Variable } from 'arx-level-generator/scripting/properties'
+import { delay, resetDelay } from './misc/scripting/delay.js'
 
 const notification = new Sound(Audio.system.filename, SoundFlags.EmitFromPlayer)
 const achievement = new Sound(Audio.system3.filename, SoundFlags.EmitFromPlayer)
+const levelUp = new Sound('player_level_up', SoundFlags.EmitFromPlayer)
 
 const tutorialWelcome = new ScriptSubroutine('tutorial_welcome', () => {
   return `
@@ -50,6 +52,14 @@ const achievementListenLarge = new ScriptSubroutine('achievement_found_games_lar
   `
 })
 
+const levelCompleted = new ScriptSubroutine('level_complete', () => {
+  return `
+    ${levelUp.play()}
+    herosay [level-completed]
+    quest [level-completed]
+  `
+})
+
 const achievementLittering = new ScriptSubroutine('achievement_littering', () => {
   return `
     ${achievement.play()}
@@ -65,7 +75,7 @@ export const createGameStateManager = (settings: Settings) => {
   const playerFoundAnyGames = new Variable('bool', 'player_found_any_games', false)
   const isGoblinReadyForSuicide = new Variable('bool', 'is_goblin_ready_for_suicide', false)
   const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
-  const haveLittered = new Variable('bool', 'have_littered', false)
+  const haveLittered = new Variable('bool', 'player_littered', false)
 
   manager.script?.properties.push(numberOfCollectedGames, playerFoundAnyGames, isGoblinReadyForSuicide, isGoblinDead)
 
@@ -76,6 +86,7 @@ export const createGameStateManager = (settings: Settings) => {
     achievementListenSmall,
     achievementListenMedium,
     achievementListenLarge,
+    levelCompleted,
     achievementLittering,
   )
 
@@ -88,6 +99,8 @@ export const createGameStateManager = (settings: Settings) => {
   }
 
   manager.script?.on('game_collected', () => {
+    resetDelay()
+
     return `
       if (${playerFoundAnyGames.name} == 0) {
         set ${playerFoundAnyGames.name} 1
@@ -106,6 +119,7 @@ export const createGameStateManager = (settings: Settings) => {
       }
       if (${numberOfCollectedGames.name} == 8) {
         ${achievementListenLarge.invoke()}
+        ${delay(1000)} ${levelCompleted.invoke()}
       }
     `
   })
