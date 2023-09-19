@@ -1,6 +1,6 @@
 {
   "name": "arx-map-lalees-minigame",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An Arx Fatalis map to promote 'Lalee's Games' youtube channel",
   "main": "src/index.ts",
   "type": "module",
