@@ -3,7 +3,8 @@ import { Audio, Color, Entity, Material, Rotation, Settings, Texture, Vector3 } 
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Sound } from 'arx-level-generator/scripting/classes'
-import { ControlZone, Interactivity, Scale } from 'arx-level-generator/scripting/properties'
+import { useDelay } from 'arx-level-generator/scripting/hooks'
+import { ControlZone, Interactivity, PlayerControls, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { scaleUV, translateUV } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
@@ -12,7 +13,6 @@ import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { TrafficSounds } from '@/entities/TrafficSounds.js'
-import { delay, resetDelay } from '@/misc/scripting/delay.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 import { RoomContents } from '@/types.js'
 
@@ -120,12 +120,14 @@ export const createFrontYard = async (
     markerAtFenceGate.otherDependencies.push(chainlinkGateClose)
     const chainlinkGateCloseSound = new Sound(chainlinkGateClose.filename)
     markerAtFenceGate.script?.on('init', () => {
-      resetDelay()
+      const delay = useDelay()
 
       return `
         worldfade out 0 ${Color.fromCSS('black').toScriptColor()}
+        ${PlayerControls.off}
         ${delay(400)} ${chainlinkGateCloseSound.play()}
-        ${delay(800)} worldfade in 1000
+        ${delay(400)} worldfade in 1000
+        ${delay(1000)} ${PlayerControls.on}
       `
     })
   }
@@ -168,7 +170,7 @@ export const createFrontYard = async (
 
   // beyond the fence
 
-  const cityOffsetY = -10
+  const cityOffsetY = 100
   const cityOffsetZ = -2200
   const cityWidth = 3800
   const cityHeight = 400
@@ -203,7 +205,7 @@ export const createFrontYard = async (
           cityOffsetZ - cityDepth / 2 + 200 - 250,
         ),
         radius: 500 + randomBetween(0, 100),
-        intensity: 0.9,
+        intensity: 0.75,
       }),
     )
 

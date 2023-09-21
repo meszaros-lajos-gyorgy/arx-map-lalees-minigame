@@ -1,11 +1,11 @@
 import { Audio, Color, Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { LightDoor } from 'arx-level-generator/prefabs/entity'
+import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Interactivity, Shadow } from 'arx-level-generator/scripting/properties'
 import { createLight } from 'arx-level-generator/tools'
 import { MathUtils } from 'three'
 import { goblinVoiceThisGameIsShit } from '@/audios.js'
 import { PCGame } from '@/entities/PCGame.js'
-import { delayAdd, resetDelay } from '@/misc/scripting/delay.js'
 import { createComputer } from '@/prefabs/computer.js'
 import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
@@ -125,7 +125,7 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
   })
 
   gameStateManager.script?.on('goblin_suicide', () => {
-    resetDelay()
+    const delay = useDelay()
 
     return `
       objecthide ${normalStool.ref} yes
@@ -133,26 +133,26 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
       sendevent change_to_big_rigs ${computer._.screen.ref} nop
 
       sendevent emit_sound__big_rigs_gameplay ${tippedStool.ref} nop
-      ${delayAdd(4000)} sendevent emit_sound__me_too_strong ${hangedGoblin.ref} nop
-      ${delayAdd(4000)} sendevent emit_sound__what_now ${hangedGoblin.ref} nop
-      ${delayAdd(1650)} sendevent emit_sound__keyboard_rage ${tippedStool.ref} nop
-      ${delayAdd(4000)} sendevent emit_sound__damn ${hangedGoblin.ref} nop
-      ${delayAdd(800)} sendevent emit_sound__this_game_is_shit ${hangedGoblin.ref} nop
+      ${delay(4000)} sendevent emit_sound__me_too_strong ${hangedGoblin.ref} nop
+      ${delay(4000)} sendevent emit_sound__what_now ${hangedGoblin.ref} nop
+      ${delay(1650)} sendevent emit_sound__keyboard_rage ${tippedStool.ref} nop
+      ${delay(4000)} sendevent emit_sound__damn ${hangedGoblin.ref} nop
+      ${delay(800)} sendevent emit_sound__this_game_is_shit ${hangedGoblin.ref} nop
 
-      ${delayAdd(2600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
-      ${delayAdd(1200)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
-      ${delayAdd(600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
-      ${delayAdd(1000)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
-      ${delayAdd(600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
+      ${delay(2600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
+      ${delay(1200)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
+      ${delay(600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
+      ${delay(1000)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
+      ${delay(600)} sendevent emit_sound__goblin_step ${hangedGoblin.ref} nop
 
-      ${delayAdd(400)} sendevent emit_sound__stool_tip_over ${tippedStool.ref} nop
-      ${delayAdd(50)} sendevent emit_sound__death ${hangedGoblin.ref} nop
-      ${delayAdd(200)} sendevent emit_sound__rope_tighten ${tippedStool.ref} nop
+      ${delay(400)} sendevent emit_sound__stool_tip_over ${tippedStool.ref} nop
+      ${delay(50)} sendevent emit_sound__death ${hangedGoblin.ref} nop
+      ${delay(200)} sendevent emit_sound__rope_tighten ${tippedStool.ref} nop
 
-      ${delayAdd(3000)} sendevent unlock ${door.ref} nop
-      ${delayAdd(0)} objecthide ${tippedStool.ref} no
-      ${delayAdd(0)} objecthide ${hangedGoblin.ref} no
-      ${delayAdd(0)} objecthide ${bigRigs.ref} no
+      ${delay(3000)} sendevent unlock ${door.ref} nop
+      ${delay()} objecthide ${tippedStool.ref} no
+      ${delay()} objecthide ${hangedGoblin.ref} no
+      ${delay()} objecthide ${bigRigs.ref} no
     `
   })
 

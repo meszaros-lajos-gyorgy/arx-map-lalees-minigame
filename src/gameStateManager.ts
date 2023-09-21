@@ -1,8 +1,8 @@
 import { Audio, Entity, Settings } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
+import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Variable } from 'arx-level-generator/scripting/properties'
-import { delay, resetDelay } from './misc/scripting/delay.js'
 
 const notification = new Sound(Audio.system.filename, SoundFlags.EmitFromPlayer)
 const achievement = new Sound(Audio.system3.filename, SoundFlags.EmitFromPlayer)
@@ -99,7 +99,7 @@ export const createGameStateManager = (settings: Settings) => {
   }
 
   manager.script?.on('game_collected', () => {
-    resetDelay()
+    const delay = useDelay()
 
     return `
       if (${playerFoundAnyGames.name} == 0) {
