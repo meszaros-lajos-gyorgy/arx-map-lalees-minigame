@@ -39,9 +39,15 @@ export const createPantry = async (
   const table2c = createTable({ position: new Vector3(862, highestShelf, -172), hasShadow: false })
 
   const bathroomKey = Entity.key
-    .at({ position: new Vector3(912, lowestShelf, -172), orientation: new Rotation(0, MathUtils.degToRad(90), 0) })
+    .at({
+      position: new Vector3(912, lowestShelf, -187),
+      orientation: new Rotation(0, MathUtils.degToRad(75), 0),
+    })
     .withScript()
   bathroomKey.script?.properties.push(new Label('[key--bathroom]'))
+  bathroomKey.script?.on('load', () => {
+    return `usemesh "quest_item/key_base2/key_base2.teo"`
+  })
 
   const ropes = [
     Entity.rope.at({ position: new Vector3(580, middleShelf, -180 + randomBetween(-5, 5)) }),
