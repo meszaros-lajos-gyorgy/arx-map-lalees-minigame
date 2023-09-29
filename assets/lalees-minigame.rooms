@@ -1,29 +1,29 @@
 # pragma tile-size 50
 
 define outside-south {
-  ceiling removed
+  ceiling off
   wall custom textures forest.bmp fit-y
-  wall-south removed
+  wall-south off
   wall-north custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
 define outside-east {
-  ceiling removed
+  ceiling off
   wall custom textures forest.bmp fit-y
   wall-west custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
 define outside-north {
-  ceiling removed
+  ceiling off
   wall custom textures forest.bmp fit-y
   wall-south custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
 define outside-west {
-  ceiling removed
+  ceiling off
   wall custom textures forest.bmp fit-y
   wall-east custom textures [stone]-dark-brick-wall.jpg
   floor arx l2_troll_[sand]_ground04.jpg
@@ -158,38 +158,40 @@ with light
 #  TODO: make the rooms below only available in premium variant
 # --------------------------------------------------------------
 
-# staircase
-cursor restore living-room
-room add 400 350 200 room x-- y- z-
-with light
+premium only {
+  # staircase
+  cursor restore living-room
+  room add 400 350 200 room x-- y- z-
+  with light
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-with light
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  with light
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-with light
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  with light
+  room add 100 50 200 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+  room add 100 300 200 room x-- y+
+  room add 100 50 200 room y++
 
-room add 450 300 200 room x-- y+
-with light
+  room add 450 300 200 room x-- y+
+  with light
 
-# 2nd floor of the game display room
-room add 1100 400 1100 room x-- y- z-
-with light
-room add 500 50 500 room y--
+  # 2nd floor of the game display room
+  room add 1100 400 1100 room x-- y- z-
+  with light
+  room add 500 50 500 room y--
+}

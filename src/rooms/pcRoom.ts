@@ -125,7 +125,7 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
   })
 
   gameStateManager.script?.on('goblin_suicide', () => {
-    const delay = useDelay()
+    const { delay } = useDelay()
 
     return `
       objecthide ${normalStool.ref} yes

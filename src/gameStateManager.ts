@@ -99,7 +99,7 @@ export const createGameStateManager = (settings: Settings) => {
   }
 
   manager.script?.on('game_collected', () => {
-    const delay = useDelay()
+    const { delay } = useDelay()
 
     return `
       if (${playerFoundAnyGames.name} == 0) {

@@ -120,7 +120,7 @@ export const createFrontYard = async (
     markerAtFenceGate.otherDependencies.push(chainlinkGateClose)
     const chainlinkGateCloseSound = new Sound(chainlinkGateClose.filename)
     markerAtFenceGate.script?.on('init', () => {
-      const delay = useDelay()
+      const { delay } = useDelay()
 
       return `
         worldfade out 0 ${Color.fromCSS('black').toScriptColor()}
