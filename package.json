@@ -11,7 +11,7 @@
     "dev": "npm run generate && npm run rungame",
     "dev:noclip": "npm run generate && npm run rungame:noclip",
     "prod": "export mode=\"production\" && npm run generate && npm run rungame",
-    "release:normal": "export variant=\"normal\" && export outputDir=\"./output\" && export mode=\"production\" && rm-rf cache && npm run generate",
+    "release:normal": "export variant=\"normal\" && export outputDir=\"./output\" && export mode=\"production\" && rm -rf cache && npm run generate",
     "release:premium": "export variant=\"premium\" && export outputDir=\"./output\" && export mode=\"production\" && rm -rf cache && npm run generate"
   },
   "repository": {
