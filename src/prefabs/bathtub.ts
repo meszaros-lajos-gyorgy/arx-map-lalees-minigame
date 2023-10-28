@@ -2,7 +2,7 @@ import { ArxMap, Polygon, Settings, Texture, Vector3, Vertex } from 'arx-level-g
 import { Box3 } from 'three'
 
 const barrelTexture = new Texture({
-  filename: 'FIXINTER_BARREL.jpg',
+  filename: 'fixinter_barrel.jpg',
   size: 128, // it's actally 128×256
 })
 
