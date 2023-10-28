@@ -29,8 +29,8 @@
   "homepage": "https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame#readme",
   "dependencies": {
     "arx-convert": "^7.1.0",
-    "arx-level-generator": "^3.3.1",
-    "three": "^0.156.1"
+    "arx-level-generator": "^5.0.1",
+    "three": "^0.157.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
