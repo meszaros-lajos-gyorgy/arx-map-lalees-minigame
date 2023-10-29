@@ -1,4 +1,13 @@
-import { ArxMap, DONT_QUADIFY, HudElements, SHADING_SMOOTH, Settings, UiElements, Vector3 } from 'arx-level-generator'
+import {
+  ArxMap,
+  Audio,
+  DONT_QUADIFY,
+  HudElements,
+  SHADING_SMOOTH,
+  Settings,
+  UiElements,
+  Vector3,
+} from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed } from 'arx-level-generator/scripting/properties'
@@ -83,8 +92,14 @@ const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)
 
 map.player.script?.on('send_to_backrooms', () => {
-  return `teleport ${backrooms._.spawn.ref}`
+  return `
+    // lightning strike requires a player that is at least on level 2
+    addxp 4000
+    teleport ${backrooms._.spawn.ref}
+  `
 })
+
+Audio.mute(new Audio({ filename: 'player_level_up' }))
 
 // -----------------------------------
 
