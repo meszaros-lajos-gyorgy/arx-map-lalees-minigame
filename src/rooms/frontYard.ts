@@ -4,7 +4,7 @@ import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Sound } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
-import { ControlZone, Interactivity, PlayerControls, Scale } from 'arx-level-generator/scripting/properties'
+import { ControlZone, Interactivity, Platform, PlayerControls, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { scaleUV, translateUV } from 'arx-level-generator/tools/mesh'
 import { applyTransformations } from 'arx-level-generator/utils'
@@ -47,7 +47,7 @@ export const createFrontYard = async (
   const runeComunicatum = new Rune('comunicatum')
 
   const barrel = Entity.barrel.withScript().at({ position: new Vector3(1650, 0, -960) })
-  barrel.script?.properties.push(new Scale(0.7))
+  barrel.script?.properties.push(new Scale(0.7), Platform.on)
   barrel.script?.on('init', () => {
     return `inventory addfromscene ${runeComunicatum.ref}`
   })
@@ -224,16 +224,16 @@ export const createFrontYard = async (
     )
   }
 
-  const trashDetectorZone = createZone({
-    name: 'trash_detector_zone',
+  const entityOverFenceZone = createZone({
+    name: 'entity_over_fence_zone',
     position: new Vector3(0, 0, -1250),
     size: new Vector3(cityWidth, 50, 500),
   })
 
-  const trashDetector = Entity.marker.withScript().at({ position: new Vector3(0, 0, -1000) })
-  trashDetector.script?.properties.push(new ControlZone(trashDetectorZone))
-  trashDetector.script?.on('controlledzone_enter', () => {
-    return `sendevent trash_thrown_over_the_fence ${gameStateManager.ref} nop`
+  const entityOverFenceDetector = Entity.marker.withScript().at({ position: new Vector3(0, 0, -1000) })
+  entityOverFenceDetector.script?.properties.push(new ControlZone(entityOverFenceZone))
+  entityOverFenceDetector.script?.on('controlledzone_enter', () => {
+    return `sendevent entity_over_fence ${gameStateManager.ref} ~^$param1~`
   })
 
   // ----------
@@ -278,16 +278,7 @@ export const createFrontYard = async (
   })
 
   return {
-    meshes: [
-      ...wallLight1.meshes,
-      ...wallLight2.meshes,
-      fenceRight,
-      fenceGate,
-      fenceLeft,
-      /* hills,*/
-      city,
-      houseNumber,
-    ],
+    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, city, houseNumber],
     entities: [
       game1,
       fern,
@@ -297,11 +288,11 @@ export const createFrontYard = async (
       ...randomJunk,
       ...crickets,
       ...trafficSounds,
-      trashDetector,
+      entityOverFenceDetector,
       markerAtFenceGate,
     ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
-    zones: [trashDetectorZone],
+    zones: [entityOverFenceZone],
     _: {},
   }
 }

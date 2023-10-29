@@ -133,11 +133,15 @@ export const createGameStateManager = (settings: Settings) => {
     `
   })
 
-  manager.script?.on('trash_thrown_over_the_fence', () => {
+  manager.script?.on('entity_over_fence', () => {
     return `
-      if (${haveLittered.name} == 0) {
-        set ${haveLittered.name} 1
-        ${achievementLittering.invoke()}
+      if (^$param1 == "player") {
+        // TODO: move player to backrooms
+      } else {
+        if (${haveLittered.name} == 0) {
+          set ${haveLittered.name} 1
+          ${achievementLittering.invoke()}
+        }
       }
     `
   })
