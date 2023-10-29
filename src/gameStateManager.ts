@@ -98,56 +98,6 @@ export const createGameStateManager = (settings: Settings) => {
     })
   }
 
-  manager.script?.on('game_collected', () => {
-    const { delay } = useDelay()
-
-    return `
-      if (${playerFoundAnyGames.name} == 0) {
-        set ${playerFoundAnyGames.name} 1
-      }
-
-      inc ${numberOfCollectedGames.name} 1
-
-      if (${numberOfCollectedGames.name} == 1) {
-        ${tutorialGaveGameToGoblin.invoke()}
-      }
-      if (${numberOfCollectedGames.name} == 2) {
-        ${achievementListenSmall.invoke()}
-      }
-      if (${numberOfCollectedGames.name} == 5) {
-        ${achievementListenMedium.invoke()}
-      }
-      if (${numberOfCollectedGames.name} == 8) {
-        ${achievementListenLarge.invoke()}
-        ${delay(1000)} ${levelCompleted.invoke()}
-      }
-    `
-  })
-
-  manager.script?.on('player_found_a_game', () => {
-    return `
-      if (${playerFoundAnyGames.name} == 0) {
-        set ${playerFoundAnyGames.name} 1
-        ${tutorialFoundAGame.invoke()}
-      }
-    `
-  })
-
-  manager.script?.on('entity_over_fence', () => {
-    return `
-      if (^$param1 isgroup "junk") {
-        if (${haveLittered.name} == 0) {
-          set ${haveLittered.name} 1
-          ${achievementLittering.invoke()}
-        }
-      } else {
-        if (^$param1 == "player") {
-          sendevent send_to_backrooms player nop
-        }
-      }
-    `
-  })
-
   const vanishGoblin = () => {
     return `
       if (${numberOfCollectedGames.name} < 7) {
@@ -166,10 +116,6 @@ export const createGameStateManager = (settings: Settings) => {
       sendevent goblin_vanishes self nop
     `
   }
-
-  manager.script
-    ?.on('entered_at_the_game_display_room_zone', vanishGoblin)
-    .on('entered_at_the_front_yard_zone', vanishGoblin)
 
   const killGoblin = () => {
     return `
@@ -190,7 +136,58 @@ export const createGameStateManager = (settings: Settings) => {
     `
   }
 
-  manager.script?.on('entered_at_the_main_hall_zone', killGoblin).on('entered_at_the_entrance_zone', killGoblin)
+  manager.script
+    ?.on('game_collected', () => {
+      const { delay } = useDelay()
+
+      return `
+        if (${playerFoundAnyGames.name} == 0) {
+          set ${playerFoundAnyGames.name} 1
+        }
+
+        inc ${numberOfCollectedGames.name} 1
+
+        if (${numberOfCollectedGames.name} == 1) {
+          ${tutorialGaveGameToGoblin.invoke()}
+        }
+        if (${numberOfCollectedGames.name} == 2) {
+          ${achievementListenSmall.invoke()}
+        }
+        if (${numberOfCollectedGames.name} == 5) {
+          ${achievementListenMedium.invoke()}
+        }
+        if (${numberOfCollectedGames.name} == 8) {
+          ${achievementListenLarge.invoke()}
+          ${delay(1000)} ${levelCompleted.invoke()}
+        }
+      `
+    })
+    .on('player_found_a_game', () => {
+      return `
+        if (${playerFoundAnyGames.name} == 0) {
+          set ${playerFoundAnyGames.name} 1
+          ${tutorialFoundAGame.invoke()}
+        }
+      `
+    })
+    .on('entity_over_fence', () => {
+      return `
+        if (^$param1 isgroup "junk") {
+          if (${haveLittered.name} == 0) {
+            set ${haveLittered.name} 1
+            ${achievementLittering.invoke()}
+          }
+        } else {
+          if (^$param1 == "player") {
+            sendevent send_to_backrooms player nop
+          }
+        }
+      `
+    })
+    .on('entered_at_the_game_display_room_zone', vanishGoblin)
+    .on('entered_at_the_front_yard_zone', vanishGoblin)
+    .on('entered_at_the_main_hall_zone', killGoblin)
+    .on('entered_at_the_entrance_zone', killGoblin)
 
   return manager
 }
