@@ -1,9 +1,10 @@
 import { Color, Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
-import { Sound } from 'arx-level-generator/scripting/classes'
+import { Glow, Sound } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Label, Material, Variable } from 'arx-level-generator/scripting/properties'
 
 const equipRingSound = new Sound('equip_ring')
+const ringGlow = new Glow({ color: Color.yellow, size: 50 })
 
 export class PowerupRing extends Entity {
   constructor(props: EntityConstructorPropsWithoutSrc = {}) {
@@ -28,12 +29,10 @@ export class PowerupRing extends Entity {
 
     this.script
       ?.on('init', () => {
-        const brightGold = Color.fromCSS('gold').lighten(50)
-
         return `
           setobjecttype ring
           setequip intelligence +2
-          halo -ocs ${brightGold.toScriptColor()} 50
+          ${ringGlow.on()}
         `
       })
       .on('initend', () => {
