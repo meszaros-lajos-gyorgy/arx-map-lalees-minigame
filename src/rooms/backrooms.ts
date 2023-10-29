@@ -1,12 +1,15 @@
 import { Entity, Settings, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
+import { ControlZone } from 'arx-level-generator/scripting/properties'
+import { createZone } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
+import { CeilingLamp } from '@/entities/CeilingLamp.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackrooms = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
-  const roomOrigin = new Vector3(0, 3300, 0)
+  const roomOrigin = new Vector3(0, -3350, 0)
 
-  const aam = new Rune('folgora', {
+  const aam = new Rune('aam', {
     position: roomOrigin.clone().add(new Vector3(randomBetween(-200, 200), 0, randomBetween(-200, 200))),
   })
 
@@ -18,15 +21,31 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
     position: roomOrigin.clone().add(new Vector3(randomBetween(-200, 200), 0, randomBetween(-200, 200))),
   })
 
-  const spawn = Entity.marker.at({
+  const spawnZone = createZone({
+    position: roomOrigin.clone(),
+    size: new Vector3(100, 100, 100),
+    name: 'backrooms',
+  })
+
+  const spawn = Entity.marker.withScript().at({
     position: roomOrigin.clone(),
   })
+  spawn.script?.properties.push(new ControlZone(spawnZone))
+  spawn.script?.on('controlledzone_enter', () => {
+    return `herosay "entered the backrooms"`
+  })
+
+  const rootCeilingLamp = new CeilingLamp()
+  rootCeilingLamp.script?.makeIntoRoot()
+
+  // TODO: lightning strike requires a player that is at least level 2
+  const ceilingLamps = [new CeilingLamp({ position: roomOrigin.clone().add(new Vector3(0, -290, 0)) })]
 
   return {
     meshes: [],
-    entities: [spawn, aam, folgora, taar],
+    entities: [spawn, aam, folgora, taar, rootCeilingLamp, ...ceilingLamps],
     lights: [],
-    zones: [],
+    zones: [spawnZone],
     _: { spawn },
   }
 }
