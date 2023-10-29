@@ -100,6 +100,8 @@ map.player.script?.on('send_to_backrooms', () => {
 })
 
 Audio.mute(new Audio({ filename: 'player_level_up' }))
+Audio.mute(new Audio({ filename: 'magic_spell_ignite' }))
+Audio.mute(new Audio({ filename: 'magic_spell_douse' }))
 
 // -----------------------------------
 

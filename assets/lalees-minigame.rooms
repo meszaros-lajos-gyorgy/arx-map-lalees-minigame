@@ -178,9 +178,11 @@ with light
 
 cursor restore living-room
 room add 100 3000 100 spacer y++
-room add 600 300 600 backrooms-a y++
-with light
+room add 700 300 700 backrooms-a y++
 cursor save backrooms
+
+room add 300 300 200 backrooms-a z++ y-
+room add 700 300 700 backrooms-b z++ y-
 
 # --------------------------------------------------------------
 # next dev stuff below:

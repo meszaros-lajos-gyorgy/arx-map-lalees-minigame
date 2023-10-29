@@ -5,11 +5,17 @@ import { CeilingLamp } from '@/entities/CeilingLamp.js'
 
 type createCeilingLightProps = {
   position: Vector3
-  radius: number
-  isOn: boolean
+  /**
+   * default value is 800
+   */
+  radius?: number
+  /**
+   * default value is false
+   */
+  isOn?: boolean
 }
 
-export const createCeilingLight = ({ position, radius, isOn }: createCeilingLightProps) => {
+export const createCeilingLight = ({ position, radius = 800, isOn = false }: createCeilingLightProps) => {
   const entity = new CeilingLamp({ position, isOn })
 
   const light = createLight({

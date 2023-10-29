@@ -45,6 +45,7 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
       radius: 800,
       isOn: true,
     }),
+    createCeilingLight({ position: roomOrigin.clone().add(new Vector3(0, -290, 900)) }),
   ]
 
   return {
