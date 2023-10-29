@@ -4,6 +4,7 @@ import { ControlZone } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { CeilingLamp } from '@/entities/CeilingLamp.js'
+import { createCeilingLight } from '@/prefabs/ceilingLight.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackrooms = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
@@ -38,13 +39,18 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
   const rootCeilingLamp = new CeilingLamp()
   rootCeilingLamp.script?.makeIntoRoot()
 
-  // TODO: lightning strike requires a player that is at least level 2
-  const ceilingLamps = [new CeilingLamp({ position: roomOrigin.clone().add(new Vector3(0, -290, 0)) })]
+  const ceilingLights = [
+    createCeilingLight({
+      position: roomOrigin.clone().add(new Vector3(0, -290, 0)),
+      radius: 800,
+      isOn: true,
+    }),
+  ]
 
   return {
     meshes: [],
-    entities: [spawn, aam, folgora, taar, rootCeilingLamp, ...ceilingLamps],
-    lights: [],
+    entities: [spawn, aam, folgora, taar, rootCeilingLamp, ...ceilingLights.flatMap(({ entities }) => entities)],
+    lights: [...ceilingLights.flatMap(({ lights }) => lights)],
     zones: [spawnZone],
     _: { spawn },
   }
