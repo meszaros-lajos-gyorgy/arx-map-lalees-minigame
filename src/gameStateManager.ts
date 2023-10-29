@@ -135,12 +135,14 @@ export const createGameStateManager = (settings: Settings) => {
 
   manager.script?.on('entity_over_fence', () => {
     return `
-      if (^$param1 == "player") {
-        // TODO: move player to backrooms
-      } else {
+      if (^$param1 isgroup "junk") {
         if (${haveLittered.name} == 0) {
           set ${haveLittered.name} 1
           ${achievementLittering.invoke()}
+        }
+      } else {
+        if (^$param1 == "player") {
+          sendevent send_to_backrooms player nop
         }
       }
     `

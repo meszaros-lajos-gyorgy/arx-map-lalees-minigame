@@ -38,13 +38,13 @@ define window {
 define door {
   ceiling arx aliciaroom_mur02.jpg
   wall arx aliciaroom_mur02.jpg
-  floor arx L2_TROLL_[WOOD]_PILLAR06.jpg
+  floor arx l2_troll_[wood]_pillar06.jpg
 }
 
 define entrance {
   ceiling arx aliciaroom_mur02.jpg
   wall arx aliciaroom_mur02.jpg
-  floor arx L2_TROLL_[WOOD]_PILLAR06.jpg
+  floor arx l2_troll_[wood]_pillar06.jpg
 }
 
 define room {
@@ -62,7 +62,25 @@ define room-with-carpet {
 define room-with-tiles {
   ceiling custom textures [stone]-office-ceiling-tile.jpg
   wall arx aliciaroom_mur02.jpg
-  floor arx [STONE]_HUMAN_GROUND2.jpg
+  floor arx [stone]_human_ground2.jpg
+}
+
+define spacer {
+  ceiling off
+  wall off
+  floor off
+}
+
+define backrooms-a {
+  ceiling custom textures [stone]-office-ceiling-tile.jpg
+  wall custom textures backrooms-[stone]-wall.jpg
+  floor custom textures [fabric]-carpet.jpg
+}
+
+define backrooms-b {
+  ceiling custom textures [stone]-office-ceiling-tile.jpg
+  wall custom textures backrooms-[stone]-wall2.jpg
+  floor custom textures [fabric]-carpet.jpg
 }
 
 # ------------------------------
@@ -153,6 +171,16 @@ with light
 # game display room
 room add 1000 350 1000 room x-- y-
 with light
+
+# --------------------------------------------------------------
+# backrooms
+# --------------------------------------------------------------
+
+cursor restore living-room
+room add 100 3000 100 spacer y--
+room add 600 300 600 backrooms-a y--
+with light
+cursor save backrooms
 
 # --------------------------------------------------------------
 # next dev stuff below:

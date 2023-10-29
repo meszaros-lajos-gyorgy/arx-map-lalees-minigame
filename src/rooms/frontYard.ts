@@ -227,13 +227,13 @@ export const createFrontYard = async (
   const entityOverFenceZone = createZone({
     name: 'entity_over_fence_zone',
     position: new Vector3(0, 0, -1250),
-    size: new Vector3(cityWidth, 50, 500),
+    size: new Vector3(cityWidth - 400, 50, 500),
   })
 
   const entityOverFenceDetector = Entity.marker.withScript().at({ position: new Vector3(0, 0, -1000) })
   entityOverFenceDetector.script?.properties.push(new ControlZone(entityOverFenceZone))
   entityOverFenceDetector.script?.on('controlledzone_enter', () => {
-    return `sendevent entity_over_fence ${gameStateManager.ref} ~^$param1~`
+    return `sendevent entity_over_fence ${gameStateManager.ref} "~^$param1~ ~^$param2~ ~^$param3~"`
   })
 
   // ----------
@@ -274,7 +274,10 @@ export const createFrontYard = async (
       MathUtils.degToRad(randomBetween(-5, 5)),
     )
 
-    return createItem().withScript().at({ position, orientation })
+    const item = createItem().withScript().at({ position, orientation })
+    item.script?.on('init', () => `setgroup "junk"`)
+
+    return item
   })
 
   return {

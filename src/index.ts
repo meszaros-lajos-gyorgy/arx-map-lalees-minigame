@@ -10,6 +10,7 @@ import { createGameStateManager } from '@/gameStateManager.js'
 import { PowerupRing } from './entities/PowerupRing.js'
 import { createBathtub } from './prefabs/bathtub.js'
 import { createBackYard } from './rooms/backYard.js'
+import { createBackrooms } from './rooms/backrooms.js'
 import { createBathRoom } from './rooms/bathRoom.js'
 import { createFrontYard } from './rooms/frontYard.js'
 import { createGameDisplayRoom } from './rooms/gameDisplayRoom.js'
@@ -76,9 +77,14 @@ const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 const leftCorridor = await createLeftCorridor(settings, gameStateManager)
 const rightCorridor = await createRightCorridor(settings, gameStateManager)
 const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, gameVariants[6])
+const backrooms = await createBackrooms(settings, gameStateManager)
 
 const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)
+
+map.player.script?.on('send_to_backrooms', () => {
+  return `teleport ${backrooms._.spawn.ref}`
+})
 
 // -----------------------------------
 
@@ -100,6 +106,7 @@ const roomInteriors = [
   leftCorridor,
   rightCorridor,
   gameDisplayRoom,
+  backrooms,
 ]
 
 map.entities.push(...roomInteriors.flatMap(({ entities }) => entities))
