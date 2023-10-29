@@ -82,7 +82,7 @@ export const createFrontYard = async (
         filename: 'fence.bmp',
         sourcePath: './textures',
       }),
-      { flags: ArxPolygonFlags.NoShadow },
+      { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided },
     ),
     tileUV: true,
   })
@@ -101,7 +101,7 @@ export const createFrontYard = async (
         filename: 'fence-gate.bmp',
         sourcePath: './textures',
       }),
-      { flags: ArxPolygonFlags.NoShadow },
+      { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided },
     ),
     tileUV: true,
   })
@@ -139,7 +139,7 @@ export const createFrontYard = async (
         filename: 'fence.bmp',
         sourcePath: './textures',
       }),
-      { flags: ArxPolygonFlags.NoShadow },
+      { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided },
     ),
     tileUV: true,
   })
