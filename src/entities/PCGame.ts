@@ -64,7 +64,7 @@ type PCGameConstructorProps = Expand<
   }
 >
 
-export const pcGameMesh = await loadOBJ('./pcgame', {
+export const pcGameMesh = await loadOBJ('./entities/pcgame/pcgame', {
   scale: 0.1,
   materialFlags: ArxPolygonFlags.None,
   reversedPolygonWinding: true,
@@ -79,10 +79,11 @@ export class PCGame extends Entity {
       src: 'items/quest_item/pcgame',
       inventoryIcon: Texture.fromCustomFile({
         filename: 'pcgame[icon].bmp',
-        sourcePath: './',
+        sourcePath: './entities/pcgame',
       }),
       model: EntityModel.fromThreeJsObj(pcGameMesh[0], {
         filename: 'pcgame.ftl',
+        sourcePath: './entities/pcgame',
         originIdx: 4,
       }),
       otherDependencies: Object.values(TEXTURES),

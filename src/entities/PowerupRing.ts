@@ -12,11 +12,11 @@ export class PowerupRing extends Entity {
       src: 'items/magic/powerup_ring',
       inventoryIcon: Texture.fromCustomFile({
         filename: 'powerup_ring[icon].bmp',
-        sourcePath: './',
+        sourcePath: './entities/powerup_ring',
       }),
       model: new EntityModel({
         filename: 'powerup_ring.ftl',
-        sourcePath: './',
+        sourcePath: './entities/powerup_ring',
       }),
       ...props,
     })

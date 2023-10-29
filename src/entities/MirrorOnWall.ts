@@ -8,7 +8,7 @@ export class MirrorOnWall extends Entity {
     super({
       src: 'fix_inter/mirror_on_wall',
       model: new EntityModel({
-        sourcePath: './',
+        sourcePath: './entities',
         filename: 'mirror_on_wall.ftl',
       }),
       ...props,

@@ -19,7 +19,7 @@ export class GameDisplay extends Entity {
       src: 'fix_inter/gamedisplay',
       inventoryIcon: Texture.fromCustomFile({
         filename: 'pcgame[icon].bmp',
-        sourcePath: './',
+        sourcePath: './entities/pcgame',
       }),
       model: EntityModel.fromThreeJsObj(pcGameMesh[0], {
         filename: 'pcgame.ftl',
