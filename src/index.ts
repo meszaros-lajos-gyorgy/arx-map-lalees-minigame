@@ -1,20 +1,22 @@
 import {
   ArxMap,
   Audio,
-  DONT_QUADIFY,
-  Entity,
-  EntityModel,
-  HudElements,
-  Rotation,
+  DONT_QUADIFY, // Entity,
+  // EntityModel,
+  HudElements, // Rotation,
   SHADING_SMOOTH,
-  Settings,
-  Texture,
+  Settings, // Texture,
   UiElements,
   Vector3,
 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
-import { Label, Material, Speed, StackSize } from 'arx-level-generator/scripting/properties'
+import {
+  // Label,
+  // Material,
+  // StackSize,
+  Speed,
+} from 'arx-level-generator/scripting/properties'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -109,31 +111,32 @@ Audio.mute(new Audio({ filename: 'magic_spell_douse' }))
 
 // -----------------------------------
 
-const bathtub = await createBathtub({ position: new Vector3(0, 0, 0), scale: 1.5 }, settings)
+const bathtub = await createBathtub(
+  { position: map.config.offset.clone().add(new Vector3(1270, 0, 300)), scale: 1.5 },
+  settings,
+)
 
-// bathtub.move(map.config.offset)
-// bathtub.move(new Vector3(1270, 0, 300))
-// map.polygons.push(...bathtub)
+map.polygons.push(...bathtub)
 
-const bathtubEntity = new Entity({
-  src: 'items/special/tub',
-  inventoryIcon: Texture.fromCustomFile({
-    filename: 'tub[icon].bmp',
-    sourcePath: './entities/tub',
-  }),
-  model: EntityModel.fromPolygons(bathtub, {
-    filename: 'tub.ftl',
-    sourcePath: './entities/tub',
-    originIdx: 0,
-  }),
-  position: new Vector3(1270, -100, 300),
-  orientation: new Rotation(0, MathUtils.degToRad(90), 0),
-})
+// const bathtubEntity = new Entity({
+//   src: 'items/special/tub',
+//   inventoryIcon: Texture.fromCustomFile({
+//     filename: 'tub[icon].bmp',
+//     sourcePath: './entities/tub',
+//   }),
+//   model: EntityModel.fromPolygons(bathtub, {
+//     filename: 'tub.ftl',
+//     sourcePath: './entities/tub',
+//     originIdx: 0,
+//   }),
+//   position: new Vector3(1270, -100, 300),
+//   orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+// })
 
-bathtubEntity.withScript()
-bathtubEntity.script?.properties.push(new Label('wooden tub'), Material.wood, StackSize.unstackable)
+// bathtubEntity.withScript()
+// bathtubEntity.script?.properties.push(new Label('wooden tub'), Material.wood, StackSize.unstackable)
 
-map.entities.push(bathtubEntity)
+// map.entities.push(bathtubEntity)
 
 // -----------------------------------
 
