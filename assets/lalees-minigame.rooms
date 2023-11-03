@@ -178,11 +178,50 @@ with light
 
 cursor restore living-room
 room add 100 3000 100 spacer y++
-room add 700 300 700 backrooms-a y++
-cursor save backrooms
+room add 500 300 500 backrooms-a y++
+cursor save backrooms-lobby
 
-room add 300 300 200 backrooms-a z++ y-
-room add 700 300 700 backrooms-b z++ y-
+room add 100 300 500 backrooms-a y- x--
+room add 200 300 700 backrooms-a y- x--
+cursor save backrooms-east
+
+cursor restore backrooms-lobby
+room add 100 300 500 backrooms-a y- x++
+room add 200 300 700 backrooms-a y- x++
+cursor save backrooms-west
+
+cursor restore backrooms-lobby
+room add 500 300 100 backrooms-a y- z++
+room add 1100 300 200 backrooms-a y- z++
+cursor save backrooms-north
+
+cursor restore backrooms-lobby
+room add 500 300 100 backrooms-a y- z--
+room add 1100 300 200 backrooms-a y- z--
+cursor save backrooms-south
+
+# --------------------
+
+cursor restore backrooms-north
+room add 200 300 50 backrooms-a y- z++
+room add 700 300 500 backrooms-b y- z++
+
+room add 200 300 50 backrooms-a y- z++
+room add 1500 300 200 backrooms-a y- z++
+with light 10%
+cursor save office-corridor
+
+room add 200 300 50 backrooms-a y- z-- x+
+room add 500 300 500 backrooms-b y- z--
+
+cursor restore office-corridor
+room add 200 300 50 backrooms-a y- z-- x-
+room add 500 300 500 backrooms-b y- z--
+
+cursor restore office-corridor
+room add 150 300 200 backrooms-a y- x--
+cursor restore office-corridor
+room add 150 300 200 backrooms-a y- x++
 
 # --------------------------------------------------------------
 # next dev stuff below:

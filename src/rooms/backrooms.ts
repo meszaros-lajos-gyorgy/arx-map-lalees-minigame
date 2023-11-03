@@ -5,6 +5,7 @@ import { createZone } from 'arx-level-generator/tools'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { CeilingLamp } from '@/entities/CeilingLamp.js'
 import { createCeilingLight } from '@/prefabs/ceilingLight.js'
+import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackrooms = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
@@ -39,17 +40,32 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
   const rootCeilingLamp = new CeilingLamp()
   rootCeilingLamp.script?.makeIntoRoot()
 
-  const ceilingLights = [
-    createCeilingLight({
-      position: roomOrigin.clone().add(new Vector3(0, -290, 0)),
-      radius: 800,
-      isOn: true,
-    }),
-    createCeilingLight({ position: roomOrigin.clone().add(new Vector3(0, -290, 900)) }),
+  const offices = [
+    { position: new Vector3(0, -290, 0), isLampOn: true, lampRadius: 800 },
+    { position: new Vector3(0, -290, 850), lampOn: false, lampRadius: 500 },
+    { position: new Vector3(-650, -290, 850), lampOn: false, lampRadius: 500 },
+    { position: new Vector3(650, -290, 850), lampOn: false, lampRadius: 500 },
   ]
 
+  offices.forEach(({ position }) => {
+    position.add(roomOrigin)
+  })
+
+  const tableInOffice1 = createTable({
+    position: offices[1].position.clone().add(new Vector3(-300, 210, 0)),
+    angleY: 90,
+  })
+
+  const ceilingLights = offices.map(({ position, isLampOn, lampRadius }) => {
+    return createCeilingLight({
+      position,
+      radius: lampRadius,
+      isOn: isLampOn,
+    })
+  })
+
   return {
-    meshes: [],
+    meshes: [...tableInOffice1.meshes],
     entities: [spawn, aam, folgora, taar, rootCeilingLamp, ...ceilingLights.flatMap(({ entities }) => entities)],
     lights: [...ceilingLights.flatMap(({ lights }) => lights)],
     zones: [spawnZone],
