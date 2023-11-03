@@ -36,11 +36,7 @@ export const createGameDisplayRoom = async (
       const gameDisplay = new GameDisplay({
         variant,
         position,
-        orientation: new Rotation(
-          MathUtils.degToRad(90) + i * angle + theta,
-          MathUtils.degToRad(0),
-          MathUtils.degToRad(-90),
-        ),
+        orientation: new Rotation(MathUtils.degToRad(90) + i * angle + theta, 0, MathUtils.degToRad(-90)),
       })
 
       return { ...acc, [variant]: gameDisplay }
