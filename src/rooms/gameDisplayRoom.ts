@@ -14,7 +14,7 @@ export const createGameDisplayRoom = async (
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(-2050, 0, -450),
-    orientation: new Rotation(0, MathUtils.degToRad(-210), 0),
+    orientation: new Rotation(0, MathUtils.degToRad(-120), 0),
   })
   game.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`
@@ -38,7 +38,7 @@ export const createGameDisplayRoom = async (
         position,
         orientation: new Rotation(
           MathUtils.degToRad(90) + i * angle + theta,
-          MathUtils.degToRad(180),
+          MathUtils.degToRad(0),
           MathUtils.degToRad(-90),
         ),
       })

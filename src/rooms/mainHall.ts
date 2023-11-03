@@ -76,7 +76,7 @@ export const createMainHall = async (
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(300, 0, 403),
-    orientation: new Rotation(MathUtils.degToRad(-60), MathUtils.degToRad(-90), 0),
+    orientation: new Rotation(MathUtils.degToRad(-60), 0, 0),
   })
   game.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game.variant}`

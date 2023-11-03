@@ -67,7 +67,6 @@ type PCGameConstructorProps = Expand<
 export const pcGameMesh = await loadOBJ('./entities/pcgame/pcgame', {
   scale: 0.1,
   materialFlags: ArxPolygonFlags.None,
-  reversedPolygonWinding: true,
 })
 
 export class PCGame extends Entity {

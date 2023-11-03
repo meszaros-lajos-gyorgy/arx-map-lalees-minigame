@@ -62,7 +62,7 @@ export const createPCRoom = async (settings: Settings, gameStateManager: Entity)
   const bigRigs = new PCGame({
     variant: 'big-rigs',
     position: new Vector3(540, 0, 290),
-    orientation: new Rotation(0, MathUtils.degToRad(128), 0),
+    orientation: new Rotation(0, MathUtils.degToRad(218), 0),
   })
   bigRigs.script
     ?.on('init', () => {

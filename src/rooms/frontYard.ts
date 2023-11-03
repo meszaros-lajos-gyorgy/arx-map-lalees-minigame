@@ -32,7 +32,7 @@ export const createFrontYard = async (
   const game1 = new PCGame({
     variant: gameVariants[0],
     position: new Vector3(1700, -5, -50),
-    orientation: new Rotation(MathUtils.degToRad(45), MathUtils.degToRad(80), MathUtils.degToRad(15)),
+    orientation: new Rotation(MathUtils.degToRad(45), MathUtils.degToRad(170), MathUtils.degToRad(15)),
   })
   game1.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game1.variant}`
@@ -243,6 +243,7 @@ export const createFrontYard = async (
   const game2 = new PCGame({
     variant: gameVariants[1],
     position: new Vector3(-1600, -5, -700),
+    orientation: new Rotation(0, MathUtils.degToRad(90), 0),
   })
   game2.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`

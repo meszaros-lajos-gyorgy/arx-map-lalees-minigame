@@ -35,7 +35,7 @@ export const createBathRoom = async (
   const game = new PCGame({
     variant: gameVariant,
     position: new Vector3(1050, 0, 480),
-    orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+    orientation: new Rotation(0, MathUtils.degToRad(180), 0),
   })
   game.script?.on('init', () => {
     return `objecthide self yes`
