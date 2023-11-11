@@ -92,7 +92,11 @@ const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 const leftCorridor = await createLeftCorridor(settings, gameStateManager)
 const rightCorridor = await createRightCorridor(settings, gameStateManager)
 const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, gameVariants[6])
-const backrooms = await createBackrooms(settings, gameStateManager)
+
+const backroomsCursors = Object.entries(rooms.cursor.saves)
+  .filter(([key]) => key.startsWith('backrooms-room-'))
+  .map(([, { cursor, newSize }]) => ({ origin: cursor, size: newSize }))
+const backrooms = await createBackrooms(settings, gameStateManager, backroomsCursors)
 
 const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)

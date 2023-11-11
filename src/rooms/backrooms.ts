@@ -8,7 +8,11 @@ import { createCeilingLight } from '@/prefabs/ceilingLight.js'
 import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
 
-export const createBackrooms = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
+export const createBackrooms = async (
+  settings: Settings,
+  gameStateManager: Entity,
+  cursors: { origin: Vector3; size: Vector3 }[],
+): Promise<RoomContents> => {
   const roomOrigin = new Vector3(0, -3350, 0)
 
   const aam = new Rune('aam', {
@@ -40,20 +44,12 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
   const rootCeilingLamp = new CeilingLamp()
   rootCeilingLamp.script?.makeIntoRoot()
 
-  const offices = [
-    { position: new Vector3(0, -290, 0), isLampOn: true, lampRadius: 800 },
-    { position: new Vector3(0, -290, 850), lampOn: false, lampRadius: 500 },
-    { position: new Vector3(-650, -290, 850), lampOn: false, lampRadius: 500 },
-    { position: new Vector3(650, -290, 850), lampOn: false, lampRadius: 500 },
-  ]
-
-  offices.forEach(({ position }) => {
-    position.add(roomOrigin)
-  })
-
-  const tableInOffice1 = createTable({
-    position: offices[1].position.clone().add(new Vector3(-300, 210, 0)),
-    angleY: 90,
+  const offices = cursors.map(({ origin, size }, idx) => {
+    return {
+      position: origin.clone().add(new Vector3(0, -size.y + 10, 0)),
+      isLampOn: idx === 0,
+      lampRadius: Math.max(size.x, size.y, size.z),
+    }
   })
 
   const ceilingLights = offices.map(({ position, isLampOn, lampRadius }) => {
@@ -62,6 +58,11 @@ export const createBackrooms = async (settings: Settings, gameStateManager: Enti
       radius: lampRadius,
       isOn: isLampOn,
     })
+  })
+
+  const tableInOffice1 = createTable({
+    position: offices[1].position.clone().add(new Vector3(-cursors[1].size.x / 2 + 50, 210, 0)),
+    angleY: 90,
   })
 
   return {
