@@ -1,4 +1,4 @@
-import { ArxMap, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { $, ArxMap, Settings, Texture, Vector3 } from 'arx-level-generator'
 import { Box3 } from 'three'
 
 export const createBathtub = async (
@@ -21,7 +21,7 @@ export const createBathtub = async (
   const adjustment = new Vector3(0, 50, 0)
   const inverseCenter = center.clone().multiplyScalar(-1)
 
-  return castleMap.polygons
+  return $(castleMap.polygons)
     .selectWithinBox(box)
     .selectByTextures([barrelTexture])
     .copy()
@@ -30,4 +30,5 @@ export const createBathtub = async (
     .move(adjustment)
     .scale(scale)
     .move(position)
+    .get()
 }

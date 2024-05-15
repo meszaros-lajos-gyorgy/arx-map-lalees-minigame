@@ -1,7 +1,7 @@
 import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
-import { Interactivity, Label, Transparency, Variable } from 'arx-level-generator/scripting/properties'
+import { Label, Transparency, Variable } from 'arx-level-generator/scripting/properties'
 import { PCGameVariant, TEXTURES, pcGameMesh } from '@/entities/PCGame.js'
 
 type GameDisplayProps = Expand<
@@ -21,7 +21,7 @@ export class GameDisplay extends Entity {
         filename: 'pcgame[icon].bmp',
         sourcePath: './entities/pcgame',
       }),
-      model: EntityModel.fromThreeJsObj(pcGameMesh[0], {
+      model: EntityModel.fromThreeJsObj(pcGameMesh.meshes[0], {
         filename: 'pcgame.ftl',
         originIdx: 4,
       }),

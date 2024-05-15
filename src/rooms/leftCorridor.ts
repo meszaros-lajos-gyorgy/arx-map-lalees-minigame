@@ -1,4 +1,4 @@
-import { Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { Entity, Material, Rotation, Settings, Vector3 } from 'arx-level-generator'
 import { ControlZone, Scale, Shadow } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
 import { MathUtils } from 'three'

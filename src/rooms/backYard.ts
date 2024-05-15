@@ -53,7 +53,7 @@ export const createBackYard = async (
   const wallLight2 = createOutdoorLight({ position: new Vector3(300, -180, 600), angleY: 180 })
 
   return {
-    meshes: [...moon.meshes, ...tree, ...wallLight1.meshes, ...wallLight2.meshes],
+    meshes: [...moon.meshes, ...tree.meshes, ...wallLight1.meshes, ...wallLight2.meshes],
     entities: [door, game, ...crickets],
     lights: [...moon.lights, ...wallLight1.lights, ...wallLight2.lights],
     zones: [],

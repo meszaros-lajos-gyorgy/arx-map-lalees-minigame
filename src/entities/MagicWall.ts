@@ -1,4 +1,4 @@
-import { Entity, EntityConstructorPropsWithoutSrc, Vector3 } from 'arx-level-generator'
+import { Entity, EntityConstructorPropsWithoutSrc } from 'arx-level-generator'
 import { Variable } from 'arx-level-generator/scripting/properties'
 
 export class MagicWall extends Entity {

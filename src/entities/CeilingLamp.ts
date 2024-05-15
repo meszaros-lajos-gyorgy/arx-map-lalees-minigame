@@ -3,7 +3,6 @@ import { Audio, Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture }
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
-import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Interactivity, Variable } from 'arx-level-generator/scripting/properties'
 
 const onTexture = Texture.fromCustomFile({

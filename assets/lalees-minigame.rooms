@@ -95,7 +95,7 @@ room add 700 350 1100 room
 with light
 cursor save living-room
 
-# 3 windows on the back
+3 windows on the back
 room add 100 250 50 window z-- y
 room add 500 $roomHeight 1000 outside-south z-- y
 cursor save outside-front
@@ -259,45 +259,42 @@ room add 200 300 50 backrooms-a y- z++ x+
 room add 500 300 500 backrooms-a y- z++
 cursor save backrooms-room-10
 
+# --------------------
+# 2nd floor
+# --------------------
 
-# --------------------------------------------------------------
-# next dev stuff below:
-# --------------------------------------------------------------
+# staircase
+cursor restore living-room
+room add 400 350 200 room x-- y- z-
+with light
 
-# premium only {
-#   staircase
-#   cursor restore living-room
-#   room add 400 350 200 room x-- y- z-
-#   with light
+room add 100 300 200 room x-- y+
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+with light
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   with light
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+with light
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   with light
-#   room add 100 50 200 room y++
+room add 100 300 200 room x-- y+
+room add 100 50 200 room y++
 
-#   room add 100 300 200 room x-- y+
-#   room add 100 50 200 room y++
+room add 450 300 200 room x-- y+
+with light
 
-#   room add 450 300 200 room x-- y+
-#   with light
-
-#   # 2nd floor of the game display room
-#   room add 1100 400 1100 room x-- y- z-
-#   with light
-#   room add 500 50 500 room y--
-# }
+# 2nd floor of the game display room
+room add 1100 400 1100 room x-- y- z-
+with light
+room add 500 50 500 room y--

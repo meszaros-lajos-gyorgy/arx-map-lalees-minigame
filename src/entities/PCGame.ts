@@ -80,7 +80,7 @@ export class PCGame extends Entity {
         filename: 'pcgame[icon].bmp',
         sourcePath: './entities/pcgame',
       }),
-      model: EntityModel.fromThreeJsObj(pcGameMesh[0], {
+      model: EntityModel.fromThreeJsObj(pcGameMesh.meshes[0], {
         filename: 'pcgame.ftl',
         sourcePath: './entities/pcgame',
         originIdx: 4,

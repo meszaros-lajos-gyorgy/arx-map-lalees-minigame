@@ -1,7 +1,7 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
 import { Color, Material, Texture, Vector3 } from 'arx-level-generator'
 import { createLight } from 'arx-level-generator/tools'
-import { scaleUV, toArxCoordinateSystem, translateUV } from 'arx-level-generator/tools/mesh'
+import { scaleUV, toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
 import { ConeGeometry, CylinderGeometry, Euler, MathUtils, Mesh, MeshBasicMaterial, Vector2 } from 'three'
 
 type createOutdoorLightProps = {

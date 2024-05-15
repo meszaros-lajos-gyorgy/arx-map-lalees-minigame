@@ -120,7 +120,7 @@ const bathtub = await createBathtub(
   settings,
 )
 
-map.polygons.push(...bathtub)
+// map.polygons.push(...bathtub)
 
 // const bathtubEntity = new Entity({
 //   src: 'items/special/tub',
