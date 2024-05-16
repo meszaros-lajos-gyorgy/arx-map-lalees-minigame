@@ -95,7 +95,7 @@ room add 700 350 1100 room
 with light
 cursor save living-room
 
-3 windows on the back
+# windows on the back
 room add 100 250 50 window z-- y
 room add 500 $roomHeight 1000 outside-south z-- y
 cursor save outside-front
