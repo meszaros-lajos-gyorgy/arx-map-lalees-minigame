@@ -1,7 +1,9 @@
 import {
   ArxMap,
   Audio,
-  DONT_QUADIFY, // Entity,
+  DONT_QUADIFY,
+  Entities,
+  Entity, // Entity,
   // EntityModel,
   HudElements, // Rotation,
   SHADING_SMOOTH,
@@ -16,6 +18,7 @@ import {
   // Material,
   // StackSize,
   Speed,
+  Variable,
 } from 'arx-level-generator/scripting/properties'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
@@ -51,6 +54,11 @@ map.ui.set(UiElements.MainMenuBackground, './ui/menu_main_background.jpg')
 await map.i18n.addFromFile('./i18n.json', settings)
 
 // -----------------------------------
+
+const spawn = Entity.marker.at({
+  position: new Vector3(1300, 0, -900),
+})
+map.entities.push(spawn)
 
 const rooms = await loadRooms('./lalees-minigame.rooms', settings)
 rooms.forEach((room) => {
@@ -94,20 +102,33 @@ const rightCorridor = await createRightCorridor(settings, gameStateManager)
 const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, gameVariants[6])
 
 const backroomsCursors = Object.entries(rooms.cursor.saves)
-  .filter(([key]) => key.startsWith('backrooms-room-'))
-  .map(([, { cursor, newSize }]) => ({ origin: cursor, size: newSize }))
+  .filter(([key]) => key.startsWith('backrooms-'))
+  .map(([name, { cursor, newSize }]) => ({ origin: cursor, size: newSize, name }))
 const backrooms = await createBackrooms(settings, gameStateManager, backroomsCursors)
 
 const bathroomDoor = bathRoom._.door as LightDoor
 bathroomDoor.setKey(pantry._.bathroomKey)
 
-map.player.script?.on('send_to_backrooms', () => {
-  return `
-    // lightning strike requires a player that is at least on level 2
-    addxp 4000
-    teleport ${backrooms._.spawn.ref}
-  `
-})
+const firstVisitToBackrooms = new Variable('bool', 'first_visit_to_backrooms', true)
+map.player.script?.properties.push(firstVisitToBackrooms)
+
+// TODO: only give the 4000xp to the player once
+map.player.script
+  ?.on('send_to_backrooms', () => {
+    return `
+    if (${firstVisitToBackrooms.name} == 1) {
+        set ${firstVisitToBackrooms.name} 0
+        // lightning strike requires a player that is at least on level 2
+        addxp 4000
+      }
+      teleport ${backrooms._.entry.ref}
+    `
+  })
+  .on('send_to_spawn', () => {
+    return `
+      teleport ${spawn.ref}
+    `
+  })
 
 Audio.mute(new Audio({ filename: 'player_level_up' }))
 Audio.mute(new Audio({ filename: 'magic_spell_ignite' }))
@@ -115,12 +136,12 @@ Audio.mute(new Audio({ filename: 'magic_spell_douse' }))
 
 // -----------------------------------
 
-const bathtub = await createBathtub(
-  { position: map.config.offset.clone().add(new Vector3(1270, 0, 300)), scale: 1.5 },
-  settings,
-)
+// const bathtub = await createBathtub(
+//   { position: map.config.offset.clone().add(new Vector3(1270, 0, 300)), scale: 1.5 },
+//   settings,
+// )
 
-map.polygons.push(...bathtub)
+// map.polygons.push(...bathtub)
 
 // const bathtubEntity = new Entity({
 //   src: 'items/special/tub',
@@ -128,7 +149,7 @@ map.polygons.push(...bathtub)
 //     filename: 'tub[icon].bmp',
 //     sourcePath: './entities/tub',
 //   }),
-//   model: EntityModel.fromPolygons(bathtub, {
+//   model: EntityModel.fromPolygons(bathtub, {room add 800 800 800 skybox z-- y
 //     filename: 'tub.ftl',
 //     sourcePath: './entities/tub',
 //     originIdx: 0,

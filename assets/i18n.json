@@ -31,7 +31,6 @@
     "english": "Bikini Karate Babes",
     "german": "Bikini Karate Babes"
   },
-
   "tutorial--welcome": {
     "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!",
     "german": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!"
@@ -44,7 +43,6 @@
     "english": "Good job, the game is now in the collection! See if you can find some more!",
     "german": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!"
   },
-
   "achievement--collected-games-small": {
     "english": "Achievement reached: Collected 2 games.",
     "german": "Errungenschaft: 2 Spiele gesammelt"
@@ -61,17 +59,14 @@
     "english": "Achievement reached: No longer my problem!",
     "german": "Errungenschaft: Nicht länger mein Problem!"
   },
-
   "ring--powerup": {
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)",
     "german": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)"
   },
-
   "key--bathroom": {
     "english": "Bathroom key",
     "german": "Badezimmer Schlüssel"
   },
-
   "unmounted-mirror-on-wall": {
     "english": "The mirror is missing from the wall",
     "german": "Der Spiegel an der Wand fehlt"
@@ -80,7 +75,6 @@
     "english": "A pc game is missing from the display",
     "german": "Ein PC Spiel fehlt in der Ausstellung"
   },
-
   "goblin_victory3_shorter": {
     "english": "Yes, yes, YES!",
     "german": "Ja, ja, JA!"
@@ -89,9 +83,28 @@
     "english": "This game is shit!!!",
     "german": "Dieses spiel ist scheiße!!!"
   },
-
   "level-completed": {
     "english": "Congratulations, you have completed the map! Feel free to stay on the map as long as you like and keep exploring!",
     "german": "Herzlichen Glückwunsch, Sie haben die Karte fertiggestellt! Bleiben Sie gerne so lange auf der Karte, wie Sie möchten, und erkunden Sie weiter!"
+  },
+  "key--backrooms-exit": {
+    "english": "A little metal key with signs of wear",
+    "german": "Ein kleiner Metallschlüssel mit Gebrauchsspuren"
+  },
+  "backrooms-door-label-normal": {
+    "english": "Fire Exit",
+    "german": "Notausgang"
+  },
+  "backrooms-door-label-glitch1": {
+    "english": "Fire 3xit",
+    "german": "N0tausgang"
+  },
+  "backrooms-door-label-glitch2": {
+    "english": "F1re Exit",
+    "german": "Notau5gang"
+  },
+  "backrooms-door-label-glitch3": {
+    "english": "Fire Ex!t",
+    "german": "Notausgan9"
   }
 }

@@ -188,6 +188,9 @@ export const createGameStateManager = (settings: Settings) => {
     .on('entered_at_the_front_yard_zone', vanishGoblin)
     .on('entered_at_the_main_hall_zone', killGoblin)
     .on('entered_at_the_entrance_zone', killGoblin)
+    .on('player_leaves_backrooms', () => {
+      return `sendevent send_to_spawn player nop`
+    })
 
   return manager
 }
