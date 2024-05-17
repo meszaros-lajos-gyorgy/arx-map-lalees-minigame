@@ -1,13 +1,14 @@
 import {
+  // EntityModel,
+  // Rotation,
+  // Texture,
   ArxMap,
   Audio,
   DONT_QUADIFY,
-  Entities,
-  Entity, // Entity,
-  // EntityModel,
-  HudElements, // Rotation,
+  Entity,
+  HudElements,
   SHADING_SMOOTH,
-  Settings, // Texture,
+  Settings,
   UiElements,
   Vector3,
 } from 'arx-level-generator'
@@ -136,32 +137,38 @@ Audio.mute(new Audio({ filename: 'magic_spell_douse' }))
 
 // -----------------------------------
 
-// const bathtub = await createBathtub(
-//   { position: map.config.offset.clone().add(new Vector3(1270, 0, 300)), scale: 1.5 },
-//   settings,
-// )
+// the bathtub is being copied from an existing arx level and the parsing of that is quite resource intensive
+// since it's purely decorational it can loaded only when the level generator is in production mode
+if (settings.mode === 'production') {
+  const bathtub = await createBathtub(
+    { position: map.config.offset.clone().add(new Vector3(1270, 0, 300)), scale: 1.5 },
+    settings,
+  )
 
-// map.polygons.push(...bathtub)
+  map.polygons.push(...bathtub)
 
-// const bathtubEntity = new Entity({
-//   src: 'items/special/tub',
-//   inventoryIcon: Texture.fromCustomFile({
-//     filename: 'tub[icon].bmp',
-//     sourcePath: './entities/tub',
-//   }),
-//   model: EntityModel.fromPolygons(bathtub, {room add 800 800 800 skybox z-- y
-//     filename: 'tub.ftl',
-//     sourcePath: './entities/tub',
-//     originIdx: 0,
-//   }),
-//   position: new Vector3(1270, -100, 300),
-//   orientation: new Rotation(0, MathUtils.degToRad(90), 0),
-// })
+  // // experiment to show to turn a slice of arx map into an entity
 
-// bathtubEntity.withScript()
-// bathtubEntity.script?.properties.push(new Label('wooden tub'), Material.wood, StackSize.unstackable)
+  // const bathtubEntity = new Entity({
+  //   src: 'items/special/tub',
+  //   inventoryIcon: Texture.fromCustomFile({
+  //     filename: 'tub[icon].bmp',
+  //     sourcePath: './entities/tub',
+  //   }),
+  //   model: EntityModel.fromPolygons(bathtub, {
+  //     filename: 'tub.ftl',
+  //     sourcePath: './entities/tub',
+  //     originIdx: 0,
+  //   }),
+  //   position: new Vector3(1270, -100, 300),
+  //   orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+  // })
 
-// map.entities.push(bathtubEntity)
+  // bathtubEntity.withScript()
+  // bathtubEntity.script?.properties.push(new Label('wooden tub'), Material.wood, StackSize.unstackable)
+
+  // map.entities.push(bathtubEntity)
+}
 
 // -----------------------------------
 
