@@ -1,5 +1,5 @@
 import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
-import { Label, Shadow } from 'arx-level-generator/scripting/properties'
+import { Label, Platform, Shadow } from 'arx-level-generator/scripting/properties'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { Jar } from '@/entities/Jar.js'
@@ -24,7 +24,7 @@ export const createPantry = async (
   const barrel = Entity.barrel.withScript().at({
     position: new Vector3(935, 0, -485),
   })
-  barrel.script?.properties.push(Shadow.off)
+  barrel.script?.properties.push(Shadow.off, Platform.on)
 
   const lowestShelf = -80
   const middleShelf = -160
