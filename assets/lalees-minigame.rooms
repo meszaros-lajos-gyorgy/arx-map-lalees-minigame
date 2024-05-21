@@ -29,6 +29,21 @@ define outside-west {
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
+define outside-2nd-floor-south {
+  ceiling off
+  wall off
+  wall-west custom textures solid-non-transparent-black.bmp
+  wall-north custom textures [stone]-dark-brick-wall.jpg
+  floor off
+}
+
+define outside-2nd-floor-east {
+  ceiling off
+  wall off
+  wall-west custom textures [stone]-dark-brick-wall.jpg
+  floor off
+}
+
 define window {
   ceiling arx aliciaroom_mur02.jpg
   wall arx aliciaroom_mur02.jpg
@@ -86,6 +101,7 @@ define backrooms-b {
 # ------------------------------
 
 $roomHeight = 350
+$secondFloorHeight = 400
 $corridorHeight = 300
 $doorHeight = 200
 $entranceHeight = 250
@@ -106,12 +122,14 @@ room add 100 250 50 window z++ y x+
 # outside front
 cursor restore outside-front
 room add 1450 $roomHeight 1000 outside-south x-- y-
+room add 3300 $secondFloorHeight 400 outside-2nd-floor-south z+ y++ x-
 cursor restore outside-front
 room add 1450 $roomHeight 1000 outside-south x++ y-
 
 # east alleyway
 room add 100 $roomHeight 700 outside-east x+ z++ y-
-with light
+with light 45%
+room add 100 $secondFloorHeight 700 outside-2nd-floor-east y++
 
 # door on the front
 cursor restore living-room
