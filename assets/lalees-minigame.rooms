@@ -29,6 +29,14 @@ define outside-west {
   floor arx l2_troll_[sand]_ground04.jpg
 }
 
+define outside-2nd-floor-north {
+  ceiling off
+  wall off
+  wall-west custom textures solid-non-transparent-black.bmp
+  wall-south custom textures [stone]-dark-brick-wall.jpg
+  floor off
+}
+
 define outside-2nd-floor-south {
   ceiling off
   wall off
@@ -137,6 +145,7 @@ room add 200 $entranceHeight 50 entrance z++ y-
 
 # outside back
 room add 1000 $roomHeight 1200 outside-north z++ y-
+room add 1000 $secondFloorHeight 1200 outside-2nd-floor-north y++
 
 # right corridor
 cursor restore living-room
