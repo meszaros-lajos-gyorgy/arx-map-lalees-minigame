@@ -244,15 +244,15 @@ export const createFrontYard = async (
 
   const game2 = new PCGame({
     variant: gameVariants[1],
-    position: new Vector3(-1600, -5, -700),
+    position: new Vector3(-1500, -5, -450),
     orientation: new Rotation(0, MathUtils.degToRad(90), 0),
   })
   game2.script?.on('inventoryin', () => {
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`
   })
 
-  const trashBags = circleOfVectors(game2.position.clone(), 50, 6).map((point) => {
-    const offset = new Vector3(randomBetween(-10, 10), randomBetween(-5, 5), randomBetween(-10, 10))
+  const trashBags = circleOfVectors(game2.position.clone(), 100, 6).map((point) => {
+    const offset = new Vector3(randomBetween(-10, 10), -15, randomBetween(-10, 10))
     const position = point.add(offset)
 
     const orientation = new Rotation(
@@ -271,9 +271,11 @@ export const createFrontYard = async (
   })
 
   const middleTrashBag = new TrashBag({
-    position: game2.position.clone(),
+    position: game2.position.clone().add(new Vector3(0, -15, 0)),
   })
   middleTrashBag.script?.on('init', () => `setgroup "junk"`)
+
+  trashBags.push(middleTrashBag)
 
   return {
     meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, city, houseNumber],
@@ -288,7 +290,6 @@ export const createFrontYard = async (
       entityOverFenceDetector,
       markerAtFenceGate,
       ...trashBags,
-      middleTrashBag,
     ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
     zones: [entityOverFenceZone],

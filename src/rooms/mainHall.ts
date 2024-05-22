@@ -117,7 +117,7 @@ export const createMainHall = async (
   ]
 
   const curtain = new Curtain2({
-    position: new Vector3(375, -15, -450),
+    position: new Vector3(375, -15, -400),
     orientation: new Rotation(0, MathUtils.degToRad(180), 0),
   })
   curtain.withScript()

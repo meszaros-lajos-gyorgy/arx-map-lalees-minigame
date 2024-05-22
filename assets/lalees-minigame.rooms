@@ -59,14 +59,14 @@ define window {
 }
 
 define door {
-  ceiling arx aliciaroom_mur02.jpg
-  wall arx aliciaroom_mur02.jpg
+  ceiling arx L3_DISSID_[WOOD]_CONSTRUCT01.jpg
+  wall arx L3_DISSID_[WOOD]_CONSTRUCT01.jpg
   floor arx l2_troll_[wood]_pillar06.jpg
 }
 
 define entrance {
-  ceiling arx aliciaroom_mur02.jpg
-  wall arx aliciaroom_mur02.jpg
+  ceiling arx L3_DISSID_[WOOD]_CONSTRUCT01.jpg
+  wall arx L3_DISSID_[WOOD]_CONSTRUCT01.jpg
   floor arx l2_troll_[wood]_pillar06.jpg
 }
 
@@ -130,7 +130,15 @@ room add 100 250 50 window z++ y x+
 # outside front
 cursor restore outside-front
 room add 1450 $roomHeight 1000 outside-south x-- y-
+cursor save tmp
 room add 3300 $secondFloorHeight 400 outside-2nd-floor-south z+ y++ x-
+with light 10%
+cursor restore tmp
+room add 100 0 0 default x- z++ y-
+room add 200 200 50 entrance x++ z++ y-
+room add 200 200 200 room-with-tiles z++ y-
+with light 50%
+
 cursor restore outside-front
 room add 1450 $roomHeight 1000 outside-south x++ y-
 
@@ -174,9 +182,11 @@ room add 200 $entranceHeight 50 entrance z-- y-
 
 # room C - pantry
 cursor restore living-room
-room add 50 $entranceHeight 200 door z- x++ y-
-room add 600 $roomHeight 400 room-with-tiles z- x++ y-
+room add 0 0 50 spacer z- x++ y-
+room add 50 $entranceHeight 200 door z++ x++ y-
+room add 600 $roomHeight 350 room-with-tiles z- x++ y-
 with light dim
+room add 600 $roomHeight 50 room-with-tiles z-- y-
 
 # left corridor
 cursor restore living-room
@@ -294,36 +304,38 @@ cursor save backrooms-room-10
 
 # staircase
 cursor restore living-room
-room add 400 350 200 room x-- y- z-
+room add 0 0 50 spacer x-- y- z-
+room add 400 350 150 room x-- y- z++
 with light
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+room add 100 300 150 room x-- y+
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+room add 100 300 150 room x-- y+
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
+room add 100 300 150 room x-- y+
 with light
-room add 100 50 200 room y++
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+room add 100 300 150 room x-- y+
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+room add 100 300 150 room x-- y+
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
+room add 100 300 150 room x-- y+
 with light
-room add 100 50 200 room y++
+room add 100 50 150 room y++
 
-room add 100 300 200 room x-- y+
-room add 100 50 200 room y++
+room add 100 300 150 room x-- y+
+room add 100 50 150 room y++
 
-room add 450 300 200 room x-- y+
+room add 450 300 150 room x-- y+
 with light
 
 # 2nd floor of the game display room
+room add 0 0 50 default x-- y- z--
 room add 1100 400 1100 room x-- y- z-
 with light
 room add 500 50 500 room y--

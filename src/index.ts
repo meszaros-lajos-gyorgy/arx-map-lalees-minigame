@@ -1,7 +1,4 @@
 import {
-  // EntityModel,
-  // Rotation,
-  // Texture,
   ArxMap,
   Audio,
   DONT_QUADIFY,
@@ -14,13 +11,7 @@ import {
 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
-import {
-  // Label,
-  // Material,
-  // StackSize,
-  Speed,
-  Variable,
-} from 'arx-level-generator/scripting/properties'
+import { Speed, Variable } from 'arx-level-generator/scripting/properties'
 import { applyTransformations } from 'arx-level-generator/utils'
 import { randomSort } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -146,28 +137,6 @@ if (settings.mode === 'production') {
   )
 
   map.polygons.push(...bathtub)
-
-  // // experiment to show to turn a slice of arx map into an entity
-
-  // const bathtubEntity = new Entity({
-  //   src: 'items/special/tub',
-  //   inventoryIcon: Texture.fromCustomFile({
-  //     filename: 'tub[icon].bmp',
-  //     sourcePath: './entities/tub',
-  //   }),
-  //   model: EntityModel.fromPolygons(bathtub, {
-  //     filename: 'tub.ftl',
-  //     sourcePath: './entities/tub',
-  //     originIdx: 0,
-  //   }),
-  //   position: new Vector3(1270, -100, 300),
-  //   orientation: new Rotation(0, MathUtils.degToRad(90), 0),
-  // })
-
-  // bathtubEntity.withScript()
-  // bathtubEntity.script?.properties.push(new Label('wooden tub'), Material.wood, StackSize.unstackable)
-
-  // map.entities.push(bathtubEntity)
 }
 
 // -----------------------------------
