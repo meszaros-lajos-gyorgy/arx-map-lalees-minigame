@@ -7,12 +7,14 @@ import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { ControlZone, Interactivity, Platform, PlayerControls, Scale } from 'arx-level-generator/scripting/properties'
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { scaleUV, translateUV } from 'arx-level-generator/tools/mesh'
-import { applyTransformations } from 'arx-level-generator/utils'
-import { pickWeightedRandoms, randomBetween } from 'arx-level-generator/utils/random'
+import { applyTransformations, circleOfVectors } from 'arx-level-generator/utils'
+import { times } from 'arx-level-generator/utils/faux-ramda'
+import { randomBetween, randomIntBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
 import { TrafficSounds } from '@/entities/TrafficSounds.js'
+import { TrashBag } from '@/entities/TrashBag.js'
 import { createOutdoorLight } from '@/prefabs/outdoorLight.js'
 import { RoomContents } from '@/types.js'
 
@@ -249,25 +251,9 @@ export const createFrontYard = async (
     return `sendevent player_found_a_game ${gameStateManager.ref} ${game2.variant}`
   })
 
-  const randomJunk = pickWeightedRandoms(
-    Math.round(randomBetween(12, 16)),
-    [
-      { value: () => Entity.brokenBottle, weight: 5 },
-      { value: () => Entity.brokenShield, weight: 1 },
-      { value: () => new Entity({ src: 'items/movable/plate_dirty' }), weight: 10 },
-      { value: () => new Entity({ src: 'items/movable/chess' }), weight: 1 },
-      { value: () => new Entity({ src: 'items/provisions/candel' }), weight: 5 },
-      { value: () => new Entity({ src: 'items/movable/fork' }), weight: 10 },
-      { value: () => new Entity({ src: 'items/movable/mug' }), weight: 10 },
-      { value: () => new Entity({ src: 'items/movable/stone_big' }), weight: 5 },
-      { value: () => Entity.boneBassin, weight: 1 },
-      { value: () => Entity.brokenStool, weight: 1 },
-      { value: () => Entity.akbaaBloodChickenHead, weight: 10 },
-    ],
-    true,
-  ).map(({ value: createItem }) => {
-    const offset = new Vector3(randomBetween(-40, 40), randomBetween(0, -10), randomBetween(-50, 50))
-    const position = game2.position.clone().add(offset)
+  const trashBags = circleOfVectors(game2.position.clone(), 50, 6).map((point) => {
+    const offset = new Vector3(randomBetween(-10, 10), randomBetween(-5, 5), randomBetween(-10, 10))
+    const position = point.add(offset)
 
     const orientation = new Rotation(
       MathUtils.degToRad(randomBetween(-5, 5)),
@@ -275,11 +261,19 @@ export const createFrontYard = async (
       MathUtils.degToRad(randomBetween(-5, 5)),
     )
 
-    const item = createItem().withScript().at({ position, orientation })
-    item.script?.on('init', () => `setgroup "junk"`)
+    const trashBag = new TrashBag({
+      position,
+      orientation,
+    })
+    trashBag.script?.on('init', () => `setgroup "junk"`)
 
-    return item
+    return trashBag
   })
+
+  const middleTrashBag = new TrashBag({
+    position: game2.position.clone(),
+  })
+  middleTrashBag.script?.on('init', () => `setgroup "junk"`)
 
   return {
     meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, city, houseNumber],
@@ -289,11 +283,12 @@ export const createFrontYard = async (
       runeComunicatum,
       barrel,
       game2,
-      ...randomJunk,
       ...crickets,
       ...trafficSounds,
       entityOverFenceDetector,
       markerAtFenceGate,
+      ...trashBags,
+      middleTrashBag,
     ],
     lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
     zones: [entityOverFenceZone],
