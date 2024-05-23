@@ -7,6 +7,7 @@ import { createZone } from 'arx-level-generator/tools'
 import { pickRandom, randomBetween, randomIntBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
 import { CeilingLamp } from '@/entities/CeilingLamp.js'
+import { WetFloorSign } from '@/entities/WetFloorSign.js'
 import { createCeilingLight } from '@/prefabs/ceilingLight.js'
 import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
@@ -123,6 +124,7 @@ export const createBackrooms = async (
     })
     exitKey.script?.properties.push(new Label('[key--backrooms-exit]'))
 
+    // TODO: add custom texture to this door
     const fireExitDoor = new CatacombHeavyDoor({
       position: exitCursor.origin.clone().add(new Vector3(-75, 0, -exitCursor.size.z / 2 + 10)),
       orientation: new Rotation(0, MathUtils.degToRad(90), 0),
@@ -194,6 +196,12 @@ export const createBackrooms = async (
 
     contents.entities.push(fireExitDoor, exitKey)
   }
+
+  const wetFloorSign = new WetFloorSign({
+    position: roomOrigin.clone().add(new Vector3(0, 0, 560)),
+    orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+  })
+  contents.entities.push(wetFloorSign)
 
   return contents
 }

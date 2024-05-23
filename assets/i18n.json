@@ -107,8 +107,12 @@
     "english": "Fire Ex!t",
     "german": "Notausgan9"
   },
-  "trashbag": {
+  "trash_bag": {
     "english": "A smelly bag of trash",
     "german": "Ein stinkender Müllsack"
+  },
+  "wet_floor_sign": {
+    "english": "Wet floor sign",
+    "german": "Nassbodenschild"
   }
 }

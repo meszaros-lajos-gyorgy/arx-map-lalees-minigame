@@ -4,9 +4,8 @@ import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Label, Variable } from 'arx-level-generator/scripting/properties'
-import { getNonIndexedVertices, loadOBJ } from 'arx-level-generator/tools/mesh'
+import { getLowestPolygonIdx, loadOBJ } from 'arx-level-generator/tools/mesh'
 import { randomIntBetween } from 'arx-level-generator/utils/random'
-import { BufferGeometry } from 'three'
 
 type TrashBagConstructorProps = Expand<EntityConstructorPropsWithoutSrc & {}>
 
@@ -15,12 +14,6 @@ const trashBagMesh = await loadOBJ('entities/garbage_bag/garbage_bag', {
   verticalAlign: 'bottom',
   scale: 0.013,
 })
-
-const getLowestPolygonIdx = (geometry: BufferGeometry) => {
-  const vertices = getNonIndexedVertices(geometry)
-  const lowestArxY = Math.max(...vertices.map((v) => v.vector.y))
-  return vertices.findIndex((v) => v.vector.y === lowestArxY)
-}
 
 const flyAudios = [
   Audio.fromCustomFile({ filename: 'flies1.wav', type: 'sfx', sourcePath: 'sfx' }),
@@ -48,7 +41,7 @@ export class TrashBag extends Entity {
 
     this.withScript()
 
-    this.script?.properties.push(new Label('[trashbag]'))
+    this.script?.properties.push(new Label('[trash_bag]'))
 
     const oneInFour = new Variable('int', 'one_in_four', 0)
 
