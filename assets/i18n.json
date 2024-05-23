@@ -91,21 +91,9 @@
     "english": "A little metal key with signs of wear",
     "german": "Ein kleiner Metallschlüssel mit Gebrauchsspuren"
   },
-  "backrooms-door-label-normal": {
-    "english": "Fire Exit",
-    "german": "Notausgang"
-  },
-  "backrooms-door-label-glitch1": {
-    "english": "Fire 3xit",
-    "german": "N0tausgang"
-  },
-  "backrooms-door-label-glitch2": {
-    "english": "F1re Exit",
-    "german": "Notau5gang"
-  },
-  "backrooms-door-label-glitch3": {
-    "english": "Fire Ex!t",
-    "german": "Notausgan9"
+  "door--backrooms-exit": {
+    "english": "Fire Safety Door - Do not obstruct, do not keep open!",
+    "german": "Notausgangstür - frei halten, nicht offen halten!"
   },
   "trash-bag": {
     "english": "A smelly bag of trash",
@@ -113,7 +101,7 @@
   },
   "wet-floor-sign": {
     "english": "Wet floor sign",
-    "german": "Nassbodenschild"
+    "german": "vorsicht rutschgefahr schild"
   },
   "tutorial--backrooms-1": {
     "english": "Uh oh, you went out of bounds and landed in the backrooms. Find an unmarked fire exit door to return to the map.",

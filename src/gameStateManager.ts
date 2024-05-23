@@ -1,8 +1,8 @@
-import { Audio, Entity, Settings } from 'arx-level-generator'
+import { Audio, Color, Entity, Settings } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
-import { Variable } from 'arx-level-generator/scripting/properties'
+import { PlayerControls, Variable } from 'arx-level-generator/scripting/properties'
 
 const notification = new Sound(Audio.system.filename, SoundFlags.EmitFromPlayer)
 const achievement = new Sound(Audio.system3.filename, SoundFlags.EmitFromPlayer)
@@ -169,6 +169,13 @@ export const createGameStateManager = (settings: Settings) => {
     `
   }
 
+  const demonAudio = new Audio({
+    filename: 'demon_breath3',
+    isNative: true,
+    type: 'sfx',
+  })
+  const demonSound = new Sound(demonAudio.filename, SoundFlags.EmitFromPlayer)
+
   manager.script
     ?.on('game_collected', () => {
       const { delay } = useDelay()
@@ -222,7 +229,13 @@ export const createGameStateManager = (settings: Settings) => {
     .on('entered_at_the_main_hall_zone', killGoblin)
     .on('entered_at_the_entrance_zone', killGoblin)
     .on('player_leaves_backrooms', () => {
-      return `sendevent send_to_spawn player nop`
+      const { delay } = useDelay()
+      return `
+        ${PlayerControls.off}
+        worldfade out 500 ${Color.fromCSS('black').toScriptColor()}
+        ${delay(1000)} ${demonSound.play()}
+        ${delay(3000)} sendevent send_to_spawn player nop worldfade in 500 ${PlayerControls.on}
+      `
     })
     .on('landed_in_backrooms', () => {
       return `

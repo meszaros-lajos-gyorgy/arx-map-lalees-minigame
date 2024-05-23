@@ -108,7 +108,7 @@ export const createBackrooms = async (
     const exitZone = createZone({
       position: exitCursor.origin
         .clone()
-        .add(new Vector3(0, 0, -300))
+        .add(new Vector3(0, 0, 300))
         .multiply(new Vector3(1, -1, 1))
         .add(new Vector3(0, 50, 0)),
       size: new Vector3(150, 50, 100),
@@ -134,74 +134,12 @@ export const createBackrooms = async (
 
     // TODO: add custom texture to this door
     const fireExitDoor = new CatacombHeavyDoor({
-      position: exitCursor.origin.clone().add(new Vector3(-75, 0, -exitCursor.size.z / 2 + 10)),
-      orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+      position: exitCursor.origin.clone().add(new Vector3(75, 0, exitCursor.size.z / 2 - 10)),
+      orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
       isLocked: true,
     })
     fireExitDoor.setKey(exitKey)
-
-    const normalLabel = new Label('[backrooms-door-label-normal]')
-    const glitchLabel1 = new Label('[backrooms-door-label-glitch1]')
-    const glitchLabel2 = new Label('[backrooms-door-label-glitch2]')
-    const glitchLabel3 = new Label('[backrooms-door-label-glitch3]')
-
-    const labelGlitcher = new ScriptSubroutine(
-      'label_glitcher',
-      () => {
-        const { delay: delay1 } = useDelay()
-        const { delay: delay2 } = useDelay()
-
-        return `
-          random 50 {
-            ${delay1(0)} ${glitchLabel1}
-            ${delay1(randomIntBetween(50, 80))} ${normalLabel}
-            ${delay1(randomIntBetween(50, 80))} ${glitchLabel2}
-            random 50 {
-              ${delay1(randomIntBetween(50, 80))} ${glitchLabel3}
-            }
-            ${delay1(randomIntBetween(200, 300))} ${normalLabel}
-          } else {
-            ${delay2(0)} ${glitchLabel3}
-            ${delay2(randomIntBetween(50, 80))} ${normalLabel}
-            ${delay2(randomIntBetween(50, 80))} ${glitchLabel1}
-            random 50 {
-              ${delay2(randomIntBetween(50, 80))} ${glitchLabel2}
-            }
-            ${delay2(randomIntBetween(200, 300))} ${normalLabel}
-          }
-
-          random 50 {
-            ${delay1(randomIntBetween(500, 750))} ${glitchLabel1}
-            ${delay1(randomIntBetween(50, 80))} ${normalLabel}
-            ${delay1(randomIntBetween(50, 80))} ${glitchLabel3}
-            random 50 {
-              ${delay1(randomIntBetween(50, 80))} ${glitchLabel2}
-            }
-            ${delay1(randomIntBetween(200, 300))} ${normalLabel}
-          } else {
-            ${delay2(randomIntBetween(500, 750))} ${glitchLabel2}
-            ${delay2(randomIntBetween(50, 80))} ${normalLabel}
-            ${delay2(randomIntBetween(50, 80))} ${glitchLabel1}
-            random 50 {
-              ${delay2(randomIntBetween(50, 80))} ${glitchLabel3}
-            }
-            ${delay2(randomIntBetween(200, 300))} ${normalLabel}
-          }
-        `
-      },
-      'goto',
-    )
-    fireExitDoor.script?.subroutines.push(labelGlitcher)
-
-    fireExitDoor.script?.properties.push(normalLabel)
-    fireExitDoor.script?.on('init', () => {
-      const { loop } = useDelay()
-
-      return `
-        ${loop(2500, Infinity)} ${labelGlitcher.invoke()}
-      `
-    })
-
+    fireExitDoor.script?.properties.push(new Label('[door--backrooms-exit]'))
     contents.entities.push(fireExitDoor, exitKey)
   }
 

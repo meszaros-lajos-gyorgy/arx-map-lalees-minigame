@@ -288,10 +288,10 @@ room add 200 300 50 backrooms-a y- z++ x-
 room add 500 300 500 backrooms-b y- z++
 cursor save backrooms-room-09
 room add 800 300 200 backrooms-a y- x--
-room add 250 300 150 backrooms-a y- x- z--
+room add 250 300 150 backrooms-a y- x- z++
 with light 20%
 cursor save backrooms-exit
-room add 150 200 1000 backrooms-b z--
+room add 150 200 1000 backrooms-b z++
 
 cursor restore office-corridor
 room add 200 300 50 backrooms-a y- z++ x+
