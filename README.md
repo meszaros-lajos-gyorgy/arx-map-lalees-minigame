@@ -15,7 +15,8 @@ Moddb page: https://www.moddb.com/mods/lalees-minigame
 - night city texture: https://wallpapersafari.com/w/dDW5JM
 - chainlink gate closing sound: from Vampire: The Masquerade - Bloodlines
 - house number: https://www.flickr.com/photos/monceau/3552487388
-- trash bag: https://www.turbosquid.com/3d-models/garbage-bag-1230370 - fixed by Lory
+- trash bag: https://www.turbosquid.com/3d-models/garbage-bag-1230370 - fixed by Lorenza Mucci
 - flies buzzing sound effect: https://www.youtube.com/watch?v=bcuKTheCcsE
 
 - german translation: Fredlllll
+- spanish translation: Pedro Ordaz

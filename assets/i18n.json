@@ -1,114 +1,142 @@
 {
   "game--mesterlovesz": {
-    "english": "A mesterlövész",
-    "german": "Snajper"
+    "english": "The Sniper",
+    "german": "Snajper",
+    "spanish": "El francotirador"
   },
   "game--mortyr": {
     "english": "Mortyr",
-    "german": "Mortyr"
+    "german": "Mortyr",
+    "spanish": "Mortero"
   },
   "game--wolfschanze": {
     "english": "Wolfschanze",
-    "german": "Wolfschanze"
+    "german": "Wolfschanze",
+    "spanish": "La guarida del lobo"
   },
   "game--traktor-racer": {
     "english": "Traktor Racer",
-    "german": "Traktor Racer"
+    "german": "Traktor Racer",
+    "spanish": "Carreras de tractores"
   },
   "game--americas-10-most-wanted": {
     "english": "America's 10 most wanted",
-    "german": "America's 10 most wanted"
+    "german": "America's 10 most wanted",
+    "spanish": "Los 10 más buscados de América"
   },
   "game--big-rigs": {
     "english": "Big Rigs: Over the Road Racing",
-    "german": "Big Rigs: Over the Road Racing"
+    "german": "Big Rigs: Over the Road Racing",
+    "spanish": "Camiones enormes: Carreras sobre la carretera"
   },
   "game--streets-racer": {
     "english": "Streets Racer",
-    "german": "Streets Racer"
+    "german": "Streets Racer",
+    "spanish": "Carreras callejeras"
   },
   "game--bikini-karate-babes": {
     "english": "Bikini Karate Babes",
-    "german": "Bikini Karate Babes"
+    "german": "Bikini Karate Babes",
+    "spanish": "Chicas de kárate en bikini"
   },
   "tutorial--welcome": {
     "english": "Welcome to LaLee's minigame! Your goblin friend started collecting shitty pc games. Help him complete his collection by finding 8 games hidden around the map!",
-    "german": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!"
+    "german": "Wilkommen zu LaLees Minispiel! Dein goblinhafter Freund hat angefangen beschissene PC Spiele zu sammeln. Hilft ihm seine Sammlung zu vervollständigen indem du 8 versteckte Spiele auf der Karte findest!",
+    "spanish": "¡Bienvenido al mini-juego de LaLee! Tu amigo el duende ha comenzado a coleccionar juegos mierderos de PC. ¡Ayúdalo a completar su colección encontrando los 8 juegos escondidos por todo el mapa!"
   },
   "tutorial--found-a-game": {
     "english": "Very good, you found a game! Show it to your goblin friend or place it into its corresponding game display!",
-    "german": "Sehr gut, du hast ein Spiel gefunden! Zeig es deinem Goblin Freund oder platziere es in seinen zugehörigen Ausstellungsplatz!"
+    "german": "Sehr gut, du hast ein Spiel gefunden! Zeig es deinem Goblin Freund oder platziere es in seinen zugehörigen Ausstellungsplatz!",
+    "spanish": "¡Muy bien, has encontrado un juego! ¡Enséñaselo a tu amigo el duende o colócalo en el exhibidor de juegos correspondiente!"
   },
   "tutorial--gave-game-to-goblin": {
     "english": "Good job, the game is now in the collection! See if you can find some more!",
-    "german": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!"
+    "german": "Gute Arbeit, das Spiel ist nun in der Sammlung! Sieh ob du noch mehr finden kannst!",
+    "spanish": "¡Buen trabajo, el juego ahora ya está en la colección! ¡Mira a ver si puedes encontrar algunos más!"
   },
   "achievement--collected-games-small": {
     "english": "Achievement reached: Collected 2 games.",
-    "german": "Errungenschaft: 2 Spiele gesammelt"
+    "german": "Errungenschaft: 2 Spiele gesammelt.",
+    "spanish": "Logro alcanzado: Has conseguido 2 juegos."
   },
   "achievement--collected-games-medium": {
     "english": "Achievement reached: Collected 5 games.",
-    "german": "Errungenschaft: 5 Spiele gesammelt"
+    "german": "Errungenschaft: 5 Spiele gesammelt.",
+    "spanish": "Logro alcanzado: Has conseguido 5 juegos."
   },
   "achievement--collected-games-large": {
     "english": "Achievement reached: Collected 8 games. The collection is now complete!",
-    "german": "Errungenschaft: 8 Spiele gesammelt. Das waren alle"
+    "german": "Errungenschaft: 8 Spiele gesammelt. Das waren alle!",
+    "spanish": "Logro alcanzado: Has conseguido 8 juegos. ¡La colección ya está completada!"
   },
   "achievement--littering": {
     "english": "Achievement reached: No longer my problem!",
-    "german": "Errungenschaft: Nicht länger mein Problem!"
+    "german": "Errungenschaft: Nicht länger mein Problem!",
+    "spanish": "Logro alcanzado: ¡Ya no es mi problema!"
   },
   "ring--powerup": {
     "english": "Casting boost ring (use this when your will is not strong enough to cast certain spells)",
-    "german": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)"
+    "german": "Zauberkraftverstärkungsring (Benutze diesen wenn dein Wille nicht stark genug für manche Zauber ist)",
+    "spanish": "Anillo potenciador de conjuros (úsalo cuando tu voluntad no sea lo suficientemente fuerte para lanzar ciertos hechizos)"
   },
   "key--bathroom": {
     "english": "Bathroom key",
-    "german": "Badezimmer Schlüssel"
+    "german": "Badezimmer Schlüssel",
+    "spanish": "Llave del baño"
   },
   "unmounted-mirror-on-wall": {
     "english": "The mirror is missing from the wall",
-    "german": "Der Spiegel an der Wand fehlt"
+    "german": "Der Spiegel an der Wand fehlt",
+    "spanish": "El espejo hace falta en la pared"
   },
   "unmounted-game-display": {
     "english": "A pc game is missing from the display",
-    "german": "Ein PC Spiel fehlt in der Ausstellung"
+    "german": "Ein PC Spiel fehlt in der Ausstellung",
+    "spanish": "Hace falta un juego de PC en el exhibidor"
   },
   "goblin_victory3_shorter": {
     "english": "Yes, yes, YES!",
-    "german": "Ja, ja, JA!"
+    "german": "Ja, ja, JA!",
+    "spanish": "¡Sí, sí, SÍ!"
   },
   "goblin_this_game_is_shit": {
     "english": "This game is shit!!!",
-    "german": "Dieses spiel ist scheiße!!!"
+    "german": "Dieses spiel ist scheiße!!!",
+    "spanish": "¡¡¡Este juego es una mierda!!!"
   },
   "level-completed": {
     "english": "Congratulations, you have completed the map! Feel free to stay on the map as long as you like and keep exploring!",
-    "german": "Herzlichen Glückwunsch, Sie haben die Karte fertiggestellt! Bleiben Sie gerne so lange auf der Karte, wie Sie möchten, und erkunden Sie weiter!"
+    "german": "Herzlichen Glückwunsch, Sie haben die Karte fertiggestellt! Bleiben Sie gerne so lange auf der Karte, wie Sie möchten, und erkunden Sie weiter!",
+    "spanish": "¡Felicidades, has completado el mapa!, ¡Siéntete libre de quedarte en el mapa siempre y cuando te guste y sigas explorando!"
   },
   "key--backrooms-exit": {
     "english": "A little metal key with signs of wear",
-    "german": "Ein kleiner Metallschlüssel mit Gebrauchsspuren"
+    "german": "Ein kleiner Metallschlüssel mit Gebrauchsspuren",
+    "spanish": "Una pequeña llave de metal con algunas marcas de uso"
   },
   "door--backrooms-exit": {
     "english": "Fire Safety Door - Do not obstruct, do not keep open!",
-    "german": "Notausgangstür - frei halten, nicht offen halten!"
+    "german": "Notausgangstür - frei halten, nicht offen halten!",
+    "spanish": "Puerta de seguridad contra incendios - ¡No obstruir, no mantenerla abierta!"
   },
   "trash-bag": {
     "english": "A smelly bag of trash",
-    "german": "Ein stinkender Müllsack"
+    "german": "Ein stinkender Müllsack",
+    "spanish": "Una bolsa de basura fétida"
   },
   "wet-floor-sign": {
     "english": "Wet floor sign",
-    "german": "vorsicht rutschgefahr schild"
+    "german": "vorsicht rutschgefahr schild",
+    "spanish": "Letrero de piso mojado"
   },
   "tutorial--backrooms-1": {
     "english": "Uh oh, you went out of bounds and landed in the backrooms. Find an unmarked fire exit door to return to the map.",
-    "german": "Oh oh, du hast die Levelgrenzen überschritten und bist in den Hinterräumen gelandet. Finde eine unmarkierte Notausgangstür um zurückzukehren. "
+    "german": "Oh oh, du hast die Levelgrenzen überschritten und bist in den Hinterräumen gelandet. Finde eine unmarkierte Notausgangstür um zurückzukehren.",
+    "spanish": "Emm oye, te has salido del mapa y has caído en los backrooms. Encuentra una puerta de evacuación de incendios para regresar al mapa."
   },
   "tutorial--backrooms-2": {
     "english": "Almost all lights have lost their power, but you can restore electricity by shooting the ceiling lamps with a lightning bolt spell.",
-    "german": "Fast alle Lichter sind ausgefallen, aber du kannst die Elektrizität wiederherstellen indem du die Lampen mit einem Blitzzauber beschießt."
+    "german": "Fast alle Lichter sind ausgefallen, aber du kannst die Elektrizität wiederherstellen indem du die Lampen mit einem Blitzzauber beschießt.",
+    "spanish": "Casi todas las fuentes de luz han perdido su energía, pero puedes restaurar la electricidad disparando a las lámparas del techo con un hechizo de proyección de rayos."
   }
 }
