@@ -134,7 +134,7 @@ cursor save tmp
 room add 3300 $secondFloorHeight 400 outside-2nd-floor-south z+ y++ x-
 with light 10%
 cursor restore tmp
-room add 100 0 0 default x- z++ y-
+room add 100 0 0 spacer x- z++ y-
 room add 200 200 50 entrance x++ z++ y-
 room add 200 200 200 room-with-tiles z++ y-
 with light 50%
@@ -335,7 +335,7 @@ room add 450 300 150 room x-- y+
 with light
 
 # 2nd floor of the game display room
-room add 0 0 50 default x-- y- z--
+room add 0 0 50 spacer x-- y- z--
 room add 1100 400 1100 room x-- y- z-
 with light
 room add 500 50 500 room y--
