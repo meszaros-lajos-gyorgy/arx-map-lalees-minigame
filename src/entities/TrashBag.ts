@@ -45,7 +45,7 @@ export class TrashBag extends Entity {
 
     this.withScript()
 
-    this.script?.properties.push(new Label('[trash_bag]'))
+    this.script?.properties.push(new Label('[trash-bag]'))
 
     const oneInFour = new Variable('int', 'one_in_four', 0)
 

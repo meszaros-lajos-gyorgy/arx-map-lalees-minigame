@@ -30,11 +30,20 @@ export const createBackrooms = async (
   const aam = new Rune('aam', {
     position: roomOrigin.clone().add(new Vector3(randomBetween(-200, 200), 0, randomBetween(-200, 200))),
   })
+  aam.script?.on('inventoryuse', () => {
+    return `sendevent got_rune ${gameStateManager.ref} aam`
+  })
   const folgora = new Rune('folgora', {
     position: roomOrigin.clone().add(new Vector3(randomBetween(-200, 200), 0, randomBetween(-200, 200))),
   })
+  folgora.script?.on('inventoryuse', () => {
+    return `sendevent got_rune ${gameStateManager.ref} folgora`
+  })
   const taar = new Rune('taar', {
     position: roomOrigin.clone().add(new Vector3(randomBetween(-200, 200), 0, randomBetween(-200, 200))),
+  })
+  taar.script?.on('inventoryuse', () => {
+    return `sendevent got_rune ${gameStateManager.ref} taar`
   })
   contents.entities.push(aam, folgora, taar)
 
@@ -54,8 +63,7 @@ export const createBackrooms = async (
   })
   entry.script?.properties.push(new ControlZone(entryZone))
   entry.script?.on('controlledzone_enter', () => {
-    // TODO: do lightning effect on the ceiling lamp that turns it on
-    return ''
+    return `sendevent landed_in_backrooms ${gameStateManager.ref} nop`
   })
   contents.entities.push(entry)
   contents._.entry = entry

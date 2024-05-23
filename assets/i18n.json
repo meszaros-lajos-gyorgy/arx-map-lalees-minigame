@@ -107,12 +107,20 @@
     "english": "Fire Ex!t",
     "german": "Notausgan9"
   },
-  "trash_bag": {
+  "trash-bag": {
     "english": "A smelly bag of trash",
     "german": "Ein stinkender Müllsack"
   },
-  "wet_floor_sign": {
+  "wet-floor-sign": {
     "english": "Wet floor sign",
     "german": "Nassbodenschild"
+  },
+  "tutorial--backrooms-1": {
+    "english": "Uh oh, you went out of bounds and landed in the backrooms. Find an unmarked fire exit door to return to the map.",
+    "german": "Oh oh, du hast die Levelgrenzen überschritten und bist in den Hinterräumen gelandet. Finde eine unmarkierte Notausgangstür um zurückzukehren. "
+  },
+  "tutorial--backrooms-2": {
+    "english": "Almost all lights have lost their power, but you can restore electricity by shooting the ceiling lamps with a lightning bolt spell.",
+    "german": "Fast alle Lichter sind ausgefallen, aber du kannst die Elektrizität wiederherstellen indem du die Lampen mit einem Blitzzauber beschießt."
   }
 }

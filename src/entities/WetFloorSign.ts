@@ -30,6 +30,6 @@ export class WetFloorSign extends Entity {
 
     this.withScript()
 
-    this.script?.properties.push(new Label('[wet_floor_sign]'), Collision.on)
+    this.script?.properties.push(new Label('[wet-floor-sign]'))
   }
 }

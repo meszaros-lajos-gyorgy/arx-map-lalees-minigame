@@ -29,6 +29,20 @@ const tutorialGaveGameToGoblin = new ScriptSubroutine('tutorial_gave_game_to_gob
     quest [tutorial--gave-game-to-goblin]
   `
 })
+const tutorialLandedInBackrooms = new ScriptSubroutine('tutorial_landed_in_backrooms', () => {
+  return `
+    ${notification.play()}
+    herosay [tutorial--backrooms-1]
+    quest [tutorial--backrooms-1]
+  `
+})
+const tutorialBackroomsLights = new ScriptSubroutine('tutorial_backrooms_light', () => {
+  return `
+    ${notification.play()}
+    herosay [tutorial--backrooms-2]
+    quest [tutorial--backrooms-2]
+  `
+})
 
 const achievementListenSmall = new ScriptSubroutine('achievement_found_games_small', () => {
   return `
@@ -76,13 +90,32 @@ export const createGameStateManager = (settings: Settings) => {
   const isGoblinReadyForSuicide = new Variable('bool', 'is_goblin_ready_for_suicide', false)
   const isGoblinDead = new Variable('bool', 'is_goblin_dead', false)
   const haveLittered = new Variable('bool', 'player_littered', false)
+  const landedInBackroomsFirstTime = new Variable('bool', 'landed_in_backrooms_first_time', true)
 
-  manager.script?.properties.push(numberOfCollectedGames, playerFoundAnyGames, isGoblinReadyForSuicide, isGoblinDead)
+  const gotAam = new Variable('bool', 'got_aam', false)
+  const gotFolgora = new Variable('bool', 'got_folgora', false)
+  const gotTaar = new Variable('bool', 'got_taar', false)
+  const backroomsLightTutorialDone = new Variable('bool', 'backrooms_light_tutorial_done', false)
+
+  manager.script?.properties.push(
+    numberOfCollectedGames,
+    playerFoundAnyGames,
+    isGoblinReadyForSuicide,
+    isGoblinDead,
+    haveLittered,
+    landedInBackroomsFirstTime,
+    gotAam,
+    gotFolgora,
+    gotTaar,
+    backroomsLightTutorialDone,
+  )
 
   manager.script?.subroutines.push(
     tutorialWelcome,
     tutorialFoundAGame,
     tutorialGaveGameToGoblin,
+    tutorialLandedInBackrooms,
+    tutorialBackroomsLights,
     achievementListenSmall,
     achievementListenMedium,
     achievementListenLarge,
@@ -190,6 +223,38 @@ export const createGameStateManager = (settings: Settings) => {
     .on('entered_at_the_entrance_zone', killGoblin)
     .on('player_leaves_backrooms', () => {
       return `sendevent send_to_spawn player nop`
+    })
+    .on('landed_in_backrooms', () => {
+      return `
+        if (${landedInBackroomsFirstTime.name} == 1) {
+          set ${landedInBackroomsFirstTime.name} 0
+          ${tutorialLandedInBackrooms.invoke()}
+        }
+      `
+    })
+    .on('got_rune', () => {
+      return `
+        if (^$param1 == "aam") {
+          set ${gotAam.name} 1
+        }
+        if (^$param1 == "folgora") {
+          set ${gotFolgora.name} 1
+        }
+        if (^$param1 == "taar") {
+          set ${gotTaar.name} 1
+        }
+
+        if (${gotAam.name} == 1) {
+          if (${gotFolgora.name} == 1) {
+            if (${gotTaar.name} == 1) {
+              if (${backroomsLightTutorialDone.name} == 0) {
+                set ${backroomsLightTutorialDone.name} 1
+                ${tutorialBackroomsLights.invoke()}
+              }
+            }
+          }
+        }
+      `
     })
 
   return manager
