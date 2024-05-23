@@ -72,7 +72,7 @@ export const createBackrooms = async (
         position: origin.clone(),
         size: size.clone(),
         isLampOn: idx === 0,
-        lampRadius: Math.max(size.x, size.y, size.z),
+        lampRadius: Math.max(size.x, size.y, size.z) * 2,
       }
     })
 

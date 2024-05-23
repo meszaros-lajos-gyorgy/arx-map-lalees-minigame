@@ -22,7 +22,7 @@ export const createCeilingLight = ({ position, radius = 800, isOn = false }: cre
     position: position.clone().add(new Vector3(0, 50, 0)),
     fallStart: 100,
     radius,
-    intensity: 1.3,
+    intensity: 1.8,
     color: Color.white,
   })
   // light.exFlicker: toArxColor(toRgba('#1f1f07')),
