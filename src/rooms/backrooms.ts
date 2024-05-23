@@ -199,7 +199,7 @@ export const createBackrooms = async (
 
   const wetFloorSign = new WetFloorSign({
     position: roomOrigin.clone().add(new Vector3(0, 0, 560)),
-    orientation: new Rotation(0, MathUtils.degToRad(90), 0),
+    orientation: new Rotation(0, MathUtils.degToRad(-90), 0),
   })
   contents.entities.push(wetFloorSign)
 

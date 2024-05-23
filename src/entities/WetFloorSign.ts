@@ -1,7 +1,8 @@
 import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
-import { Label } from 'arx-level-generator/scripting/properties'
-import { getLowestPolygonIdx, loadOBJ } from 'arx-level-generator/tools/mesh'
+import { Collision, Label } from 'arx-level-generator/scripting/properties'
+import { getLowestPolygonIdx, loadOBJ, normalizeUV } from 'arx-level-generator/tools/mesh'
+import { Vector2 } from 'three'
 
 type WetFloorSignConstructorProps = Expand<EntityConstructorPropsWithoutSrc & {}>
 
@@ -9,7 +10,10 @@ const wetFloorSignMesh = await loadOBJ('entities/wet_floor_sign/wet_floor_sign',
   centralize: true,
   verticalAlign: 'bottom',
   scale: 0.1,
+  scaleUV: new Vector2(-1, -1),
 })
+
+normalizeUV(wetFloorSignMesh.meshes[0].geometry)
 
 export class WetFloorSign extends Entity {
   constructor({ ...props }: WetFloorSignConstructorProps) {
@@ -26,6 +30,6 @@ export class WetFloorSign extends Entity {
 
     this.withScript()
 
-    this.script?.properties.push(new Label('[wet_floor_sign]'))
+    this.script?.properties.push(new Label('[wet_floor_sign]'), Collision.on)
   }
 }

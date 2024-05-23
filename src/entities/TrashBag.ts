@@ -4,8 +4,9 @@ import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Label, Variable } from 'arx-level-generator/scripting/properties'
-import { getLowestPolygonIdx, loadOBJ } from 'arx-level-generator/tools/mesh'
+import { getLowestPolygonIdx, loadOBJ, normalizeUV } from 'arx-level-generator/tools/mesh'
 import { randomIntBetween } from 'arx-level-generator/utils/random'
+import { Vector2 } from 'three'
 
 type TrashBagConstructorProps = Expand<EntityConstructorPropsWithoutSrc & {}>
 
@@ -13,7 +14,10 @@ const trashBagMesh = await loadOBJ('entities/garbage_bag/garbage_bag', {
   centralize: true,
   verticalAlign: 'bottom',
   scale: 0.013,
+  scaleUV: new Vector2(1, -1),
 })
+
+normalizeUV(trashBagMesh.meshes[0].geometry)
 
 const flyAudios = [
   Audio.fromCustomFile({ filename: 'flies1.wav', type: 'sfx', sourcePath: 'sfx' }),
