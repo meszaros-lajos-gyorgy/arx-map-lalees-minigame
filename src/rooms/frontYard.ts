@@ -8,8 +8,7 @@ import { ControlZone, Interactivity, Platform, PlayerControls, Scale } from 'arx
 import { createLight, createZone } from 'arx-level-generator/tools'
 import { scaleUV, translateUV } from 'arx-level-generator/tools/mesh'
 import { applyTransformations, circleOfVectors } from 'arx-level-generator/utils'
-import { times } from 'arx-level-generator/utils/faux-ramda'
-import { randomBetween, randomIntBetween } from 'arx-level-generator/utils/random'
+import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils, Vector2 } from 'three'
 import { Crickets } from '@/entities/Crickets.js'
 import { PCGame, PCGameVariant } from '@/entities/PCGame.js'
@@ -277,8 +276,21 @@ export const createFrontYard = async (
 
   trashBags.push(middleTrashBag)
 
+  const wallLight3 = createOutdoorLight({
+    position: new Vector3(-1500, -255, -600),
+  })
+
   return {
-    meshes: [...wallLight1.meshes, ...wallLight2.meshes, fenceRight, fenceGate, fenceLeft, city, houseNumber],
+    meshes: [
+      ...wallLight1.meshes,
+      ...wallLight2.meshes,
+      fenceRight,
+      fenceGate,
+      fenceLeft,
+      city,
+      houseNumber,
+      ...wallLight3.meshes,
+    ],
     entities: [
       game1,
       fern,
@@ -291,7 +303,7 @@ export const createFrontYard = async (
       markerAtFenceGate,
       ...trashBags,
     ],
-    lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights],
+    lights: [...wallLight1.lights, ...wallLight2.lights, ...cityLights, ...wallLight3.lights],
     zones: [entityOverFenceZone],
     _: {},
   }
