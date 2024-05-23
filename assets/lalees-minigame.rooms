@@ -214,7 +214,7 @@ with light
 # --------------------------------------------------------------
 
 cursor restore living-room
-room add 100 3000 100 spacer y++
+room add 0 3000 0 spacer y++
 room add 500 300 500 backrooms-a y++
 cursor save backrooms-room-01
 cursor save backrooms-lobby
