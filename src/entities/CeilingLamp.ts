@@ -363,12 +363,24 @@ export class CeilingLamp extends Entity {
           }
 
           if (^$param2 == "spell") {
-            if (lightning_strike isin ^$param3) {
-              set ${this.propCaster.name} ~^sender~
-              sendevent on self nop
-            }
-            if (douse isin ^$param3) {
-              sendevent off self nop
+            if (^$param3 == "") {
+              // player is using Arx Libertatis 1.2 or older
+              if (^playerspell_lightning_strike == 1) {
+                set ${this.propCaster.name} player
+                sendevent on self nop
+              }
+              if (^playerspell_douse == 1) {
+                sendevent off self nop
+              }
+            } else {
+              // player is using Arx Libertatis 1.3 or newer
+              if (lightning_strike isin ^$param3) {
+                set ${this.propCaster.name} ~^sender~
+                sendevent on self nop
+              }
+              if (douse isin ^$param3) {
+                sendevent off self nop
+              }
             }
           }
 
