@@ -365,6 +365,7 @@ export class CeilingLamp extends Entity {
           if (^$param2 == "spell") {
             if (^$param3 == "") {
               // player is using Arx Libertatis 1.2 or older
+              // in this case the lamp can only be controlled by the player
               if (^playerspell_lightning_strike == 1) {
                 set ${this.propCaster.name} player
                 sendevent on self nop
@@ -374,6 +375,7 @@ export class CeilingLamp extends Entity {
               }
             } else {
               // player is using Arx Libertatis 1.3 or newer
+              // in this case an NPC can also control the lamp, not just the player
               if (lightning_strike isin ^$param3) {
                 set ${this.propCaster.name} ~^sender~
                 sendevent on self nop
