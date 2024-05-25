@@ -11,7 +11,7 @@
     "dev": "npm run generate && npm run rungame",
     "dev:noclip": "npm run generate && npm run rungame:noclip",
     "prod": "export mode=\"production\" && npm run generate && npm run rungame",
-    "release": "export outputDir=\"./output\" && export mode=\"production\" && rm -rf cache && npm run generate"
+    "release": "export uncompressedFTS=\"false\" && export outputDir=\"./output\" && export mode=\"production\" && rm -rf cache && rm -rf output && npm run generate"
   },
   "repository": {
     "type": "git",
@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame#readme",
   "dependencies": {
-    "arx-convert": "^8.2.0",
-    "arx-level-generator": "^17.0.0",
+    "arx-convert": "^9.0.0",
+    "arx-level-generator": "^18.0.0",
     "three": "^0.158.0"
   },
   "devDependencies": {
