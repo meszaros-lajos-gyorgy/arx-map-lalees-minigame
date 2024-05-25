@@ -1,6 +1,6 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
 import { Entity, Material, Settings, Texture, TextureOrMaterial, Vector3 } from 'arx-level-generator'
-import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
+import { createPlaneMesh, createBox } from 'arx-level-generator/prefabs/mesh'
 import { MathUtils, Vector2 } from 'three'
 import { RoomContents } from '@/types.js'
 
@@ -34,6 +34,16 @@ const createPlaneAt = ({
   plane.rotateZ(MathUtils.degToRad(angleY))
 
   return plane
+}
+
+const createPoleAt = ({ position }: { position: Vector3 }) => {
+  const box = createBox({
+    position: position.clone().add(new Vector3(0, -70, 0)),
+    materials: Texture.stoneHumanPriest4,
+    size: new Vector3(10, 140, 10),
+  })
+
+  return box
 }
 
 export const createSecondFloor = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
@@ -89,10 +99,30 @@ export const createSecondFloor = async (settings: Settings, gameStateManager: En
     angleY: 90,
   })
 
-  // TODO: add corner poles to support glass railing
+  // -----------------------------
+
+  const pole1 = createPoleAt({ position: roomOrigin.clone().add(new Vector3(-300, 0, -300)) })
+  const pole2 = createPoleAt({ position: roomOrigin.clone().add(new Vector3(300, 0, -300)) })
+  const pole3 = createPoleAt({ position: roomOrigin.clone().add(new Vector3(-300, 0, 300)) })
+  const pole4 = createPoleAt({ position: roomOrigin.clone().add(new Vector3(300, 0, 300)) })
+
+  // -----------------------------
 
   return {
-    meshes: [railing1, railing2, railing3, railing4, blocker1, blocker2, blocker3, blocker4],
+    meshes: [
+      railing1,
+      railing2,
+      railing3,
+      railing4,
+      blocker1,
+      blocker2,
+      blocker3,
+      blocker4,
+      pole1,
+      pole2,
+      pole3,
+      pole4,
+    ],
     entities: [],
     lights: [],
     zones: [],
