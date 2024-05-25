@@ -29,6 +29,7 @@ import { createMainHall } from './rooms/mainHall.js'
 import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
 import { createRightCorridor } from './rooms/rightCorridor.js'
+import { createSecondFloor } from './rooms/secondFloor.js'
 
 const settings = new Settings()
 
@@ -92,6 +93,7 @@ const pantry = await createPantry(settings, gameStateManager, gameVariants[5])
 const leftCorridor = await createLeftCorridor(settings, gameStateManager)
 const rightCorridor = await createRightCorridor(settings, gameStateManager)
 const gameDisplayRoom = await createGameDisplayRoom(settings, gameStateManager, gameVariants[6])
+const secondFloor = await createSecondFloor(settings, gameStateManager)
 
 const backroomsCursors = Object.entries(rooms.cursor.saves)
   .filter(([key]) => key.startsWith('backrooms-'))
@@ -152,6 +154,7 @@ const roomInteriors = [
   rightCorridor,
   gameDisplayRoom,
   backrooms,
+  secondFloor,
 ]
 
 map.entities.push(...roomInteriors.flatMap(({ entities }) => entities))

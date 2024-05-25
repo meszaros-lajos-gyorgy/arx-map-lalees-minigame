@@ -336,6 +336,6 @@ with light
 
 # 2nd floor of the game display room
 room add 0 0 50 spacer x-- y- z--
-room add 1100 400 1100 room x-- y- z-
+room add 1100 300 1100 room x-- y- z-
 with light
 room add 500 50 500 room y--
