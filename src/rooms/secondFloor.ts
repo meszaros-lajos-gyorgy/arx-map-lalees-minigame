@@ -4,56 +4,38 @@ import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { MathUtils, Vector2 } from 'three'
 import { RoomContents } from '@/types.js'
 
+const transparentGlass = Material.fromTexture(Texture.glassGlass01, {
+  opacity: 70,
+  flags: ArxPolygonFlags.DoubleSided | ArxPolygonFlags.NoShadow,
+})
+
+const createFenceAt = (center: Vector3, offset: Vector2, isRotated: boolean = false) => {
+  const railing = createPlaneMesh({
+    size: new Vector2(600, 100),
+    texture: transparentGlass,
+    tileUV: true,
+  })
+
+  railing.translateX(center.x + offset.x)
+  railing.translateY(center.y)
+  railing.translateZ(center.z + offset.y)
+
+  railing.rotateX(MathUtils.degToRad(90))
+
+  if (isRotated) {
+    railing.rotateZ(MathUtils.degToRad(90))
+  }
+
+  return railing
+}
+
 export const createSecondFloor = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
-  const railingSize = new Vector2(600, 100)
-  const railingOrigin = new Vector3(-2450, -470, 0)
+  const roomOrigin = new Vector3(-2450, -470, 0)
 
-  const transparentGlass = Material.fromTexture(Texture.glassGlass01, {
-    opacity: 70,
-    flags: ArxPolygonFlags.DoubleSided | ArxPolygonFlags.NoShadow,
-  })
-
-  const railing1 = createPlaneMesh({
-    size: railingSize.clone(),
-    texture: transparentGlass,
-    tileUV: true,
-  })
-  railing1.translateX(railingOrigin.x)
-  railing1.translateY(railingOrigin.y)
-  railing1.translateZ(railingOrigin.z - 300)
-  railing1.rotateX(MathUtils.degToRad(90))
-
-  const railing2 = createPlaneMesh({
-    size: railingSize.clone(),
-    texture: transparentGlass,
-    tileUV: true,
-  })
-  railing2.translateX(railingOrigin.x)
-  railing2.translateY(railingOrigin.y)
-  railing2.translateZ(railingOrigin.z + 300)
-  railing2.rotateX(MathUtils.degToRad(90))
-
-  const railing3 = createPlaneMesh({
-    size: railingSize.clone(),
-    texture: transparentGlass,
-    tileUV: true,
-  })
-  railing3.translateX(railingOrigin.x - 300)
-  railing3.translateY(railingOrigin.y)
-  railing3.translateZ(railingOrigin.z)
-  railing3.rotateX(MathUtils.degToRad(90))
-  railing3.rotateZ(MathUtils.degToRad(90))
-
-  const railing4 = createPlaneMesh({
-    size: railingSize.clone(),
-    texture: transparentGlass,
-    tileUV: true,
-  })
-  railing4.translateX(railingOrigin.x + 300)
-  railing4.translateY(railingOrigin.y)
-  railing4.translateZ(railingOrigin.z)
-  railing4.rotateX(MathUtils.degToRad(90))
-  railing4.rotateZ(MathUtils.degToRad(90))
+  const railing1 = createFenceAt(roomOrigin, new Vector2(0, -300))
+  const railing2 = createFenceAt(roomOrigin, new Vector2(0, 300))
+  const railing3 = createFenceAt(roomOrigin, new Vector2(-300, 0), true)
+  const railing4 = createFenceAt(roomOrigin, new Vector2(300, 0), true)
 
   // TODO: add invisible wall behind glass to prevent player jumping over
 
