@@ -1,6 +1,6 @@
 import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
-import { Collision, Label } from 'arx-level-generator/scripting/properties'
+import { Label } from 'arx-level-generator/scripting/properties'
 import { getLowestPolygonIdx, loadOBJ, normalizeUV } from 'arx-level-generator/tools/mesh'
 import { Vector2 } from 'three'
 
