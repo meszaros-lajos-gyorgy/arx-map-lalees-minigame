@@ -25,6 +25,7 @@ export const createBathtub = async (
     .selectWithinBox(box)
     .selectByTextures([barrelTexture])
     .copy()
+    .selectAll()
     .moveToRoom1()
     .move(inverseCenter)
     .move(adjustment)
