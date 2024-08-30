@@ -1,7 +1,6 @@
 import {
   ArxMap,
   Audio,
-  Color,
   DONT_QUADIFY,
   Entity,
   HudElements,
@@ -31,46 +30,6 @@ import { createPantry } from './rooms/pantry.js'
 import { createPCRoom } from './rooms/pcRoom.js'
 import { createRightCorridor } from './rooms/rightCorridor.js'
 import { createSecondFloor } from './rooms/secondFloor.js'
-
-function calculateLight(map: ArxMap) {
-  const lights = map.lights.map((light) => {
-    const l = light.clone()
-    l.position = l.position.clone().add(map.config.offset)
-    return l
-  })
-
-  map.polygons.forEach((polygon) => {
-    const [a, b, c, d] = polygon.vertices
-
-    a.color = Color.black
-    b.color = Color.black
-    c.color = Color.black
-    if (polygon.isQuad()) {
-      d.color = Color.black
-    }
-
-    lights.forEach((light) => {
-      const distance = 300
-      if (light.position.distanceTo(a) < distance) {
-        a.color.lighten(10)
-      }
-
-      if (light.position.distanceTo(b) < distance) {
-        b.color.lighten(10)
-      }
-
-      if (light.position.distanceTo(c) < distance) {
-        c.color.lighten(10)
-      }
-
-      if (polygon.isQuad()) {
-        if (light.position.distanceTo(d) < distance) {
-          d.color.lighten(10)
-        }
-      }
-    })
-  })
-}
 
 const settings = new Settings()
 
@@ -215,9 +174,7 @@ roomInteriors
 
 // -----------------------------------
 
-map.finalize()
-
-calculateLight(map)
+map.finalize(settings)
 
 await map.saveToDisk(settings)
 
