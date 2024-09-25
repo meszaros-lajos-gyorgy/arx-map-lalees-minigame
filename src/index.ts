@@ -35,7 +35,7 @@ const settings = new Settings()
 
 const map = new ArxMap()
 map.config.offset = new Vector3(6000, 0, 6000)
-map.player.position.adjustToPlayerHeight().add(new Vector3(1300, 0, -900))
+map.player.position.add(new Vector3(1300, 0, -900))
 map.player.orientation.y += MathUtils.degToRad(13)
 map.player.withScript()
 map.player.script?.properties.push(new Speed(1.3))
