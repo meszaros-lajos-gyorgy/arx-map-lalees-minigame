@@ -29,7 +29,7 @@ export const createTable = ({ position, angleY = 0, hasShadow = true }: createTa
     position: position.clone().add(new Vector3(0, 3, 0)),
     size: new Vector3(300, 6, 100),
     angleY,
-    materials: Material.fromTexture(Texture.l4DwarfWoodBoard02, {
+    texture: Material.fromTexture(Texture.l4DwarfWoodBoard02, {
       flags: hasShadow ? ArxPolygonFlags.None : ArxPolygonFlags.NoShadow,
     }),
   })

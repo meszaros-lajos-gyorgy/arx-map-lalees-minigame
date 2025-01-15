@@ -1,9 +1,9 @@
-import { $, ArxMap, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { $, ArxMap, type ISettings, Texture, Vector3 } from 'arx-level-generator'
 import { Box3 } from 'three'
 
 export const createBathtub = async (
   { position, scale = 1 }: { position: Vector3; scale?: number },
-  settings: Settings,
+  settings: ISettings,
 ) => {
   const castleMap = await ArxMap.fromOriginalLevel(0, settings)
 

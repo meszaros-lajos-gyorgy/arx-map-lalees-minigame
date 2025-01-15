@@ -3,7 +3,7 @@ import { GoblinVeryLightDoor } from 'arx-level-generator/prefabs/entity'
 import { createBox } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
 import { toArxCoordinateSystem } from 'arx-level-generator/tools/mesh'
-import { BoxGeometry, Euler, MathUtils, Mesh, MeshBasicMaterial, Vector2 } from 'three'
+import { BoxGeometry, Euler, MathUtils, Mesh, MeshBasicMaterial } from 'three'
 
 type createCounterProps = {
   position: Vector3
@@ -27,7 +27,7 @@ export const createCounter = ({ position, angleY = 0 }: createCounterProps) => {
     position: position.clone().add(new Vector3(0, 17, 0)),
     size: new Vector3(150, 4, 100),
     angleY,
-    materials: counterTopMaterial,
+    texture: counterTopMaterial,
   })
 
   let counterLeftWallGeometry = new BoxGeometry(80, 6, 90, 1, 1, 1)

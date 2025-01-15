@@ -1,4 +1,4 @@
-import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -9,7 +9,7 @@ import { createCounter } from '@/prefabs/counter.js'
 import { RoomContents } from '@/types.js'
 
 export const createBathRoom = async (
-  settings: Settings,
+  settings: ISettings,
   gameStateManager: Entity,
   gameVariant: PCGameVariant,
 ): Promise<RoomContents> => {

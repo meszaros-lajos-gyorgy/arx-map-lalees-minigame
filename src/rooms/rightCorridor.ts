@@ -1,9 +1,9 @@
-import { Entity, Settings, Vector3 } from 'arx-level-generator'
+import { Entity, type ISettings, Vector3 } from 'arx-level-generator'
 import { ControlZone } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
 import { RoomContents } from '@/types.js'
 
-export const createRightCorridor = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
+export const createRightCorridor = async (settings: ISettings, gameStateManager: Entity): Promise<RoomContents> => {
   const zone1Pos = new Vector3(1250, 0, -700)
   const atTheFrontYardZone = createZone({
     name: 'at_the_front_yard',

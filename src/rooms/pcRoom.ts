@@ -1,4 +1,4 @@
-import { Audio, Color, Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
 import { LightDoor } from 'arx-level-generator/prefabs/entity'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
 import { Interactivity, Shadow } from 'arx-level-generator/scripting/properties'
@@ -20,7 +20,7 @@ const keyboardRage = Audio.fromCustomFile({
   sourcePath: './sfx',
 })
 
-export const createPCRoom = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
+export const createPCRoom = async (settings: ISettings, gameStateManager: Entity): Promise<RoomContents> => {
   // "normal state" parts
 
   const normalStool = Entity.seatStool1.withScript().at({ position: new Vector3(620, 0, 430) })

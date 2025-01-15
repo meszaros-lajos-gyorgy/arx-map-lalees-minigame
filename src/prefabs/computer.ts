@@ -51,7 +51,7 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
     origin: new Vector2(0, 1),
     size: 40,
     angleY,
-    materials: [
+    texture: [
       Material.fromTexture(textures.monitorLeft, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.monitorRight, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
@@ -66,7 +66,7 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
     origin: new Vector2(0, -1),
     size: new Vector3(50, 50, 10),
     angleY,
-    materials: [
+    texture: [
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
@@ -81,7 +81,7 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
     origin: new Vector2(0, 1.5),
     size: new Vector3(30, 6, 30),
     angleY,
-    materials: Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
+    texture: Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
   })
 
   const monitorLeg = createBox({
@@ -89,7 +89,7 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
     origin: new Vector2(0, 2.25),
     size: new Vector3(20, 10, 20),
     angleY,
-    materials: Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
+    texture: Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
   })
 
   const monitorFrontBevel = createBox({
@@ -97,7 +97,7 @@ const createMonitor = ({ position, angleY = 0 }: { position: Vector3; angleY?: n
     origin: new Vector2(0, 5.6),
     size: new Vector3(46, 46 * (3 / 4), 3),
     angleY: angleY + 180,
-    materials: [
+    texture: [
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow | ArxPolygonFlags.DoubleSided }),
@@ -119,7 +119,7 @@ const createKeyboard = ({ position, angleY = 0 }: { position: Vector3; angleY?: 
     origin: new Vector2(0, -1),
     size: new Vector3(50, 2, 21),
     angleY,
-    materials: [
+    texture: [
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
@@ -140,7 +140,7 @@ const createComputerCase = ({ position, angleY = 0 }: { position: Vector3; angle
     origin: new Vector2(-1, 0),
     size: new Vector3(22, 50, 60),
     angleY,
-    materials: [
+    texture: [
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),
       Material.fromTexture(textures.computerPlastic, { flags: ArxPolygonFlags.NoShadow }),

@@ -94,7 +94,7 @@ export const createRadio = ({ position, angleY = 0, scale = 1, music, isOn = tru
     origin: new Vector2(-1, 0),
     size: boxSize,
     angleY,
-    materials: [
+    texture: [
       radioTextures.side,
       radioTextures.side,
       radioTextures.bottom,

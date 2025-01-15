@@ -1,4 +1,4 @@
-import { Audio, Color, Entity, Settings } from 'arx-level-generator'
+import { Audio, Color, Entity, type ISettings } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { useDelay } from 'arx-level-generator/scripting/hooks'
@@ -82,7 +82,7 @@ const achievementLittering = new ScriptSubroutine('achievement_littering', () =>
   `
 })
 
-export const createGameStateManager = (settings: Settings) => {
+export const createGameStateManager = (settings: ISettings) => {
   const manager = Entity.marker.withScript()
 
   const numberOfCollectedGames = new Variable('int', 'number_of_collected_games', 0)

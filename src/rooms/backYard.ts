@@ -1,4 +1,4 @@
-import { Entity, Rotation, Settings, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
 import { CatacombHeavyDoor } from 'arx-level-generator/prefabs/entity'
 import { Scale } from 'arx-level-generator/scripting/properties'
 import { randomBetween } from 'arx-level-generator/utils/random'
@@ -11,7 +11,7 @@ import { createTree } from '@/prefabs/tree.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackYard = async (
-  settings: Settings,
+  settings: ISettings,
   gameStateManager: Entity,
   gameVariant: PCGameVariant,
 ): Promise<RoomContents> => {

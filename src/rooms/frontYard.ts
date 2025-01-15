@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Audio, Color, Entity, Material, Rotation, Settings, Texture, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Material, Rotation, type ISettings, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Sound } from 'arx-level-generator/scripting/classes'
@@ -24,7 +24,7 @@ const chainlinkGateClose = Audio.fromCustomFile({
 })
 
 export const createFrontYard = async (
-  settings: Settings,
+  settings: ISettings,
   gameStateManager: Entity,
   gameVariants: PCGameVariant[],
 ): Promise<RoomContents> => {
