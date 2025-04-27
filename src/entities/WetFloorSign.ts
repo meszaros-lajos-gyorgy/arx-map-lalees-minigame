@@ -1,10 +1,10 @@
-import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
 import { Label } from 'arx-level-generator/scripting/properties'
 import { getLowestPolygonIdx, loadOBJ, normalizeUV } from 'arx-level-generator/tools/mesh'
 import { Vector2 } from 'three'
+import { Simplify } from 'type-fest'
 
-type WetFloorSignConstructorProps = Expand<EntityConstructorPropsWithoutSrc & {}>
+type WetFloorSignConstructorProps = Simplify<EntityConstructorPropsWithoutSrc & {}>
 
 const wetFloorSignMesh = await loadOBJ('entities/wet_floor_sign/wet_floor_sign', {
   centralize: true,

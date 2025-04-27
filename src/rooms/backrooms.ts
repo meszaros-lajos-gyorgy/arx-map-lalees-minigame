@@ -1,4 +1,4 @@
-import { Entity, Light, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
+import { Entity, Light, Rotation, type Settings, Vector3 } from 'arx-level-generator'
 import { Rune, CatacombHeavyDoor } from 'arx-level-generator/prefabs/entity'
 import { ControlZone, Label } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
@@ -11,7 +11,7 @@ import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
 
 export const createBackrooms = async (
-  settings: ISettings,
+  settings: Settings,
   gameStateManager: Entity,
   cursors: { origin: Vector3; size: Vector3; name: string }[],
 ): Promise<RoomContents> => {

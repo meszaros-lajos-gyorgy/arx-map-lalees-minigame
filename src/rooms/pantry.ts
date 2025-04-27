@@ -1,4 +1,4 @@
-import { Entity, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, type Settings, Vector3 } from 'arx-level-generator'
 import { Label, Platform, Shadow } from 'arx-level-generator/scripting/properties'
 import { randomBetween } from 'arx-level-generator/utils/random'
 import { MathUtils } from 'three'
@@ -8,7 +8,7 @@ import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
 
 export const createPantry = async (
-  settings: ISettings,
+  settings: Settings,
   gameStateManager: Entity,
   gameVariant: PCGameVariant,
 ): Promise<RoomContents> => {

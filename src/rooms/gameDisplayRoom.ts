@@ -1,4 +1,4 @@
-import { Entity, Material, Rotation, type ISettings, Texture, Vector3 } from 'arx-level-generator'
+import { Entity, Material, Rotation, type Settings, Texture, Vector3 } from 'arx-level-generator'
 import { createBox } from 'arx-level-generator/prefabs/mesh'
 import { circleOfVectors } from 'arx-level-generator/utils'
 import { MathUtils } from 'three'
@@ -7,7 +7,7 @@ import { PCGame, PCGameVariant, pcGameVariants } from '@/entities/PCGame.js'
 import { RoomContents } from '@/types.js'
 
 export const createGameDisplayRoom = async (
-  settings: ISettings,
+  settings: Settings,
   gameStateManager: Entity,
   gameVariant: PCGameVariant,
 ): Promise<RoomContents> => {

@@ -1,9 +1,9 @@
-import { Expand } from 'arx-convert/utils'
 import { Audio, Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Interactivity, Variable } from 'arx-level-generator/scripting/properties'
+import { Simplify } from 'type-fest'
 
 const onTexture = Texture.fromCustomFile({
   filename: '[metal]-light-on.jpg',
@@ -45,7 +45,7 @@ const glassPop3 = Audio.fromCustomFile({
   sourcePath: 'sfx',
 })
 
-type CeilingLampConstructorProps = Expand<
+type CeilingLampConstructorProps = Simplify<
   EntityConstructorPropsWithoutSrc & {
     isMuted?: boolean
     isOn?: boolean

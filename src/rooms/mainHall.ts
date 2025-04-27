@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Audio, Color, Entity, Material, Rotation, type ISettings, Texture, Vector3 } from 'arx-level-generator'
+import { Audio, Color, Entity, Material, Rotation, type Settings, Texture, Vector3 } from 'arx-level-generator'
 import { Rune } from 'arx-level-generator/prefabs/entity'
 import { createPlaneMesh } from 'arx-level-generator/prefabs/mesh'
 import { Scale } from 'arx-level-generator/scripting/properties'
@@ -19,7 +19,7 @@ import { createTable } from '@/prefabs/table.js'
 import { RoomContents } from '@/types.js'
 
 export const createMainHall = async (
-  settings: ISettings,
+  settings: Settings,
   gameStateManager: Entity,
   gameVariant: PCGameVariant,
 ): Promise<RoomContents> => {

@@ -27,15 +27,16 @@
   },
   "homepage": "https://github.com/meszaros-lajos-gyorgy/arx-map-lalees-minigame#readme",
   "dependencies": {
-    "arx-convert": "10.3.2",
-    "arx-level-generator": "21.0.0-alpha.39",
-    "three": "0.171.0"
+    "arx-convert": "10.4.0",
+    "arx-level-generator": "21.0.0-alpha.49",
+    "three": "0.175.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^5.2.1",
-    "@types/node": "^22.10.6",
-    "@types/three": "0.171.0",
-    "tsc-alias": "^1.8.10",
-    "typescript": "^5.7.3"
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
+    "@types/node": "^22.15.2",
+    "@types/three": "0.175.0",
+    "tsc-alias": "^1.8.15",
+    "type-fest": "^4.40.1",
+    "typescript": "^5.8.3"
   }
 }

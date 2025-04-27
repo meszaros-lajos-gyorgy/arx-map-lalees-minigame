@@ -1,4 +1,3 @@
-import { Expand } from 'arx-convert/utils'
 import { Audio, Entity, EntityConstructorPropsWithoutSrc, EntityModel } from 'arx-level-generator'
 import { ScriptSubroutine } from 'arx-level-generator/scripting'
 import { Sound, SoundFlags } from 'arx-level-generator/scripting/classes'
@@ -7,8 +6,9 @@ import { Label, Variable } from 'arx-level-generator/scripting/properties'
 import { getLowestPolygonIdx, loadOBJ, normalizeUV } from 'arx-level-generator/tools/mesh'
 import { randomIntBetween } from 'arx-level-generator/utils/random'
 import { Vector2 } from 'three'
+import { Simplify } from 'type-fest'
 
-type TrashBagConstructorProps = Expand<EntityConstructorPropsWithoutSrc & {}>
+type TrashBagConstructorProps = Simplify<EntityConstructorPropsWithoutSrc & {}>
 
 const trashBagMesh = await loadOBJ('entities/garbage_bag/garbage_bag', {
   centralize: true,

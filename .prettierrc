@@ -1,4 +1,7 @@
 {
+  "plugins": [
+    "@trivago/prettier-plugin-sort-imports"
+  ],
   "semi": false,
   "printWidth": 120,
   "singleQuote": true,
@@ -6,6 +9,11 @@
   "endOfLine": "auto",
   "useTabs": false,
   "tabWidth": 2,
-  "importOrder": ["^node:", "<THIRD_PARTY_MODULES>", "^@/", "^@", "^[./]"],
-  "plugins": ["@trivago/prettier-plugin-sort-imports"]
+  "importOrder": [
+    "^node:",
+    "<THIRD_PARTY_MODULES>",
+    "^@/",
+    "^@",
+    "^[./]"
+  ]
 }

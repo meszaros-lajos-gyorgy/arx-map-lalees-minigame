@@ -1,10 +1,10 @@
-import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Label, Transparency, Variable } from 'arx-level-generator/scripting/properties'
+import { Simplify } from 'type-fest'
 import { PCGameVariant, TEXTURES, pcGameMesh } from '@/entities/PCGame.js'
 
-type GameDisplayProps = Expand<
+type GameDisplayProps = Simplify<
   EntityConstructorPropsWithoutSrc & {
     variant: PCGameVariant
   }

@@ -8,7 +8,7 @@ import {
   UiElements,
   Vector3,
 } from 'arx-level-generator'
-import { Settings } from 'arx-level-generator/platform/node'
+import { Platform, Settings } from 'arx-level-generator/platform/node'
 import { LightDoor, Rune } from 'arx-level-generator/prefabs/entity'
 import { loadRooms } from 'arx-level-generator/prefabs/rooms'
 import { Speed, Variable } from 'arx-level-generator/scripting/properties'
@@ -176,6 +176,7 @@ roomInteriors
 
 map.finalize(settings)
 
-await map.saveToDisk(settings)
+const platform = new Platform()
+await platform.from(map).save(settings)
 
 console.log('done')

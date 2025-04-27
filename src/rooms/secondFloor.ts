@@ -1,5 +1,5 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Entity, Material, type ISettings, Texture, TextureOrMaterial, Vector3 } from 'arx-level-generator'
+import { Entity, Material, type Settings, Texture, TextureOrMaterial, Vector3 } from 'arx-level-generator'
 import { createPlaneMesh, createBox } from 'arx-level-generator/prefabs/mesh'
 import { MathUtils, Vector2 } from 'three'
 import { RoomContents } from '@/types.js'
@@ -46,7 +46,7 @@ const createPoleAt = ({ position }: { position: Vector3 }) => {
   return box
 }
 
-export const createSecondFloor = async (settings: ISettings, gameStateManager: Entity): Promise<RoomContents> => {
+export const createSecondFloor = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
   const roomOrigin = new Vector3(-2450, -400, 0)
 
   const railing1 = createPlaneAt({

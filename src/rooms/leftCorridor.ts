@@ -1,11 +1,11 @@
-import { Entity, Rotation, type ISettings, Vector3 } from 'arx-level-generator'
+import { Entity, Rotation, type Settings, Vector3 } from 'arx-level-generator'
 import { ControlZone, Scale, Shadow } from 'arx-level-generator/scripting/properties'
 import { createZone } from 'arx-level-generator/tools'
 import { MathUtils } from 'three'
 import { Mirror } from '@/entities/Mirror.js'
 import { RoomContents } from '@/types.js'
 
-export const createLeftCorridor = async (settings: ISettings, gameStateManager: Entity): Promise<RoomContents> => {
+export const createLeftCorridor = async (settings: Settings, gameStateManager: Entity): Promise<RoomContents> => {
   const rootMirror = new Mirror()
   rootMirror.script?.makeIntoRoot()
 

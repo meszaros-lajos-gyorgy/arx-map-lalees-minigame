@@ -1,9 +1,9 @@
 import { ArxPolygonFlags } from 'arx-convert/types'
-import { Expand } from 'arx-convert/utils'
 import { Entity, EntityConstructorPropsWithoutSrc, EntityModel, Texture } from 'arx-level-generator'
 import { TweakSkin } from 'arx-level-generator/scripting/commands'
 import { Label, Material, Shadow, StackSize, Variable } from 'arx-level-generator/scripting/properties'
 import { loadOBJ } from 'arx-level-generator/tools/mesh'
+import { Simplify } from 'type-fest'
 
 export const pcGameVariants = [
   'blank',
@@ -58,7 +58,7 @@ export const TEXTURES: Record<PCGameVariant, Texture> = {
   }),
 }
 
-type PCGameConstructorProps = Expand<
+type PCGameConstructorProps = Simplify<
   EntityConstructorPropsWithoutSrc & {
     variant: PCGameVariant
   }
