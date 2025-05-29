@@ -17,6 +17,7 @@ Moddb page: https://www.moddb.com/mods/lalees-minigame
 - house number: https://www.flickr.com/photos/monceau/3552487388
 - trash bag: https://www.turbosquid.com/3d-models/garbage-bag-1230370 - fixed by Lorenza Mucci
 - flies buzzing sound effect: https://www.youtube.com/watch?v=bcuKTheCcsE
+- wet floor sign: handmade by Lorenza Mucci
 
 - german translation: Fredlllll
 - spanish translation: Pedro Ordaz
