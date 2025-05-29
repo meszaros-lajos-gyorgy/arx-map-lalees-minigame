@@ -1,4 +1,4 @@
-# arx-map-lalees-minigame
+# LaLee's minigame
 
 An Arx Fatalis map to promote ["LaLee's Games" youtube channel](https://www.youtube.com/@rockerlalee)
 
